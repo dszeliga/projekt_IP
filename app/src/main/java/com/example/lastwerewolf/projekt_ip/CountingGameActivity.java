@@ -3,7 +3,7 @@ package com.example.lastwerewolf.projekt_ip;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class CountingGameActivity extends AppCompatActivity {
+public class CountingGameActivity extends GameActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
