@@ -1,5 +1,6 @@
 package com.example.lastwerewolf.projekt_ip;
 
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,26 +10,33 @@ import java.util.Random;
 
 public class MemoGameActivity extends GameActivity {
     private Random rnd = new Random();
-    int[] photos = {R.drawable.i1, R.drawable.i2, R.drawable.i3, R.drawable.i4, R.drawable.i5,
-                    R.drawable.i6, R.drawable.i7, R.drawable.i8};
+    private ImageView iv1;
+    private ImageView iv2;
+    private ImageView iv3;
+    private ImageView iv4;
+    private int[] imagesInPlaces = null;
+    private int[] randomlyImages = null;
+    private int[] randomlyPlaces = null;
+    private int[] photos = {R.drawable.i1, R.drawable.i2, R.drawable.i3, R.drawable.i4, R.drawable.i5,
+            R.drawable.i6, R.drawable.i7, R.drawable.i8};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo_game);
-        ImageView iv3 = findViewById(R.id.thirdImage);
-        ImageView iv2 = findViewById(R.id.secondImage);
-        ImageView iv1 = findViewById(R.id.firstImage);
-        ImageView iv4 = findViewById(R.id.fourthImage);
+        iv3 = findViewById(R.id.thirdImage);
+        iv2 = findViewById(R.id.secondImage);
+        iv1 = findViewById(R.id.firstImage);
+        iv4 = findViewById(R.id.fourthImage);
 
-        int[] randomlyImages = RandomlyImages(); // Losowanie obrazów do wyswietlenia
-        int[] randomlyPlaces = RandomlyPlaces();
-        int[] imagesInPlaces = new int[randomlyPlaces.length];
+        randomlyImages = RandomlyImages(); // Losowanie obrazów do wyswietlenia
+        randomlyPlaces = RandomlyPlaces();
+        imagesInPlaces = new int[randomlyPlaces.length];
         int z = 0;
         int count = 0;
-        for(int i = 0 ; i<imagesInPlaces.length;i++) {
-            if (z==2) {
-                z=0;
+        for (int i = 0; i < imagesInPlaces.length; i++) {
+            if (z == 2) {
+                z = 0;
                 count++;
             }
             imagesInPlaces[randomlyPlaces[i]] = randomlyImages[count];
@@ -38,6 +46,8 @@ public class MemoGameActivity extends GameActivity {
         iv2.setImageResource(imagesInPlaces[1]);
         iv3.setImageResource(imagesInPlaces[2]);
         iv4.setImageResource(imagesInPlaces[3]);
+
+        RevertImages();
     }
 
     private int[] RandomlyImages() {
@@ -75,8 +85,24 @@ public class MemoGameActivity extends GameActivity {
             else
                 i--;
         }
-        for(int i = 0;i<tab.length;i++)
-            tab[i] = tab[i]-1;
+        for (int i = 0; i < tab.length; i++)
+            tab[i] = tab[i] - 1;
         return tab;
+    }
+
+    public void RevertImages() {
+
+        new CountDownTimer(5000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                //tu można wyświetlic ubiegajacy czas czy coś jak bedziemy chcieli
+            }
+
+            public void onFinish() {
+                iv1.setImageResource(R.drawable.tyl_kart);
+                iv2.setImageResource(R.drawable.tyl_kart);
+                iv3.setImageResource(R.drawable.tyl_kart);
+                iv4.setImageResource(R.drawable.tyl_kart);
+            }
+        }.start();
     }
 }
