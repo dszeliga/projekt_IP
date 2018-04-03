@@ -9,7 +9,8 @@ import java.util.Random;
 
 public class MemoGameActivity extends GameActivity {
     private Random rnd = new Random();
-    int[] photos = {R.mipmap.pilka, R.mipmap.proba};
+    int[] photos = {R.drawable.i1, R.drawable.i2, R.drawable.i3, R.drawable.i4, R.drawable.i5,
+                    R.drawable.i6, R.drawable.i7, R.drawable.i8};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,41 +21,62 @@ public class MemoGameActivity extends GameActivity {
         ImageView iv1 = findViewById(R.id.firstImage);
         ImageView iv4 = findViewById(R.id.fourthImage);
 
-
-        Random ran = new Random();
-        //int i = ran.nextInt(photos.length);
-        //int k = ran.nextInt(photos.length);
-
-        //iv2.setImageResource(photos[k]);
-        //iv.setImageResource(photos[i]);
         int[] randomlyImages = RandomlyImages(); // Losowanie obrazów do wyswietlenia
-
-        iv2.setImageResource(randomlyImages[1]);
-        iv1.setImageResource(randomlyImages[0]);
-        iv3.setImageResource(randomlyImages[1]);
-        iv4.setImageResource(randomlyImages[0]);
-
+        int[] randomlyPlaces = RandomlyPlaces();
+        int[] imagesInPlaces = new int[randomlyPlaces.length];
+        int z = 0;
+        int count = 0;
+        for(int i = 0 ; i<imagesInPlaces.length;i++) {
+            if (z==2) {
+                z=0;
+                count++;
+            }
+            imagesInPlaces[randomlyPlaces[i]] = randomlyImages[count];
+            z++;
+        }
+        iv1.setImageResource(imagesInPlaces[0]);
+        iv2.setImageResource(imagesInPlaces[1]);
+        iv3.setImageResource(imagesInPlaces[2]);
+        iv4.setImageResource(imagesInPlaces[3]);
     }
 
-    private int[] RandomlyImages()
-    {
+    private int[] RandomlyImages() {
         int[] tab = new int[2];
-        for (int i = 0; i < tab.length; i++)
-        {
+        for (int i = 0; i < tab.length; i++) {
             int r = rnd.nextInt(photos.length);
 
             boolean isTheSameImage = true;
-            for (int j = 0; j < tab.length; j++)
-            {
-                if(tab[j] != 0)
+            for (int j = 0; j < tab.length; j++) {
+                if (tab[j] != 0)
                     if (photos[r] == tab[j])
                         isTheSameImage = false;
             }
-            if(isTheSameImage == true)
+            if (isTheSameImage == true)
                 tab[i] = photos[r];
             else
                 i--;
         }
+        return tab;
+    }
+
+    private int[] RandomlyPlaces() {
+        int[] tab = new int[4];
+        for (int i = 0; i < tab.length; i++) {
+            int r = rnd.nextInt(tab.length) + 1;
+            boolean isTheSamePlace = true;
+            for (int j = 0; j < tab.length; j++) {
+                if (r == tab[j]) {
+                    isTheSamePlace = false;
+                    j = tab.length;
+                }
+            }
+            if (isTheSamePlace == true)
+                tab[i] = r;
+            else
+                i--;
+        }
+        for(int i = 0;i<tab.length;i++)
+            tab[i] = tab[i]-1;
         return tab;
     }
 }
