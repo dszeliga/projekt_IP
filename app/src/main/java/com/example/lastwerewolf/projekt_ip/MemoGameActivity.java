@@ -1,19 +1,20 @@
 package com.example.lastwerewolf.projekt_ip;
 
 import android.os.CountDownTimer;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import java.util.Random;
 
 public class MemoGameActivity extends GameActivity {
     private Random rnd = new Random();
-    private ImageView iv1;
-    private ImageView iv2;
-    private ImageView iv3;
-    private ImageView iv4;
+    private ImageButton ib1;
+    private ImageButton ib2;
+    private ImageButton ib3;
+    private ImageButton ib4;
+
     private int[] imagesInPlaces = null;
     private int[] randomlyImages = null;
     private int[] randomlyPlaces = null;
@@ -24,10 +25,12 @@ public class MemoGameActivity extends GameActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo_game);
-        iv3 = findViewById(R.id.thirdImage);
-        iv2 = findViewById(R.id.secondImage);
-        iv1 = findViewById(R.id.firstImage);
-        iv4 = findViewById(R.id.fourthImage);
+
+        ib1 = findViewById(R.id.firstImage);
+        ib2 = findViewById(R.id.secondImage);
+        ib3 = findViewById(R.id.thirdImage);
+        ib4 = findViewById(R.id.fourthImage);
+
 
         randomlyImages = RandomlyImages(); // Losowanie obrazów do wyswietlenia
         randomlyPlaces = RandomlyPlaces();
@@ -42,12 +45,14 @@ public class MemoGameActivity extends GameActivity {
             imagesInPlaces[randomlyPlaces[i]] = randomlyImages[count];
             z++;
         }
-        iv1.setImageResource(imagesInPlaces[0]);
-        iv2.setImageResource(imagesInPlaces[1]);
-        iv3.setImageResource(imagesInPlaces[2]);
-        iv4.setImageResource(imagesInPlaces[3]);
+        ib1.setImageResource(imagesInPlaces[0]);
+        ib2.setImageResource(imagesInPlaces[1]);
+        ib3.setImageResource(imagesInPlaces[2]);
+        ib4.setImageResource(imagesInPlaces[3]);
 
         RevertImages();
+
+        CompareImages();
     }
 
     private int[] RandomlyImages() {
@@ -98,11 +103,86 @@ public class MemoGameActivity extends GameActivity {
             }
 
             public void onFinish() {
-                iv1.setImageResource(R.drawable.tyl_kart);
-                iv2.setImageResource(R.drawable.tyl_kart);
-                iv3.setImageResource(R.drawable.tyl_kart);
-                iv4.setImageResource(R.drawable.tyl_kart);
+                ib1.setImageResource(R.drawable.tyl_kart);
+                ib2.setImageResource(R.drawable.tyl_kart);
+                ib3.setImageResource(R.drawable.tyl_kart);
+                ib4.setImageResource(R.drawable.tyl_kart);
             }
         }.start();
     }
+
+    public void CompareImages() {
+
+        //int firstPicture = ChoosePicture();
+
+        int choosePicture = 0;
+        ib1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ib1.setImageResource(imagesInPlaces[0]);
+                int choosePicture = v.getId();
+
+            }
+        });
+
+        ib2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ib2.setImageResource(imagesInPlaces[1]);
+                int choosePicture = v.getId();
+
+            }
+        });
+
+        ib3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ib3.setImageResource(imagesInPlaces[2]);
+                int choosePicture = v.getId();
+            }
+        });
+
+        ib4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ib4.setImageResource(imagesInPlaces[3]);
+                int choosePicture = v.getId();
+            }
+        });
+
+//        if(firstPicture!=choosePicture)
+//        {
+//
+//        }
+//        else
+//        {
+//
+//        }
+
+
+    }
+//nie umiem wziąć biezącego widoku żeby to sprawdzić
+//    public int ChoosePicture(View v) {
+//        int choosePicture = 0;
+//
+//        switch (v.getId()) {
+//            case R.id.firstImage:
+//                choosePicture = v.getId();
+//                break;
+//            case R.id.secondImage:
+//                choosePicture = v.getId();
+//                break;
+//            case R.id.thirdImage:
+//                choosePicture = v.getId();
+//                break;
+//            case R.id.fourthImage:
+//                choosePicture = v.getId();
+//                break;
+//            default:
+//                throw new RuntimeException("Unknown button ID");
+//        }
+//        return choosePicture;
+//    }
 }
+
+
