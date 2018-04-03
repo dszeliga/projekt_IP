@@ -9,5 +9,7 @@ public class MemoGameActivity extends GameActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo_game);
+
+       String title = "Memo game"; 
     }
 }
