@@ -4,20 +4,28 @@ import android.os.CountDownTimer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import java.util.Random;
 
-public class MemoGameActivity extends GameActivity {
+public class MemoGameActivity extends GameActivity implements View.OnClickListener {
     private Random rnd = new Random();
     private ImageButton ib1;
     private ImageButton ib2;
     private ImageButton ib3;
     private ImageButton ib4;
 
+    private int choosePicture = 0;
+    private int chooseButton = 0;
+    private int choosenFirstImage = 0;
+    private int choosenSecondImage = 0;
+    private int choosenFirstButton = 0;
+    private int choosenSecondButton = 0;
+
+    private int[] findedImages = null;
     private int[] imagesInPlaces = null;
     private int[] randomlyImages = null;
     private int[] randomlyPlaces = null;
+
     private int[] photos = {R.drawable.i1, R.drawable.i2, R.drawable.i3, R.drawable.i4, R.drawable.i5,
             R.drawable.i6, R.drawable.i7, R.drawable.i8};
 
@@ -113,76 +121,141 @@ public class MemoGameActivity extends GameActivity {
 
     public void CompareImages() {
 
-        //int firstPicture = ChoosePicture();
+        ib1.setOnClickListener(this);
+        ib2.setOnClickListener(this);
+        ib3.setOnClickListener(this);
+        ib4.setOnClickListener(this);
 
-        int choosePicture = 0;
-        ib1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ib1.setImageResource(imagesInPlaces[0]);
-                int choosePicture = v.getId();
+        if (choosenFirstImage != 0 && choosenSecondImage != 0) {
+            if (choosenFirstImage == choosenSecondImage) {
 
+                setImages(choosenFirstButton, choosenSecondButton);
+                choosenSecondImage = 0;
+                choosenFirstImage = 0;
+
+            } else if (choosenFirstImage != choosenSecondImage) {
+                setRevertImages(choosenFirstButton, choosenSecondButton);
+                choosenSecondImage = 0;
+                choosenFirstImage = 0;
             }
-        });
-
-        ib2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ib2.setImageResource(imagesInPlaces[1]);
-                int choosePicture = v.getId();
-
-            }
-        });
-
-        ib3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ib3.setImageResource(imagesInPlaces[2]);
-                int choosePicture = v.getId();
-            }
-        });
-
-        ib4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ib4.setImageResource(imagesInPlaces[3]);
-                int choosePicture = v.getId();
-            }
-        });
-
-//        if(firstPicture!=choosePicture)
-//        {
-//
-//        }
-//        else
-//        {
-//
-//        }
-
-
+        }
     }
-//nie umiem wziąć biezącego widoku żeby to sprawdzić
-//    public int ChoosePicture(View v) {
-//        int choosePicture = 0;
-//
-//        switch (v.getId()) {
-//            case R.id.firstImage:
-//                choosePicture = v.getId();
-//                break;
-//            case R.id.secondImage:
-//                choosePicture = v.getId();
-//                break;
-//            case R.id.thirdImage:
-//                choosePicture = v.getId();
-//                break;
-//            case R.id.fourthImage:
-//                choosePicture = v.getId();
-//                break;
-//            default:
-//                throw new RuntimeException("Unknown button ID");
-//        }
-//        return choosePicture;
-//    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.firstImage:
+                choosePicture = imagesInPlaces[0];
+                chooseButton = v.getId();
+                ib1.setImageResource(imagesInPlaces[0]);
+                CompareImages();
+                break;
+            case R.id.secondImage:
+                choosePicture = imagesInPlaces[1];
+                chooseButton = v.getId();
+                ib2.setImageResource(imagesInPlaces[1]);
+                CompareImages();
+                break;
+            case R.id.thirdImage:
+                choosePicture = imagesInPlaces[2];
+                chooseButton = v.getId();
+                ib3.setImageResource(imagesInPlaces[2]);
+                CompareImages();
+                break;
+            case R.id.fourthImage:
+                choosePicture = imagesInPlaces[3];
+                chooseButton = v.getId();
+                ib4.setImageResource(imagesInPlaces[3]);
+                CompareImages();
+                break;
+            default:
+                throw new RuntimeException("Unknown button ID");
+        }
+
+        if (choosenFirstImage == 0) {
+            choosenFirstImage = choosePicture;
+            choosenFirstButton = chooseButton;
+        } else {
+            choosenSecondImage = choosePicture;
+            choosenSecondButton = chooseButton;
+        }
+    }
+
+    public void setImages(int firstButton, int secondButton) {
+        switch (firstButton) {
+            case R.id.firstImage:
+                ib1.setImageResource(imagesInPlaces[0]);
+                break;
+            case R.id.secondImage:
+                ib2.setImageResource(imagesInPlaces[1]);
+                break;
+            case R.id.thirdImage:
+                ib3.setImageResource(imagesInPlaces[2]);
+                break;
+            case R.id.fourthImage:
+                ib4.setImageResource(imagesInPlaces[3]);
+                break;
+            default:
+                throw new RuntimeException("Unknown button ID");
+
+        }
+        switch (secondButton) {
+            case R.id.firstImage:
+                ib1.setImageResource(imagesInPlaces[0]);
+                break;
+            case R.id.secondImage:
+                ib2.setImageResource(imagesInPlaces[1]);
+                break;
+            case R.id.thirdImage:
+                ib3.setImageResource(imagesInPlaces[2]);
+                break;
+            case R.id.fourthImage:
+                ib4.setImageResource(imagesInPlaces[3]);
+                break;
+            default:
+                throw new RuntimeException("Unknown button ID");
+
+        }
+    }
+
+    public void setRevertImages(int firstButton, int secondButton) {
+        switch (firstButton) {
+            case R.id.firstImage:
+                ib1.setImageResource(R.drawable.tyl_kart);
+                break;
+            case R.id.secondImage:
+                ib2.setImageResource(R.drawable.tyl_kart);
+                break;
+            case R.id.thirdImage:
+                ib3.setImageResource(R.drawable.tyl_kart);
+                break;
+            case R.id.fourthImage:
+                ib4.setImageResource(R.drawable.tyl_kart);
+                break;
+            default:
+                throw new RuntimeException("Unknown button ID");
+
+        }
+        switch (secondButton) {
+            case R.id.firstImage:
+                ib1.setImageResource(R.drawable.tyl_kart);
+                break;
+            case R.id.secondImage:
+                ib2.setImageResource(R.drawable.tyl_kart);
+                break;
+            case R.id.thirdImage:
+                ib3.setImageResource(R.drawable.tyl_kart);
+                break;
+            case R.id.fourthImage:
+                ib4.setImageResource(R.drawable.tyl_kart);
+                break;
+            default:
+                throw new RuntimeException("Unknown button ID");
+
+        }
+    }
 }
+
 
 
