@@ -171,24 +171,28 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
                 choosePicture = imagesInPlaces[0];
                 chooseButton = v.getId();
                 ib1.setImageResource(imagesInPlaces[0]);
+                ib1.setEnabled(false);
                 CompareImages();
                 break;
             case R.id.secondImage:
                 choosePicture = imagesInPlaces[1];
                 chooseButton = v.getId();
                 ib2.setImageResource(imagesInPlaces[1]);
+                ib2.setEnabled(false);
                 CompareImages();
                 break;
             case R.id.thirdImage:
                 choosePicture = imagesInPlaces[2];
                 chooseButton = v.getId();
                 ib3.setImageResource(imagesInPlaces[2]);
+                ib3.setEnabled(false);
                 CompareImages();
                 break;
             case R.id.fourthImage:
                 choosePicture = imagesInPlaces[3];
                 chooseButton = v.getId();
                 ib4.setImageResource(imagesInPlaces[3]);
+                ib4.setEnabled(false);
                 CompareImages();
                 break;
             default:
@@ -263,15 +267,19 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         switch (firstButton) {
             case R.id.firstImage:
                 ib1.setImageResource(R.drawable.tyl_kart);
+                ib1.setEnabled(true);
                 break;
             case R.id.secondImage:
                 ib2.setImageResource(R.drawable.tyl_kart);
+                ib2.setEnabled(true);
                 break;
             case R.id.thirdImage:
                 ib3.setImageResource(R.drawable.tyl_kart);
+                ib3.setEnabled(true);
                 break;
             case R.id.fourthImage:
                 ib4.setImageResource(R.drawable.tyl_kart);
+                ib4.setEnabled(true);
                 break;
             default:
                 throw new RuntimeException("Unknown button ID");
@@ -280,15 +288,19 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         switch (secondButton) {
             case R.id.firstImage:
                 ib1.setImageResource(R.drawable.tyl_kart);
+                ib1.setEnabled(true);
                 break;
             case R.id.secondImage:
                 ib2.setImageResource(R.drawable.tyl_kart);
+                ib2.setEnabled(true);
                 break;
             case R.id.thirdImage:
                 ib3.setImageResource(R.drawable.tyl_kart);
+                ib3.setEnabled(true);
                 break;
             case R.id.fourthImage:
                 ib4.setImageResource(R.drawable.tyl_kart);
+                ib4.setEnabled(true);
                 break;
             default:
                 throw new RuntimeException("Unknown button ID");
