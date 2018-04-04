@@ -42,14 +42,15 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         ib4 = findViewById(R.id.fourthImage);
         txt = findViewById(R.id.infoTxt);
 
-        allButtons[0]=true;
-        allButtons[1]=true;
-        allButtons[2]=true;
-        allButtons[3]=true;
+        allButtons[0] = true;
+        allButtons[1] = true;
+        allButtons[2] = true;
+        allButtons[3] = true;
 
         randomlyImages = RandomlyImages(); // Losowanie obrazów do wyswietlenia
         randomlyPlaces = RandomlyPlaces();
         imagesInPlaces = new int[randomlyPlaces.length];
+
         int z = 0;
         int count = 0;
         for (int i = 0; i < imagesInPlaces.length; i++) {
@@ -136,29 +137,25 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         if (choosenFirstImage != 0 && choosenSecondImage != 0) {
             if (choosenFirstImage == choosenSecondImage) {
 
-                setImages(choosenFirstButton, choosenSecondButton);
+                setImages(choosenFirstButton);
+                setImages(choosenSecondButton);
                 choosenSecondImage = 0;
                 choosenFirstImage = 0;
 
             } else if (choosenFirstImage != choosenSecondImage) {
-                setRevertImages(choosenFirstButton, choosenSecondButton);
+                setRevertImages(choosenFirstButton);
+                setRevertImages(choosenSecondButton);
                 choosenSecondImage = 0;
                 choosenFirstImage = 0;
             }
         }
 
 
-        boolean x = areAllFalse(allButtons);
-
-        if (x == true) {
-            txt.setText("KONIEC");
-        }
     }
 
 
-    public static boolean areAllFalse(boolean[] array)
-    {
-        for(boolean b : array) if(b) return false;
+    public static boolean areAllFalse(boolean[] array) {
+        for (boolean b : array) if (b) return false;
         return true;
     }
 
@@ -172,28 +169,24 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
                 chooseButton = v.getId();
                 ib1.setImageResource(imagesInPlaces[0]);
                 ib1.setEnabled(false);
-                CompareImages();
                 break;
             case R.id.secondImage:
                 choosePicture = imagesInPlaces[1];
                 chooseButton = v.getId();
                 ib2.setImageResource(imagesInPlaces[1]);
                 ib2.setEnabled(false);
-                CompareImages();
                 break;
             case R.id.thirdImage:
                 choosePicture = imagesInPlaces[2];
                 chooseButton = v.getId();
                 ib3.setImageResource(imagesInPlaces[2]);
                 ib3.setEnabled(false);
-                CompareImages();
                 break;
             case R.id.fourthImage:
                 choosePicture = imagesInPlaces[3];
                 chooseButton = v.getId();
                 ib4.setImageResource(imagesInPlaces[3]);
                 ib4.setEnabled(false);
-                CompareImages();
                 break;
             default:
                 throw new RuntimeException("Unknown button ID");
@@ -206,37 +199,19 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
             choosenSecondImage = choosePicture;
             choosenSecondButton = chooseButton;
         }
+        CompareImages();
+
+        boolean x = areAllFalse(allButtons);
+
+        if (x == true) {
+            txt.setText("KONIEC");
+        }
     }
 
-    public void setImages(int firstButton, int secondButton) {
+    public void setImages(int ButtonID) {
 
-        switch (firstButton) {
+        switch (ButtonID) {
 
-            case R.id.firstImage:
-                ib1.setImageResource(imagesInPlaces[0]);
-                ib1.setEnabled(false);
-                allButtons[0] = false;
-                break;
-            case R.id.secondImage:
-                ib2.setImageResource(imagesInPlaces[1]);
-                ib2.setEnabled(false);
-                allButtons[1] = false;
-                break;
-            case R.id.thirdImage:
-                ib3.setImageResource(imagesInPlaces[2]);
-                ib3.setEnabled(false);
-                allButtons[2] = false;
-                break;
-            case R.id.fourthImage:
-                ib4.setImageResource(imagesInPlaces[3]);
-                ib4.setEnabled(false);
-                allButtons[3] = false;
-                break;
-            default:
-                throw new RuntimeException("Unknown button ID");
-
-        }
-        switch (secondButton) {
             case R.id.firstImage:
                 ib1.setImageResource(imagesInPlaces[0]);
                 ib1.setEnabled(false);
@@ -263,8 +238,9 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         }
     }
 
-    public void setRevertImages(int firstButton, int secondButton) {
-        switch (firstButton) {
+
+    public void setRevertImages(int ButtonID) {
+        switch (ButtonID) {
             case R.id.firstImage:
                 ib1.setImageResource(R.drawable.tyl_kart);
                 ib1.setEnabled(true);
@@ -285,27 +261,8 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
                 throw new RuntimeException("Unknown button ID");
 
         }
-        switch (secondButton) {
-            case R.id.firstImage:
-                ib1.setImageResource(R.drawable.tyl_kart);
-                ib1.setEnabled(true);
-                break;
-            case R.id.secondImage:
-                ib2.setImageResource(R.drawable.tyl_kart);
-                ib2.setEnabled(true);
-                break;
-            case R.id.thirdImage:
-                ib3.setImageResource(R.drawable.tyl_kart);
-                ib3.setEnabled(true);
-                break;
-            case R.id.fourthImage:
-                ib4.setImageResource(R.drawable.tyl_kart);
-                ib4.setEnabled(true);
-                break;
-            default:
-                throw new RuntimeException("Unknown button ID");
 
-        }
+
     }
 }
 
