@@ -4,6 +4,7 @@ import android.os.CountDownTimer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.Random;
 
@@ -13,6 +14,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     private ImageButton ib2;
     private ImageButton ib3;
     private ImageButton ib4;
+    private TextView txt;
 
     private int choosePicture = 0;
     private int chooseButton = 0;
@@ -21,7 +23,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     private int choosenFirstButton = 0;
     private int choosenSecondButton = 0;
 
-    private int[] findedImages = null;
+    private boolean[] allButtons = new boolean[4];
     private int[] imagesInPlaces = null;
     private int[] randomlyImages = null;
     private int[] randomlyPlaces = null;
@@ -38,7 +40,12 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         ib2 = findViewById(R.id.secondImage);
         ib3 = findViewById(R.id.thirdImage);
         ib4 = findViewById(R.id.fourthImage);
+        txt = findViewById(R.id.infoTxt);
 
+        allButtons[0]=true;
+        allButtons[1]=true;
+        allButtons[2]=true;
+        allButtons[3]=true;
 
         randomlyImages = RandomlyImages(); // Losowanie obrazów do wyswietlenia
         randomlyPlaces = RandomlyPlaces();
@@ -139,7 +146,22 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
                 choosenFirstImage = 0;
             }
         }
+
+
+        boolean x = areAllFalse(allButtons);
+
+        if (x == true) {
+            txt.setText("KONIEC");
+        }
     }
+
+
+    public static boolean areAllFalse(boolean[] array)
+    {
+        for(boolean b : array) if(b) return false;
+        return true;
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -183,18 +205,28 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     }
 
     public void setImages(int firstButton, int secondButton) {
+
         switch (firstButton) {
+
             case R.id.firstImage:
                 ib1.setImageResource(imagesInPlaces[0]);
+                ib1.setEnabled(false);
+                allButtons[0] = false;
                 break;
             case R.id.secondImage:
                 ib2.setImageResource(imagesInPlaces[1]);
+                ib2.setEnabled(false);
+                allButtons[1] = false;
                 break;
             case R.id.thirdImage:
                 ib3.setImageResource(imagesInPlaces[2]);
+                ib3.setEnabled(false);
+                allButtons[2] = false;
                 break;
             case R.id.fourthImage:
                 ib4.setImageResource(imagesInPlaces[3]);
+                ib4.setEnabled(false);
+                allButtons[3] = false;
                 break;
             default:
                 throw new RuntimeException("Unknown button ID");
@@ -203,15 +235,23 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         switch (secondButton) {
             case R.id.firstImage:
                 ib1.setImageResource(imagesInPlaces[0]);
+                ib1.setEnabled(false);
+                allButtons[0] = false;
                 break;
             case R.id.secondImage:
                 ib2.setImageResource(imagesInPlaces[1]);
+                ib2.setEnabled(false);
+                allButtons[1] = false;
                 break;
             case R.id.thirdImage:
                 ib3.setImageResource(imagesInPlaces[2]);
+                ib3.setEnabled(false);
+                allButtons[2] = false;
                 break;
             case R.id.fourthImage:
                 ib4.setImageResource(imagesInPlaces[3]);
+                ib4.setEnabled(false);
+                allButtons[3] = false;
                 break;
             default:
                 throw new RuntimeException("Unknown button ID");
