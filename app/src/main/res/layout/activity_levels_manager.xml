@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:visibility="visible"
     tools:context="com.example.lastwerewolf.projekt_ip.LevelsManagerActivity"
     tools:layout_editor_absoluteY="81dp">
 
@@ -28,7 +29,7 @@
         android:layout_width="200dp"
         android:layout_height="52dp"
         android:layout_marginBottom="44dp"
-        android:background="@drawable/czerwona"
+        android:background="@android:color/transparent"
         android:text="Poziom 1"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/secondLevel"
@@ -54,7 +55,7 @@
         android:layout_width="200dp"
         android:layout_height="52dp"
         android:layout_marginBottom="63dp"
-        android:background="@drawable/fioletowa"
+        android:background="@drawable/czerwona"
         android:text="Poziom 3"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
