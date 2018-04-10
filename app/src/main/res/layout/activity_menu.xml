@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/b_menu"
+    android:backgroundTint="@drawable/b_menu"
     tools:context="com.example.lastwerewolf.projekt_ip.MenuActivity">
+
     <TextView
         android:id="@+id/NameTxt"
         android:layout_width="0dp"
