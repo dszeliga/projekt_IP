@@ -32,9 +32,9 @@ public class MenuActivity extends AppCompatActivity {
         memoGameBtn.setOnClickListener(new View.OnClickListener() {
          @Override
            public void onClick(View v) {
-                Intent goToMemoGame = new Intent(v.getContext(), MemoGameActivity.class);
+                Intent goToLevels = new Intent(v.getContext(), LevelsManagerActivity.class);
                 finish(); // jeśli chcesz, zlikwidować poprzednie activity, aby nie było go na stosie.
-                startActivity(goToMemoGame);
+                startActivity(goToLevels);
          }
        });
     }

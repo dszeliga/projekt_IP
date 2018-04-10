@@ -19,7 +19,8 @@
         <activity android:name=".ColoursGameActivity" />
         <activity android:name=".GameActivity" />
         <activity android:name=".CountingGameActivity" />
-        <activity android:name=".MemoGameActivity"></activity>
+        <activity android:name=".MemoGameActivity" />
+        <activity android:name=".LevelsManagerActivity"></activity>
     </application>
 
 </manifest>
