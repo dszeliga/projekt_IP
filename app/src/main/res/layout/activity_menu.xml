@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/b_menu"
-    android:backgroundTint="@drawable/b_menu"
     tools:context="com.example.lastwerewolf.projekt_ip.MenuActivity">
 
     <TextView

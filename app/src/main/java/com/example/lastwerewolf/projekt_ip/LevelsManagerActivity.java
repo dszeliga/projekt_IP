@@ -36,4 +36,12 @@ public class LevelsManagerActivity extends AppCompatActivity {
         secondLevel.setEnabled(false);
         thirdLevel.setEnabled((false));
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

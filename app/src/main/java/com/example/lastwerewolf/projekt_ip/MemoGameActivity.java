@@ -1,7 +1,10 @@
 package com.example.lastwerewolf.projekt_ip;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -55,8 +58,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         StartMemoryGame();
     }
 
-    public void StartMemoryGame()
-    {
+    public void StartMemoryGame() {
         foundNumber = 0;
         resetButton.setVisibility(View.INVISIBLE);
         randomlyImages = RandomlyImages(); // Losowanie obrazów do wyswietlenia
@@ -164,7 +166,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        if(choosenFirstImage != 0 && choosenSecondImage != 0){
+        if (choosenFirstImage != 0 && choosenSecondImage != 0) {
             setRevertImages(choosenFirstButton);
             setRevertImages(choosenSecondButton);
             choosenSecondImage = 0;
@@ -282,6 +284,31 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         StartMemoryGame();
         txt.setText("Znajdź pary");
     }
+
+    public void onBackPressed() {
+
+
+        AlertDialog.Builder exitMessage = new AlertDialog.Builder(this);
+        exitMessage.setMessage("Czy jesteś pewien, że chcesz opuścić grę?")
+                .setTitle("WYJŚCIE");
+
+        exitMessage.setPositiveButton("Zakończ grę", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                startActivity(new Intent(MemoGameActivity.this, MenuActivity.class));
+
+            }
+        });
+        exitMessage.setNegativeButton("Pozostań w grze", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog dialog = exitMessage.create();
+        dialog.show();
+
+    }
+
 }
 
 
