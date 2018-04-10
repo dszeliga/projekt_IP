@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import static android.app.PendingIntent.getActivity;
 
@@ -24,7 +25,8 @@ public class MenuActivity extends AppCompatActivity {
         return null;
     }
 
-    public Button memoGameBtn;
+    private Button memoGameBtn;
+    private ImageButton settingsBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +34,23 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         memoGameBtn = findViewById(R.id.MemoGameBtn);
+        settingsBtn = findViewById(R.id.settingsBtn);
 
         memoGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent goToLevels = new Intent(v.getContext(), LevelsManagerActivity.class);
-                finish(); // jeśli chcesz, zlikwidować poprzednie activity, aby nie było go na stosie.
+                finish();
                 startActivity(goToLevels);
+            }
+        });
+
+        settingsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToSettings = new Intent(v.getContext(), SettingsActivity.class);
+                finish();
+                startActivity(goToSettings);
             }
         });
     }
