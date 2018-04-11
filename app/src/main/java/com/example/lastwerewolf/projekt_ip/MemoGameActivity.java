@@ -18,6 +18,19 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     private ImageButton ib2;
     private ImageButton ib3;
     private ImageButton ib4;
+    private ImageButton ib5;
+    private ImageButton ib6;
+    private ImageButton ib7;
+    private ImageButton ib8;
+    private ImageButton ib9;
+    private ImageButton ib10;
+    private ImageButton ib11;
+    private ImageButton ib12;
+    private ImageButton ib13;
+    private ImageButton ib14;
+    private ImageButton ib15;
+    private ImageButton ib16;
+
     private Button resetButton;
     private TextView txt;
 
@@ -29,10 +42,10 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     private int choosenSecondButton = 0;
     private int foundNumber = 0;
 
-    private boolean[] allButtons = new boolean[4];
     private int[] imagesInPlaces = null;
     private int[] randomlyImages = null;
     private int[] randomlyPlaces = null;
+    private ImageButton[] allImageButtons = null;
 
     private int[] photos = {R.drawable.i1, R.drawable.i2, R.drawable.i3, R.drawable.i4, R.drawable.i5,
             R.drawable.i6, R.drawable.i7, R.drawable.i8};
@@ -41,20 +54,56 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_memo_game);
+
+
+        Bundle b = getIntent().getExtras();
+        int value = -1; // or other values
+        if (b != null)
+            value = b.getInt("key");
+
+
+        if (value == 1) {
+            setContentView(R.layout.activity_memo_game);
+        } else if (value == 2) {
+            setContentView(R.layout.activity_memo_game);
+        } else {
+            setContentView(R.layout.activity_memo_game);
+        }
+
+        txt = findViewById(R.id.infoTxt);
+        resetButton = findViewById(R.id.ResetButton);
+
+        if (value == 3) {
+            ib16 = findViewById(R.id.firstImage);
+            ib15 = findViewById(R.id.firstImage);
+            ib14 = findViewById(R.id.firstImage);
+            ib13 = findViewById(R.id.firstImage);
+            ib12 = findViewById(R.id.firstImage);
+            ib11 = findViewById(R.id.firstImage);
+            ib10 = findViewById(R.id.firstImage);
+        }
+
+        if (value == 2 || value == 3) {
+            ib9 = findViewById(R.id.firstImage);
+            ib8 = findViewById(R.id.firstImage);
+            ib7 = findViewById(R.id.firstImage);
+            ib6 = findViewById(R.id.firstImage);
+            ib5 = findViewById(R.id.firstImage);
+        }
+
 
         ib1 = findViewById(R.id.firstImage);
         ib2 = findViewById(R.id.secondImage);
         ib3 = findViewById(R.id.thirdImage);
         ib4 = findViewById(R.id.fourthImage);
-        txt = findViewById(R.id.infoTxt);
-        resetButton = findViewById(R.id.ResetButton);
 
-        allButtons[0] = true;
-        allButtons[1] = true;
-        allButtons[2] = true;
-        allButtons[3] = true;
-
+        if (value == 1) {
+            allImageButtons = new ImageButton[]{ib1, ib2, ib3, ib4};
+        } else if (value == 2) {
+            allImageButtons = new ImageButton[]{ib1, ib2, ib3, ib4, ib5, ib6, ib7, ib8, ib9};
+        } else {
+            allImageButtons = new ImageButton[]{ib1, ib2, ib3, ib4, ib5, ib6, ib7, ib8, ib9, ib10, ib11, ib12, ib13, ib14, ib15, ib16};
+        }
         StartMemoryGame();
     }
 
@@ -75,16 +124,17 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
             imagesInPlaces[randomlyPlaces[i]] = randomlyImages[count];
             z++;
         }
-        ib1.setImageResource(imagesInPlaces[0]);
-        ib2.setImageResource(imagesInPlaces[1]);
-        ib3.setImageResource(imagesInPlaces[2]);
-        ib4.setImageResource(imagesInPlaces[3]);
+        for (int i = 0; i < allImageButtons.length; i++) {
+            allImageButtons[i].setImageResource(imagesInPlaces[i]);
+        }
+
 
         RevertImages();
-        ib1.setEnabled(true);
-        ib2.setEnabled(true);
-        ib3.setEnabled(true);
-        ib4.setEnabled(true);
+
+        for (int i = 0; i < allImageButtons.length; i++)
+        {
+            allImageButtons[i].setEnabled(true); }
+            
         CompareImages();
     }
 
@@ -131,25 +181,22 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     public void RevertImages() {
 
         new CountDownTimer(5000, 1000) {
-            public void onTick(long millisUntilFinished) {
-                //tu można wyświetlic ubiegajacy czas czy coś jak bedziemy chcieli
-            }
+            public void onTick(long millisUntilFinished) {}
 
             public void onFinish() {
-                ib1.setImageResource(R.drawable.tyl_kart);
-                ib2.setImageResource(R.drawable.tyl_kart);
-                ib3.setImageResource(R.drawable.tyl_kart);
-                ib4.setImageResource(R.drawable.tyl_kart);
+
+                for (int i = 0; i < allImageButtons.length; i++) {
+                    allImageButtons[i].setImageResource(R.drawable.tyl_kart);
+                }
             }
         }.start();
     }
 
     public void CompareImages() {
 
-        ib1.setOnClickListener(this);
-        ib2.setOnClickListener(this);
-        ib3.setOnClickListener(this);
-        ib4.setOnClickListener(this);
+        for (int i = 0; i < allImageButtons.length; i++) {
+            allImageButtons[i].setOnClickListener(this);
+        }
 
         if (choosenFirstImage != 0 && choosenSecondImage != 0) {
             if (choosenFirstImage == choosenSecondImage) {
@@ -160,8 +207,6 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
                 choosenFirstImage = 0;
             }
         }
-
-
     }
 
     @Override
@@ -226,25 +271,21 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
             case R.id.firstImage:
                 ib1.setImageResource(imagesInPlaces[0]);
                 ib1.setEnabled(false);
-                allButtons[0] = false;
                 foundNumber++;
                 break;
             case R.id.secondImage:
                 ib2.setImageResource(imagesInPlaces[1]);
                 ib2.setEnabled(false);
-                allButtons[1] = false;
                 foundNumber++;
                 break;
             case R.id.thirdImage:
                 ib3.setImageResource(imagesInPlaces[2]);
                 ib3.setEnabled(false);
-                allButtons[2] = false;
                 foundNumber++;
                 break;
             case R.id.fourthImage:
                 ib4.setImageResource(imagesInPlaces[3]);
                 ib4.setEnabled(false);
-                allButtons[3] = false;
                 foundNumber++;
                 break;
             default:

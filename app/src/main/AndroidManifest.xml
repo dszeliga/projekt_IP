@@ -27,7 +27,8 @@
         <activity
             android:name=".LevelsManagerActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".SettingsActivity"
+            android:screenOrientation="portrait" ></activity>
     </application>
 
 </manifest>

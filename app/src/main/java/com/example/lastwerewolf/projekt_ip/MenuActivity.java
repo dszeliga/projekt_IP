@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import static android.app.PendingIntent.getActivity;
 
@@ -27,6 +28,7 @@ public class MenuActivity extends AppCompatActivity {
 
     private Button memoGameBtn;
     private ImageButton settingsBtn;
+    private TextView points;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class MenuActivity extends AppCompatActivity {
 
         memoGameBtn = findViewById(R.id.MemoGameBtn);
         settingsBtn = findViewById(R.id.settingsBtn);
+        points = findViewById(R.id.txtPoints);
 
         memoGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override

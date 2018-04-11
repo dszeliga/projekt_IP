@@ -28,13 +28,42 @@ public class LevelsManagerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent goToMemoGame = new Intent(v.getContext(), MemoGameActivity.class);
-                finish();
+                Bundle b = new Bundle();
+                b.putInt("key", 1); //Your id
+                goToMemoGame.putExtras(b);
                 startActivity(goToMemoGame);
+                finish();
             }
         });
 
         secondLevel.setEnabled(false);
+
+//        secondLevel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent goToMemoGame = new Intent(v.getContext(), MemoGameActivity.class);
+//                Bundle b = new Bundle();
+//                b.putInt("key", 2); //Your id
+//                goToMemoGame.putExtras(b);
+//                startActivity(goToMemoGame);
+//                finish();
+//            }
+//        });
+
+
         thirdLevel.setEnabled((false));
+
+//        thirdLevel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent goToMemoGame = new Intent(v.getContext(), MemoGameActivity.class);
+//                Bundle b = new Bundle();
+//                b.putInt("key", 3); //Your id
+//                goToMemoGame.putExtras(b);
+//                startActivity(goToMemoGame);
+//                finish();
+//            }
+//        });
     }
 
     @Override
