@@ -66,30 +66,30 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         if (value == 1) {
             setContentView(R.layout.activity_memo_game);
         } else if (value == 2) {
-            setContentView(R.layout.activity_memo_game);
+            setContentView(R.layout.activity_memo_game_lvl2);
         } else {
-            setContentView(R.layout.activity_memo_game);
+            setContentView(R.layout.activity_memo_game_lvl3);
         }
 
         txt = findViewById(R.id.infoTxt);
         resetButton = findViewById(R.id.ResetButton);
 
         if (value == 3) {
-            ib16 = findViewById(R.id.firstImage);
-            ib15 = findViewById(R.id.firstImage);
-            ib14 = findViewById(R.id.firstImage);
-            ib13 = findViewById(R.id.firstImage);
-            ib12 = findViewById(R.id.firstImage);
-            ib11 = findViewById(R.id.firstImage);
-            ib10 = findViewById(R.id.firstImage);
+            ib16 = findViewById(R.id.sixteenthImage);
+            ib15 = findViewById(R.id.fifteenthImage);
+            ib14 = findViewById(R.id.fourteenthImage);
+            ib13 = findViewById(R.id.thirteenthImage);
+            ib12 = findViewById(R.id.twelvethImage);
+            ib11 = findViewById(R.id.eleventhImage);
+            ib10 = findViewById(R.id.tenthImage);
         }
 
         if (value == 2 || value == 3) {
-            ib9 = findViewById(R.id.firstImage);
-            ib8 = findViewById(R.id.firstImage);
-            ib7 = findViewById(R.id.firstImage);
-            ib6 = findViewById(R.id.firstImage);
-            ib5 = findViewById(R.id.firstImage);
+            ib9 = findViewById(R.id.ninthImage);
+            ib8 = findViewById(R.id.eightImage);
+            ib7 = findViewById(R.id.seventhImage);
+            ib6 = findViewById(R.id.sixthImage);
+            ib5 = findViewById(R.id.fifthImage);
         }
 
 
@@ -101,7 +101,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         if (value == 1) {
             allImageButtons = new ImageButton[]{ib1, ib2, ib3, ib4};
         } else if (value == 2) {
-            allImageButtons = new ImageButton[]{ib1, ib2, ib3, ib4, ib5, ib6, ib7, ib8, ib9};
+            allImageButtons = new ImageButton[]{ib1, ib2, ib3, ib4, ib6, ib7, ib8, ib9};
         } else {
             allImageButtons = new ImageButton[]{ib1, ib2, ib3, ib4, ib5, ib6, ib7, ib8, ib9, ib10, ib11, ib12, ib13, ib14, ib15, ib16};
         }
@@ -159,7 +159,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     }
 
     private int[] RandomlyPlaces() {
-        int[] tab = new int[4];
+        int[] tab = new int[allImageButtons.length];
         for (int i = 0; i < tab.length; i++) {
             int r = rnd.nextInt(tab.length) + 1;
             boolean isTheSamePlace = true;

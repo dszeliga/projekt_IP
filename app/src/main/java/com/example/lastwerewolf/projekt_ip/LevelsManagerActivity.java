@@ -36,34 +36,34 @@ public class LevelsManagerActivity extends AppCompatActivity {
             }
         });
 
-        secondLevel.setEnabled(false);
+        secondLevel.setEnabled(true);
 
-//        secondLevel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent goToMemoGame = new Intent(v.getContext(), MemoGameActivity.class);
-//                Bundle b = new Bundle();
-//                b.putInt("key", 2); //Your id
-//                goToMemoGame.putExtras(b);
-//                startActivity(goToMemoGame);
-//                finish();
-//            }
-//        });
+        secondLevel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToMemoGame = new Intent(v.getContext(), MemoGameActivity.class);
+                Bundle b = new Bundle();
+                b.putInt("key", 2); //Your id
+                goToMemoGame.putExtras(b);
+                startActivity(goToMemoGame);
+                finish();
+            }
+        });
 
 
-        thirdLevel.setEnabled((false));
+        thirdLevel.setEnabled(true);
 
-//        thirdLevel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent goToMemoGame = new Intent(v.getContext(), MemoGameActivity.class);
-//                Bundle b = new Bundle();
-//                b.putInt("key", 3); //Your id
-//                goToMemoGame.putExtras(b);
-//                startActivity(goToMemoGame);
-//                finish();
-//            }
-//        });
+        thirdLevel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToMemoGame = new Intent(v.getContext(), MemoGameActivity.class);
+                Bundle b = new Bundle();
+                b.putInt("key", 3); //Your id
+                goToMemoGame.putExtras(b);
+                startActivity(goToMemoGame);
+                finish();
+            }
+        });
     }
 
     @Override
