@@ -140,7 +140,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     }
 
     private int[] RandomlyImages() {
-        int[] tab = new int[2];
+        int[] tab = new int[allImageButtons.length/2];
         for (int i = 0; i < tab.length; i++) {
             int r = rnd.nextInt(photos.length);
 
@@ -311,7 +311,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
 
     public void onClickReset(View view) {
         StartMemoryGame();
-        txt.setText("Znajdź pary");
+        txt.setText("Wyszukaj pary");
     }
 
     public void onBackPressed() {

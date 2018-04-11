@@ -11,100 +11,108 @@
     <ImageView
         android:id="@+id/starImage2"
         android:layout_width="81dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="74dp"
-        android:layout_marginEnd="87dp"
-        app:layout_constraintBottom_toTopOf="@+id/changeAgeTxt"
-        app:layout_constraintEnd_toEndOf="@+id/resetPointsBtn"
-        app:layout_constraintTop_toBottomOf="@+id/resetPointsBtn"
+        android:layout_height="77dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingsTxt"
         app:srcCompat="@android:drawable/btn_star_big_on" />
 
     <TextView
         android:id="@+id/txtPoints"
-        android:layout_width="117dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="49dp"
+        android:layout_width="134dp"
+        android:layout_height="77dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="casual"
         android:text="1000"
-        android:textAlignment="viewStart"
         android:textColor="@android:color/holo_orange_dark"
-        android:textSize="45sp"
+        android:textSize="50sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/starImage2"
-        app:layout_constraintStart_toStartOf="@+id/resetPointsBtn"
-        app:layout_constraintTop_toTopOf="@+id/starImage2" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/starImage2"
+        app:layout_constraintTop_toBottomOf="@+id/settingsTxt" />
 
     <TextView
         android:id="@+id/settingsTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="42dp"
+        android:layout_width="288dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="casual"
         android:text="USTAWIENIA"
         android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="24sp"
+        android:textSize="40sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/resetPointsBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/resetPointsBtn"
-        android:layout_width="141dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="14dp"
-        android:background="@android:color/transparent"
-        android:backgroundTint="@android:color/transparent"
+        android:layout_width="297dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="8dp"
+        android:background="#75ffffff"
+        android:fontFamily="casual"
         android:text="RESET PUNKTÓW"
+        android:textAlignment="center"
         android:textColor="@android:color/holo_red_dark"
-        android:textSize="16sp"
+        android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/starImage2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingsTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/txtPoints" />
 
     <TextView
         android:id="@+id/changeAgeTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="14dp"
+        android:layout_width="405dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="48dp"
+        android:fontFamily="casual"
         android:text="Zmiana kategorii wiekowej:"
+        android:textAlignment="center"
         android:textColor="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/starImage2" />
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/resetPointsBtn"
+        tools:layout_editor_absoluteX="0dp" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="92dp"
-        android:layout_marginEnd="52dp"
-        android:layout_marginStart="52dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="310dp"
+        android:layout_height="76dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/changeAgeTxt"
         app:layout_constraintTop_toBottomOf="@+id/changeAgeTxt">
 
         <RadioButton
             android:id="@+id/underFive"
-            android:layout_width="wrap_content"
+            android:layout_width="185dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Poniżej 5 lat" />
+            android:text="Poniżej 5 lat"
+            android:textAlignment="viewStart"
+            android:textColor="@android:color/black"
+            android:textSize="24sp" />
 
         <RadioButton
             android:id="@+id/aboveFive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Powyżej 5 lat" />
+            android:text="Powyżej 5 lat"
+            android:textAlignment="viewStart"
+            android:textColor="@android:color/black"
+            android:textSize="24sp" />
     </RadioGroup>
 
 </android.support.constraint.ConstraintLayout>
