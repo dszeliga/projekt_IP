@@ -82,11 +82,11 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
             ib12 = findViewById(R.id.twelvethImage);
             ib11 = findViewById(R.id.eleventhImage);
             ib10 = findViewById(R.id.tenthImage);
+            ib9 = findViewById(R.id.ninthImage);
 
         }
 
         if (value == 2 || value == 3) {
-            ib9 = findViewById(R.id.ninthImage);
             ib8 = findViewById(R.id.eigthImage);
             ib7 = findViewById(R.id.seventhImage);
             ib6 = findViewById(R.id.sixthImage);
@@ -102,7 +102,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         if (value == 1) {
             allImageButtons = new ImageButton[]{ib1, ib2, ib3, ib4};
         } else if (value == 2) {
-            allImageButtons = new ImageButton[]{ib1, ib2, ib3, ib4, ib6, ib7, ib8, ib9};
+            allImageButtons = new ImageButton[]{ib1, ib2, ib3, ib4, ib5, ib6, ib7, ib8};
         } else {
             allImageButtons = new ImageButton[]{ib1, ib2, ib3, ib4, ib5, ib6, ib7, ib8, ib9, ib10, ib11, ib12, ib13, ib14, ib15, ib16};
         }

@@ -13,10 +13,13 @@
         android:layout_width="wrap_content"
         android:layout_height="52dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="115dp"
-        android:layout_marginStart="103dp"
-        android:text="Znajdź pary"
-        android:textSize="30sp"
+        android:layout_marginTop="7dp"
+        android:fontFamily="casual"
+        android:text="Wyszukaj pary"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="33sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/gridLayout"
         app:layout_constraintEnd_toEndOf="@+id/gridLayout"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,8 +30,13 @@
         android:layout_width="wrap_content"
         android:layout_height="46dp"
         android:layout_marginTop="8dp"
+        android:background="@android:color/white"
+        android:fontFamily="casual"
         android:onClick="onClickReset"
-        android:text="Reset"
+        android:text="LOSUJ"
+        android:textColor="@android:color/holo_blue_light"
+        android:textSize="24sp"
+        android:textStyle="bold"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,8 +93,19 @@
             android:scaleType="fitXY"
             app:srcCompat="@drawable/b_game2" />
 
+        <ImageView
+            android:id="@+id/xImage"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_column="1"
+            android:layout_row="1"
+
+            android:background="@android:color/transparent"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/i1" />
+
         <ImageButton
-            android:id="@+id/sixthImage"
+            android:id="@+id/fifthImage"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_column="2"
@@ -96,7 +115,7 @@
             app:srcCompat="@drawable/b_game2" />
 
         <ImageButton
-            android:id="@+id/seventhImage"
+            android:id="@+id/sixthImage"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_column="0"
@@ -106,7 +125,7 @@
             app:srcCompat="@drawable/b_game2" />
 
         <ImageButton
-            android:id="@+id/eigthImage"
+            android:id="@+id/seventhImage"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_column="1"
@@ -116,7 +135,7 @@
             app:srcCompat="@drawable/b_game3" />
 
         <ImageButton
-            android:id="@+id/ninthImage"
+            android:id="@+id/eigthImage"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_column="2"

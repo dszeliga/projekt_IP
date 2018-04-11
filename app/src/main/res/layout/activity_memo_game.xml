@@ -68,17 +68,19 @@
         android:layout_width="wrap_content"
         android:layout_height="58dp"
         android:layout_marginBottom="199dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="7dp"
         android:fontFamily="casual"
         android:text="Wyszukaj pary"
         android:textAlignment="center"
+        android:textColor="@android:color/black"
         android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/fourthImage"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.583"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.333"
+        app:layout_constraintVertical_bias="1.0"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
