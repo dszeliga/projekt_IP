@@ -48,8 +48,9 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     private ImageButton[] allImageButtons = null;
 
     private int[] photos = {R.drawable.i1, R.drawable.i2, R.drawable.i3, R.drawable.i4, R.drawable.i5,
-            R.drawable.i6, R.drawable.i7, R.drawable.i8};
-
+            R.drawable.i6, R.drawable.i7, R.drawable.i8, R.drawable.i9, R.drawable.i10, R.drawable.i11,
+            R.drawable.i12, R.drawable.i13, R.drawable.i14, R.drawable.i15, R.drawable.i16, R.drawable.i17,
+            R.drawable.i18, R.drawable.i19, R.drawable.i20, R.drawable.i21, R.drawable.i22};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,10 +132,10 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
 
         RevertImages();
 
-        for (int i = 0; i < allImageButtons.length; i++)
-        {
-            allImageButtons[i].setEnabled(true); }
-            
+        for (int i = 0; i < allImageButtons.length; i++) {
+            allImageButtons[i].setEnabled(true);
+        }
+
         CompareImages();
     }
 
@@ -181,7 +182,8 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     public void RevertImages() {
 
         new CountDownTimer(5000, 1000) {
-            public void onTick(long millisUntilFinished) {}
+            public void onTick(long millisUntilFinished) {
+            }
 
             public void onFinish() {
 
@@ -218,34 +220,27 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
             choosenFirstImage = 0;
         }
 
+        int i;
         switch (v.getId()) {
             case R.id.firstImage:
-                choosePicture = imagesInPlaces[0];
-                chooseButton = v.getId();
-                ib1.setImageResource(imagesInPlaces[0]);
-                ib1.setEnabled(false);
+                i = 0;
                 break;
             case R.id.secondImage:
-                choosePicture = imagesInPlaces[1];
-                chooseButton = v.getId();
-                ib2.setImageResource(imagesInPlaces[1]);
-                ib2.setEnabled(false);
+                i = 1;
                 break;
             case R.id.thirdImage:
-                choosePicture = imagesInPlaces[2];
-                chooseButton = v.getId();
-                ib3.setImageResource(imagesInPlaces[2]);
-                ib3.setEnabled(false);
+                i = 2;
                 break;
             case R.id.fourthImage:
-                choosePicture = imagesInPlaces[3];
-                chooseButton = v.getId();
-                ib4.setImageResource(imagesInPlaces[3]);
-                ib4.setEnabled(false);
+                i = 3;
                 break;
             default:
                 throw new RuntimeException("Unknown button ID");
         }
+        choosePicture = imagesInPlaces[i];
+        chooseButton = v.getId();
+        allImageButtons[i].setImageResource(imagesInPlaces[i]);
+        allImageButtons[i].setEnabled(false);
 
         if (choosenFirstImage == 0) {
             choosenFirstImage = choosePicture;
@@ -254,6 +249,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
             choosenSecondImage = choosePicture;
             choosenSecondButton = chooseButton;
         }
+
         CompareImages();
 
         if (foundNumber == 4) {
@@ -266,58 +262,50 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
 
     public void setImages(int ButtonID) {
 
+        int i;
         switch (ButtonID) {
-
             case R.id.firstImage:
-                ib1.setImageResource(imagesInPlaces[0]);
-                ib1.setEnabled(false);
-                foundNumber++;
+                i = 0;
                 break;
             case R.id.secondImage:
-                ib2.setImageResource(imagesInPlaces[1]);
-                ib2.setEnabled(false);
-                foundNumber++;
+                i = 1;
                 break;
             case R.id.thirdImage:
-                ib3.setImageResource(imagesInPlaces[2]);
-                ib3.setEnabled(false);
-                foundNumber++;
+                i = 2;
                 break;
             case R.id.fourthImage:
-                ib4.setImageResource(imagesInPlaces[3]);
-                ib4.setEnabled(false);
-                foundNumber++;
+                i = 3;
                 break;
             default:
                 throw new RuntimeException("Unknown button ID");
-
         }
+        allImageButtons[i].setImageResource(imagesInPlaces[i]);
+        allImageButtons[i].setEnabled(false);
+        foundNumber++;
     }
 
 
     public void setRevertImages(int ButtonID) {
+
+        int i;
         switch (ButtonID) {
             case R.id.firstImage:
-                ib1.setImageResource(R.drawable.tyl_kart);
-                ib1.setEnabled(true);
+                i = 0;
                 break;
             case R.id.secondImage:
-                ib2.setImageResource(R.drawable.tyl_kart);
-                ib2.setEnabled(true);
+                i = 1;
                 break;
             case R.id.thirdImage:
-                ib3.setImageResource(R.drawable.tyl_kart);
-                ib3.setEnabled(true);
+                i = 2;
                 break;
             case R.id.fourthImage:
-                ib4.setImageResource(R.drawable.tyl_kart);
-                ib4.setEnabled(true);
+                i = 3;
                 break;
             default:
                 throw new RuntimeException("Unknown button ID");
-
         }
-
+        allImageButtons[i].setImageResource(R.drawable.tyl_kart);
+        allImageButtons[i].setEnabled(true);
 
     }
 
