@@ -41,6 +41,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     private int choosenFirstButton = 0;
     private int choosenSecondButton = 0;
     private int foundNumber = 0;
+    private int value = -1;
 
     private int[] imagesInPlaces = null;
     private int[] randomlyImages = null;
@@ -58,7 +59,6 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
 
 
         Bundle b = getIntent().getExtras();
-        int value = -1; // or other values
         if (b != null)
             value = b.getInt("key");
 
@@ -82,11 +82,12 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
             ib12 = findViewById(R.id.twelvethImage);
             ib11 = findViewById(R.id.eleventhImage);
             ib10 = findViewById(R.id.tenthImage);
+
         }
 
         if (value == 2 || value == 3) {
             ib9 = findViewById(R.id.ninthImage);
-            ib8 = findViewById(R.id.eightImage);
+            ib8 = findViewById(R.id.eigthImage);
             ib7 = findViewById(R.id.seventhImage);
             ib6 = findViewById(R.id.sixthImage);
             ib5 = findViewById(R.id.fifthImage);
@@ -140,7 +141,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     }
 
     private int[] RandomlyImages() {
-        int[] tab = new int[allImageButtons.length/2];
+        int[] tab = new int[allImageButtons.length];
         for (int i = 0; i < tab.length; i++) {
             int r = rnd.nextInt(photos.length);
 
@@ -234,6 +235,42 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
             case R.id.fourthImage:
                 i = 3;
                 break;
+            case R.id.fifthImage:
+                i = 4;
+                break;
+            case R.id.sixthImage:
+                i = 5;
+                break;
+            case R.id.seventhImage:
+                i = 6;
+                break;
+            case R.id.eigthImage:
+                i = 7;
+                break;
+            case R.id.ninthImage:
+                i = 8;
+                break;
+            case R.id.tenthImage:
+                i = 9;
+                break;
+            case R.id.eleventhImage:
+                i = 10;
+                break;
+            case R.id.twelvethImage:
+                i = 11;
+                break;
+            case R.id.thirteenthImage:
+                i = 12;
+                break;
+            case R.id.fourteenthImage:
+                i = 13;
+                break;
+            case R.id.fifteenthImage:
+                i = 14;
+                break;
+            case R.id.sixteenthImage:
+                i = 15;
+                break;
             default:
                 throw new RuntimeException("Unknown button ID");
         }
@@ -252,7 +289,17 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
 
         CompareImages();
 
-        if (foundNumber == 4) {
+        if (foundNumber == 16 && value==3) {
+            txt.setText("KONIEC");
+            resetButton.setVisibility(View.VISIBLE); // Pojawia się klawisz "Reset"
+            choosenSecondImage = 0;
+            choosenFirstImage = 0;
+        } else if (foundNumber == 8 && value==2) {
+            txt.setText("KONIEC");
+            resetButton.setVisibility(View.VISIBLE); // Pojawia się klawisz "Reset"
+            choosenSecondImage = 0;
+            choosenFirstImage = 0;
+        } else if (foundNumber == 4 && value==1) {
             txt.setText("KONIEC");
             resetButton.setVisibility(View.VISIBLE); // Pojawia się klawisz "Reset"
             choosenSecondImage = 0;
@@ -275,6 +322,42 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
                 break;
             case R.id.fourthImage:
                 i = 3;
+                break;
+            case R.id.fifthImage:
+                i = 4;
+                break;
+            case R.id.sixthImage:
+                i = 5;
+                break;
+            case R.id.seventhImage:
+                i = 6;
+                break;
+            case R.id.eigthImage:
+                i = 7;
+                break;
+            case R.id.ninthImage:
+                i = 8;
+                break;
+            case R.id.tenthImage:
+                i = 9;
+                break;
+            case R.id.eleventhImage:
+                i = 10;
+                break;
+            case R.id.twelvethImage:
+                i = 11;
+                break;
+            case R.id.thirteenthImage:
+                i = 12;
+                break;
+            case R.id.fourteenthImage:
+                i = 13;
+                break;
+            case R.id.fifteenthImage:
+                i = 14;
+                break;
+            case R.id.sixteenthImage:
+                i = 15;
                 break;
             default:
                 throw new RuntimeException("Unknown button ID");
@@ -300,6 +383,42 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
                 break;
             case R.id.fourthImage:
                 i = 3;
+                break;
+            case R.id.fifthImage:
+                i = 4;
+                break;
+            case R.id.sixthImage:
+                i = 5;
+                break;
+            case R.id.seventhImage:
+                i = 6;
+                break;
+            case R.id.eigthImage:
+                i = 7;
+                break;
+            case R.id.ninthImage:
+                i = 8;
+                break;
+            case R.id.tenthImage:
+                i = 9;
+                break;
+            case R.id.eleventhImage:
+                i = 10;
+                break;
+            case R.id.twelvethImage:
+                i = 11;
+                break;
+            case R.id.thirteenthImage:
+                i = 12;
+                break;
+            case R.id.fourteenthImage:
+                i = 13;
+                break;
+            case R.id.fifteenthImage:
+                i = 14;
+                break;
+            case R.id.sixteenthImage:
+                i = 15;
                 break;
             default:
                 throw new RuntimeException("Unknown button ID");
