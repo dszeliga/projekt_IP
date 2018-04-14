@@ -7,23 +7,18 @@
     android:background="@drawable/b_menu"
     tools:context="com.example.lastwerewolf.projekt_ip.MenuActivity">
 
-    <TextView
+    <ImageView
         android:id="@+id/NameTxt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="265dp"
+        android:layout_height="57dp"
         android:layout_marginBottom="40dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="30dp"
-        android:text="NAZWA GRY"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="30sp"
-        android:textStyle="bold"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/logo"
         app:layout_constraintBottom_toTopOf="@+id/starImage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/settingsBtn" />
 
 
     <Button
@@ -109,14 +104,13 @@
         android:id="@+id/settingsBtn"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:background="@android:color/transparent"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toEndOf="@+id/NameTxt"
-        app:srcCompat="@drawable/zebatka"
-        tools:layout_editor_absoluteY="11dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/zebatka" />
 
 </android.support.constraint.ConstraintLayout>
