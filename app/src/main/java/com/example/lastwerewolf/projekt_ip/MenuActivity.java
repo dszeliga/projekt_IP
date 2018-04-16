@@ -25,10 +25,11 @@ public class MenuActivity extends AppCompatActivity {
     public MemoGameActivity GenerateMemoGame() {
         return null;
     }
-
+    public Button countingGameBtn;
     private Button memoGameBtn;
     private ImageButton settingsBtn;
     private TextView points;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,16 @@ public class MenuActivity extends AppCompatActivity {
                 Intent goToSettings = new Intent(v.getContext(), SettingsActivity.class);
                 finish();
                 startActivity(goToSettings);
+            }
+        });
+
+        countingGameBtn=findViewById(R.id.CountingGameBtn);
+        countingGameBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToCountingGame = new Intent(v.getContext(), CountingGameActivity.class);
+                finish(); // jeśli chcesz, zlikwidować poprzednie activity, aby nie było go na stosie.
+                startActivity(goToCountingGame);
             }
         });
     }
