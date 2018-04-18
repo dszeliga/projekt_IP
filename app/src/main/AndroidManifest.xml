@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ColoursGameActivity" />
+        <activity android:name=".dopasuj.DopasujLvl1Activity" />
         <activity android:name=".GameActivity" />
         <activity android:name=".CountingGameActivity"/>
         <activity android:name=".LevelFirstCountingGameActivity" />
@@ -31,6 +32,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".LevelsManagerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ColorsLevelsManagerActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".SettingsActivity"
             android:screenOrientation="portrait" ></activity>
