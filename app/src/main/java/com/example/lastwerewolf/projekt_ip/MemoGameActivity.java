@@ -2,6 +2,7 @@ package com.example.lastwerewolf.projekt_ip;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -123,6 +124,8 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
 
     public void StartMemoryGame() {
         foundNumber = 0;
+        MediaPlayer findPairs = MediaPlayer.create(MemoGameActivity.this, R.raw.znajdz);
+        findPairs.start();
         resetButton.setVisibility(View.INVISIBLE);
         randomlyImages = RandomlyImages(); // Losowanie obrazów do wyswietlenia
         randomlyPlaces = RandomlyPlaces();
@@ -195,7 +198,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
 
 
     public void SetTimeGame() {
-        
+
             gameTime = new CountDownTimer(timeOnLevel, 1000) {
 
                 @Override
@@ -206,6 +209,8 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
                 @Override
                 public void onFinish() {
                     txt.setText("Czas minał!");
+                    MediaPlayer timeUp = MediaPlayer.create(MemoGameActivity.this, R.raw.czasminal);
+                    timeUp.start();
                     resetButton.setVisibility(View.VISIBLE);
                     score += 0;
                 }
@@ -327,6 +332,8 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         CompareImages();
 
         if (foundNumber == 16 && value == 3) {
+            MediaPlayer ring = MediaPlayer.create(MemoGameActivity.this, R.raw.bravo);
+            ring.start();
             txt.setText("BRAWO!!!");
             resetButton.setVisibility(View.VISIBLE); // Pojawia się klawisz "Reset"
             choosenSecondImage = 0;
@@ -334,6 +341,8 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
             gameTime.cancel();
             score += 5;
         } else if (foundNumber == 8 && value == 2) {
+            MediaPlayer ring = MediaPlayer.create(MemoGameActivity.this, R.raw.bravo);
+            ring.start();
             txt.setText("BRAWO!!!");
             resetButton.setVisibility(View.VISIBLE); // Pojawia się klawisz "Reset"
             choosenSecondImage = 0;
@@ -341,6 +350,8 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
             gameTime.cancel();
             score += 5;
         } else if (foundNumber == 4 && value == 1) {
+            MediaPlayer ring = MediaPlayer.create(MemoGameActivity.this, R.raw.bravo);
+            ring.start();
             txt.setText("BRAWO!!!");
             resetButton.setVisibility(View.VISIBLE); // Pojawia się klawisz "Reset"
             choosenSecondImage = 0;
