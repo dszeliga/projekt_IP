@@ -11,7 +11,7 @@
     <Button
         android:id="@+id/b_true"
         android:layout_width="163dp"
-        android:layout_height="62"
+        android:layout_height="62dp"
         android:layout_marginBottom="64dp"
         android:backgroundTint="#47cc05"
         android:fontFamily="casual"
@@ -26,7 +26,7 @@
 
     <Button
         android:id="@+id/b_false"
-        android:layout_width="163"
+        android:layout_width="163dp"
         android:layout_height="62dp"
         android:layout_marginBottom="64dp"
 

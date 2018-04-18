@@ -73,7 +73,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         if (value == 1) {
             setContentView(R.layout.activity_memo_game);
             timeOnLevel = 10000;
-            timeToRevert = 3000;
+            timeToRevert = 4000;
         } else if (value == 2) {
             setContentView(R.layout.activity_memo_game_lvl2);
             timeOnLevel = 35000;
