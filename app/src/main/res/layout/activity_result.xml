@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@drawable/b_menu_1"
+    tools:context=".ResultActivity">
+
+    <Button
+        android:id="@+id/tak"
+        android:layout_width="100dp"
+        android:layout_height="75dp"
+        android:backgroundTint="@android:color/holo_green_dark"
+        android:text="TAK"
+        android:textColor="@android:color/background_light"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/nie"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <Button
+        android:id="@+id/nie"
+        android:layout_width="88dp"
+        android:layout_height="75dp"
+
+        android:text="NIE"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tak"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="316dp"
+        android:layout_height="56dp"
+        android:text="Czy chcesz grać dalej?"
+        android:textColor="@android:color/background_dark"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tak"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/leftStar3" />
+
+    <ImageView
+        android:id="@+id/leftStar3"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_result"
+        app:layout_constraintTop_toBottomOf="@+id/infoScore2"
+        app:srcCompat="@android:drawable/btn_star_big_on" />
+
+    <ImageView
+        android:id="@+id/leftStar2"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintEnd_toStartOf="@+id/tv_result"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/infoScore2"
+        app:srcCompat="@android:drawable/btn_star_big_on" />
+
+    <TextView
+        android:id="@+id/infoScore2"
+        android:layout_width="272dp"
+        android:layout_height="77dp"
+        android:text="Gratulacje! Ukończyłeś poziom! Twój wynik to:"
+        android:textColor="@android:color/background_dark"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/leftStar3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="120dp"
+        android:layout_height="70dp"
+        android:text="23/50"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintEnd_toStartOf="@+id/leftStar3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/leftStar2"
+        app:layout_constraintTop_toBottomOf="@+id/infoScore2"
+        tools:style="@style/Widget.AppCompat.TextView.SpinnerItem"
+        tools:textColor="@android:color/background_dark" />
+</android.support.constraint.ConstraintLayout>
