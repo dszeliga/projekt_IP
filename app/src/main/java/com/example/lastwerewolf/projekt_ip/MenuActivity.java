@@ -27,6 +27,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private Button memoGameBtn;
+    private Button coloursGameBtn;
     private ImageButton settingsBtn;
     private TextView points;
 
@@ -36,6 +37,7 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         memoGameBtn = findViewById(R.id.MemoGameBtn);
+        coloursGameBtn = findViewById(R.id.ColoursGameBtn);
         settingsBtn = findViewById(R.id.settingsBtn);
         points = findViewById(R.id.txtPoints);
 
@@ -43,6 +45,15 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent goToLevels = new Intent(v.getContext(), LevelsManagerActivity.class);
+                finish();
+                startActivity(goToLevels);
+            }
+        });
+
+        coloursGameBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToLevels = new Intent(v.getContext(), ColorsLevelsManagerActivity.class);
                 finish();
                 startActivity(goToLevels);
             }
