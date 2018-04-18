@@ -31,7 +31,7 @@ public class ResultActivity extends AppCompatActivity {
                 if (gra.equals("memo")) {
                     Intent goToMemoGame = new Intent(v.getContext(), LevelsManagerActivity.class);
                     startActivity(goToMemoGame);
-                } else {
+                } else if(gra.equals("cyfry")) {
 
                     Intent goToCountingLevel1;
                     goToCountingLevel1 = new Intent(v.getContext(), CountingGameActivity.class);

@@ -403,6 +403,7 @@ getResults();
    public void getResults(){
         Intent intent = new Intent(getApplicationContext(),ResultActivity.class);
         intent.putExtra("Odpowiedzi prawidłowe",rightAnswers);
+        intent.putExtra("Gra", "cyfry");
         startActivity(intent);
    }
 }
