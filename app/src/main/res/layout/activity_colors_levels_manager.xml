@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/b_menu_1"
+    android:visibility="visible"
+    tools:context="com.example.lastwerewolf.projekt_ip.LevelsManagerActivity"
+    tools:layout_editor_absoluteY="81dp">
+
+    <TextView
+        android:id="@+id/NameTxt"
+        android:layout_width="247dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:fontFamily="casual"
+        android:text="Dopasuj"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/firstLevel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/firstLevel"
+        android:layout_width="200dp"
+        android:layout_height="52dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="casual"
+        android:text="Poziom 1"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/secondLevel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NameTxt" />
+
+    <Button
+        android:id="@+id/secondLevel"
+        android:layout_width="200dp"
+        android:layout_height="52dp"
+        android:background="@drawable/pomaranczowa"
+        android:fontFamily="casual"
+        android:text="Poziom 2"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/thirdLevel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firstLevel" />
+
+    <Button
+        android:id="@+id/thirdLevel"
+        android:layout_width="200dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="63dp"
+        android:background="@drawable/czerwona"
+        android:fontFamily="casual"
+        android:text="Poziom 3"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/secondLevel" />
+
+
+</android.support.constraint.ConstraintLayout>
