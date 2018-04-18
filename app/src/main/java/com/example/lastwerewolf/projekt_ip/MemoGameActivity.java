@@ -42,6 +42,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     private int choosenSecondButton = 0;
     private int foundNumber = 0;
     private int value = -1;
+    private int score = 0;
 
     private int[] imagesInPlaces = null;
     private int[] randomlyImages = null;
@@ -138,6 +139,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         }
 
         CompareImages();
+
     }
 
     private int[] RandomlyImages() {
@@ -289,22 +291,35 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
 
         CompareImages();
 
-        if (foundNumber == 16 && value==3) {
+        if (foundNumber == 16 && value == 3) {
             txt.setText("KONIEC");
             resetButton.setVisibility(View.VISIBLE); // Pojawia się klawisz "Reset"
             choosenSecondImage = 0;
             choosenFirstImage = 0;
-        } else if (foundNumber == 8 && value==2) {
+        } else if (foundNumber == 8 && value == 2) {
             txt.setText("KONIEC");
             resetButton.setVisibility(View.VISIBLE); // Pojawia się klawisz "Reset"
             choosenSecondImage = 0;
             choosenFirstImage = 0;
-        } else if (foundNumber == 4 && value==1) {
+        } else if (foundNumber == 4 && value == 1) {
             txt.setText("KONIEC");
             resetButton.setVisibility(View.VISIBLE); // Pojawia się klawisz "Reset"
             choosenSecondImage = 0;
             choosenFirstImage = 0;
+            score += 5;
+
         }
+
+        if(score==10)
+        {
+            getResults();
+        }
+    }
+    public void getResults(){
+        Intent intent = new Intent(getApplicationContext(),ResultActivity.class);
+        intent.putExtra("Odpowiedzi prawidłowe",score);
+        intent.putExtra("Gra", "memo");
+        startActivity(intent);
     }
 
     public void setImages(int ButtonID) {
