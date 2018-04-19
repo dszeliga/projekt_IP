@@ -45,7 +45,7 @@
         android:id="@+id/secondLevel"
         android:layout_width="200dp"
         android:layout_height="52dp"
-        android:background="@drawable/pomaranczowa"
+        android:background="@android:color/transparent"
         android:fontFamily="casual"
         android:text="Poziom 2"
         android:textColor="@android:color/black"
