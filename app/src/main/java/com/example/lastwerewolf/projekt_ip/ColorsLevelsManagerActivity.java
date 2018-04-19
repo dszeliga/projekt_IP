@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.lastwerewolf.projekt_ip.dopasuj.DopasujLvl1Activity;
+import com.example.lastwerewolf.projekt_ip.dopasuj.MatchingPuzzlesGameActivity;
 
 public class ColorsLevelsManagerActivity extends AppCompatActivity {
 
@@ -28,30 +29,30 @@ public class ColorsLevelsManagerActivity extends AppCompatActivity {
         firstLevel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goToMemoGame = new Intent(v.getContext(), DopasujLvl1Activity.class);
+                Intent goToDopasujGame = new Intent(v.getContext(), DopasujLvl1Activity.class);
                 Bundle b = new Bundle();
                 b.putInt("key", 1); //Your id
-                goToMemoGame.putExtras(b);
-                startActivity(goToMemoGame);
+                goToDopasujGame.putExtras(b);
+                startActivity(goToDopasujGame);
                 finish();
             }
         });
 
-//        secondLevel.setEnabled(true);
-//
-//        secondLevel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent goToMemoGame = new Intent(v.getContext(), MemoGameActivity.class);
-//                Bundle b = new Bundle();
-//                b.putInt("key", 2); //Your id
-//                goToMemoGame.putExtras(b);
-//                startActivity(goToMemoGame);
-//                finish();
-//            }
-//        });
-//
-//
+        secondLevel.setEnabled(true);
+
+        secondLevel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToPuzzlesGame = new Intent(v.getContext(), MatchingPuzzlesGameActivity.class);
+                Bundle b = new Bundle();
+                b.putInt("key", 2); //Your id
+                goToPuzzlesGame.putExtras(b);
+                startActivity(goToPuzzlesGame);
+                finish();
+            }
+        });
+
+
 //        thirdLevel.setEnabled(true);
 //
 //        thirdLevel.setOnClickListener(new View.OnClickListener() {
