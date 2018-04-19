@@ -25,10 +25,12 @@ public class MenuActivity extends AppCompatActivity {
     public MemoGameActivity GenerateMemoGame() {
         return null;
     }
-
+    public Button countingGameBtn;
     private Button memoGameBtn;
+    private Button coloursGameBtn;
     private ImageButton settingsBtn;
     private TextView points;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         memoGameBtn = findViewById(R.id.MemoGameBtn);
+        coloursGameBtn = findViewById(R.id.ColoursGameBtn);
         settingsBtn = findViewById(R.id.settingsBtn);
         points = findViewById(R.id.txtPoints);
 
@@ -48,12 +51,31 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+        coloursGameBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToLevels = new Intent(v.getContext(), ColorsLevelsManagerActivity.class);
+                finish();
+                startActivity(goToLevels);
+            }
+        });
+
         settingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent goToSettings = new Intent(v.getContext(), SettingsActivity.class);
                 finish();
                 startActivity(goToSettings);
+            }
+        });
+
+        countingGameBtn=findViewById(R.id.CountingGameBtn);
+        countingGameBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToCountingGame = new Intent(v.getContext(), CountingGameActivity.class);
+                finish(); // jeśli chcesz, zlikwidować poprzednie activity, aby nie było go na stosie.
+                startActivity(goToCountingGame);
             }
         });
     }
