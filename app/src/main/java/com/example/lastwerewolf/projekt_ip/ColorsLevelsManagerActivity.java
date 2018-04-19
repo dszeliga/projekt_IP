@@ -34,7 +34,7 @@ public class ColorsLevelsManagerActivity extends AppCompatActivity {
                 b.putInt("key", 1); //Your id
                 goToDopasujGame.putExtras(b);
                 startActivity(goToDopasujGame);
-                finish();
+//                finish();
             }
         });
 
@@ -48,7 +48,7 @@ public class ColorsLevelsManagerActivity extends AppCompatActivity {
                 b.putInt("key", 2); //Your id
                 goToPuzzlesGame.putExtras(b);
                 startActivity(goToPuzzlesGame);
-                finish();
+//                finish();
             }
         });
 
