@@ -5,13 +5,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.logging.Level;
 
 public class ResultActivity extends AppCompatActivity {
-    public Button Yes;
-    public Button No;
+    public Button Yes, No;
+    public ImageButton Replay;
+    private int value = 0;
+    private String gra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +27,16 @@ public class ResultActivity extends AppCompatActivity {
 
         Yes = findViewById(R.id.tak);
         No = findViewById(R.id.nie);
+        Replay = findViewById(R.id.refrash);
+        gra = getIntent().getStringExtra("Gra");
         Yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String gra = getIntent().getStringExtra("Gra");
+
                 if (gra.equals("memo")) {
                     Intent goToMemoGame = new Intent(v.getContext(), LevelsManagerActivity.class);
                     startActivity(goToMemoGame);
-                } else if(gra.equals("cyfry")) {
+                } else if (gra.equals("cyfry")) {
 
                     Intent goToCountingLevel1;
                     goToCountingLevel1 = new Intent(v.getContext(), CountingGameActivity.class);
@@ -47,6 +52,27 @@ public class ResultActivity extends AppCompatActivity {
             }
         });
 
+        Replay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(gra.equals("memo"))
+                {
+                    Bundle b = getIntent().getExtras();
+                    if (b != null)
+                        value = b.getInt("level");
+
+                    Intent goToMemoGame = new Intent(v.getContext(), MemoGameActivity.class);
+                    Bundle b1 = new Bundle();
+                    b1.putInt("key", value); //Your id
+                    goToMemoGame.putExtras(b1);
+                    startActivity(goToMemoGame);
+                    finish();
+                }
+            }
+        });
+
     }
+
+
 }
 

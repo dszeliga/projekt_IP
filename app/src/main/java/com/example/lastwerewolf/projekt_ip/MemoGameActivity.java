@@ -370,6 +370,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
         intent.putExtra("Odpowiedzi prawidłowe", score);
         intent.putExtra("Gra", "memo");
+        intent.putExtra("level", value);
         startActivity(intent);
     }
 
