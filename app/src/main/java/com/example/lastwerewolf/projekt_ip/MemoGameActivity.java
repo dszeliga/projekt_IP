@@ -2,6 +2,7 @@ package com.example.lastwerewolf.projekt_ip;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -11,6 +12,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.Random;
+
+import static java.lang.Math.round;
 
 public class MemoGameActivity extends GameActivity implements View.OnClickListener {
     private Random rnd = new Random();
@@ -42,6 +45,10 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     private int choosenSecondButton = 0;
     private int foundNumber = 0;
     private int value = -1;
+    private int score = 0;
+    private int timeOnLevel = 0;
+    private int timeToRevert = 0;
+    private CountDownTimer gameTime;
 
     private int[] imagesInPlaces = null;
     private int[] randomlyImages = null;
@@ -65,10 +72,16 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
 
         if (value == 1) {
             setContentView(R.layout.activity_memo_game);
+            timeOnLevel = 10000;
+            timeToRevert = 4000;
         } else if (value == 2) {
             setContentView(R.layout.activity_memo_game_lvl2);
+            timeOnLevel = 35000;
+            timeToRevert = 7000;
         } else {
             setContentView(R.layout.activity_memo_game_lvl3);
+            timeOnLevel = 70000;
+            timeToRevert = 10000;
         }
 
         txt = findViewById(R.id.infoTxt);
@@ -111,6 +124,8 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
 
     public void StartMemoryGame() {
         foundNumber = 0;
+        MediaPlayer findPairs = MediaPlayer.create(MemoGameActivity.this, R.raw.znajdz);
+        findPairs.start();
         resetButton.setVisibility(View.INVISIBLE);
         randomlyImages = RandomlyImages(); // Losowanie obrazów do wyswietlenia
         randomlyPlaces = RandomlyPlaces();
@@ -136,8 +151,9 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         for (int i = 0; i < allImageButtons.length; i++) {
             allImageButtons[i].setEnabled(true);
         }
-
+        SetTimeGame();
         CompareImages();
+
     }
 
     private int[] RandomlyImages() {
@@ -180,16 +196,42 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         return tab;
     }
 
+
+    public void SetTimeGame() {
+
+            gameTime = new CountDownTimer(timeOnLevel, 1000) {
+
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    txt.setText("" + round(millisUntilFinished / 1000));
+                }
+
+                @Override
+                public void onFinish() {
+                    txt.setText("Czas minał!");
+                    MediaPlayer timeUp = MediaPlayer.create(MemoGameActivity.this, R.raw.czasminal);
+                    timeUp.start();
+                    resetButton.setVisibility(View.VISIBLE);
+                    score += 0;
+                }
+            }.start();
+
+    }
+
     public void RevertImages() {
 
-        new CountDownTimer(5000, 1000) {
+        new CountDownTimer(timeToRevert, 1000) {
             public void onTick(long millisUntilFinished) {
+                for (int i = 0; i < allImageButtons.length; i++) {
+                    allImageButtons[i].setEnabled(false);
+                }
             }
 
             public void onFinish() {
 
                 for (int i = 0; i < allImageButtons.length; i++) {
                     allImageButtons[i].setImageResource(R.drawable.tyl_kart);
+                    allImageButtons[i].setEnabled(true);
                 }
             }
         }.start();
@@ -289,22 +331,47 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
 
         CompareImages();
 
-        if (foundNumber == 16 && value==3) {
-            txt.setText("KONIEC");
+        if (foundNumber == 16 && value == 3) {
+            MediaPlayer ring = MediaPlayer.create(MemoGameActivity.this, R.raw.bravo);
+            ring.start();
+            txt.setText("BRAWO!!!");
             resetButton.setVisibility(View.VISIBLE); // Pojawia się klawisz "Reset"
             choosenSecondImage = 0;
             choosenFirstImage = 0;
-        } else if (foundNumber == 8 && value==2) {
-            txt.setText("KONIEC");
+            gameTime.cancel();
+            score += 5;
+        } else if (foundNumber == 8 && value == 2) {
+            MediaPlayer ring = MediaPlayer.create(MemoGameActivity.this, R.raw.bravo);
+            ring.start();
+            txt.setText("BRAWO!!!");
             resetButton.setVisibility(View.VISIBLE); // Pojawia się klawisz "Reset"
             choosenSecondImage = 0;
             choosenFirstImage = 0;
-        } else if (foundNumber == 4 && value==1) {
-            txt.setText("KONIEC");
+            gameTime.cancel();
+            score += 5;
+        } else if (foundNumber == 4 && value == 1) {
+            MediaPlayer ring = MediaPlayer.create(MemoGameActivity.this, R.raw.bravo);
+            ring.start();
+            txt.setText("BRAWO!!!");
             resetButton.setVisibility(View.VISIBLE); // Pojawia się klawisz "Reset"
             choosenSecondImage = 0;
             choosenFirstImage = 0;
+            gameTime.cancel();
+            score += 5;
+
         }
+
+        if (score == 10) {
+            getResults();
+        }
+    }
+
+    public void getResults() {
+        Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+        intent.putExtra("Odpowiedzi prawidłowe", score);
+        intent.putExtra("Gra", "memo");
+        intent.putExtra("level", value);
+        startActivity(intent);
     }
 
     public void setImages(int ButtonID) {
