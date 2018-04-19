@@ -36,8 +36,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="answer"
-
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:text=""
         app:layout_constraintBottom_toTopOf="@+id/b_continue"
         app:layout_constraintEnd_toEndOf="parent"
