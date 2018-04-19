@@ -153,8 +153,11 @@ public class MatchingPuzzlesGameActivity extends AppCompatActivity {
 
         exitMessage.setPositiveButton("Zakończ grę", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                startActivity(new Intent(MatchingPuzzlesGameActivity.this, MenuActivity.class));
-
+                Intent data = new Intent();
+//                data.putExtra("", "")
+//                setResult(RESULT_OK, data);
+                setResult(RESULT_OK);
+                finish();
             }
         });
         exitMessage.setNegativeButton("Pozostań w grze", new DialogInterface.OnClickListener() {
