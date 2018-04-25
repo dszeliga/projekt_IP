@@ -7,23 +7,43 @@
     android:background="@drawable/b_game1"
     tools:context=".Level3CountingActivity">
 
-    <ImageView
-        android:id="@+id/tv_question3"
-        android:layout_width="396dp"
-        android:layout_height="387dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        app:layout_constraintBottom_toTopOf="@+id/b_continue"
+    <Button
+        android:id="@+id/btn_speaker3"
+        android:layout_width="103dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/speaker_button"
+        android:onClick="onSpeakerClick"
+
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/tv_question3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/tv_question3"
+        android:layout_width="396dp"
+        android:layout_height="318dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:layout_constraintBottom_toTopOf="@+id/et_answer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_speaker3" />
+
     <Button
         android:id="@+id/b_continue"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/holo_blue_light"
+        android:fontFamily="casual"
         android:text="DALEJ"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -42,35 +62,5 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_question3" />
-
-    <TextView
-        android:id="@+id/textView"
-        style="@style/Widget.AppCompat.TextView.SpinnerItem"
-        android:layout_width="368dp"
-        android:layout_height="79dp"
-        android:layoutDirection="rtl"
-        android:orientation="horizontal"
-        android:text="Jakie cyfry kryją się pod pytajnikami?"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textDirection="locale"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tv_question3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="103dp"
-        android:layout_height="78dp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_question3"
-        app:layout_constraintEnd_toStartOf="@+id/tv_question3"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toEndOf="@+id/tv_question3"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/sound" />
 
 </android.support.constraint.ConstraintLayout>

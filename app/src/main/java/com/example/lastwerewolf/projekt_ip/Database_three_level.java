@@ -11,8 +11,11 @@ public class Database_three_level {
             R.drawable.r6,
             R.drawable.r7,
             R.drawable.r8,
-
-
+            R.drawable.r9,
+            R.drawable.r10,
+            R.drawable.r11,
+            R.drawable.r12,
+            R.drawable.r13,
 
     };
 
@@ -24,6 +27,11 @@ public class Database_three_level {
             "6",
             "5",
             "7",
+           "3",
+           "0",
+           "6",
+           "3",
+           "7",
 
 
     };

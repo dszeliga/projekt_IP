@@ -28,7 +28,7 @@ List<StateModel>list;
 
 Random r;
     int turn = 1;
-    int rightAnswers = 0;
+    int score = 0;
     private Typeface t;
 
     @Override
@@ -37,7 +37,6 @@ Random r;
         setContentView(R.layout.activity_level_first_counting_game);
         iv_zbiory = (ImageView) findViewById(R.id.iv_zbiory);
         r= new Random();
-
 
 
 b_answer1= ( Button) findViewById(R.id.b_answer1);
@@ -52,9 +51,11 @@ for( int i =0; i<new Database().answers.length;i++){
     list.add(new StateModel(new Database().answers[i], new Database().zbiory[i]));
 
 }
+
         Collections.shuffle(list);
 
 newQuestion(turn);
+
 b_answer1.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
@@ -63,7 +64,7 @@ b_answer1.setOnClickListener(new View.OnClickListener() {
         TextView tv;
         Typeface t;
         if (b_answer1.getText().toString().equalsIgnoreCase(list.get(turn - 1).getName())) {
-rightAnswers = rightAnswers +1;
+score = score +1;
             //Toast.makeText(LevelFirstCountingGameActivity.this, "Correct", Toast.LENGTH_LONG).show();
             toast = new Toast(getApplicationContext());
             toast.setGravity(Gravity.CENTER, 0, 0);
@@ -87,7 +88,7 @@ rightAnswers = rightAnswers +1;
                 turn++;
                 newQuestion(turn);
             } else {
-                Toast.makeText(LevelFirstCountingGameActivity.this, "You finished the quiz", Toast.LENGTH_LONG).show();
+               // Toast.makeText(LevelFirstCountingGameActivity.this, "You finished the quiz", Toast.LENGTH_LONG).show();
 getResults();
             }
         } else {
@@ -108,6 +109,7 @@ getResults();
             toast.show();
             MediaPlayer ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.error);
             ring.start();
+
             if (turn < list.size()) {
 
                 turn++;
@@ -115,6 +117,9 @@ getResults();
 
             } else {
                 Toast.makeText(LevelFirstCountingGameActivity.this, " YOu finished the quiz", Toast.LENGTH_LONG).show();
+                getResults();
+            }
+            if (6 == turn) {
                 getResults();
             }
         }
@@ -128,7 +133,7 @@ getResults();
                 Toast toast;
                 if (b_answer2.getText().toString().equalsIgnoreCase(list.get(turn - 1).getName())) {
                     // Toast.makeText(LevelFirstCountingGameActivity.this, "Correct", Toast.LENGTH_LONG).show();
-                    rightAnswers = rightAnswers +1;
+                    score = score +1;
                     toast = new Toast(getApplicationContext());
                     toast.setGravity(Gravity.CENTER, 0, 0);
 
@@ -171,13 +176,18 @@ getResults();
                     toast.show();
                     MediaPlayer ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.error);
                     ring.start();
+
                     if (turn < list.size()) {
 
                         turn++;
                         newQuestion(turn);
 
                     } else {
-                        Toast.makeText(LevelFirstCountingGameActivity.this, " YOu finished the quiz", Toast.LENGTH_LONG).show();
+                       // Toast.makeText(LevelFirstCountingGameActivity.this, " YOu finished the quiz", Toast.LENGTH_LONG).show();
+                        getResults();
+                    }
+
+                    if (6 == turn) {
                         getResults();
                     }
                 }
@@ -191,7 +201,7 @@ getResults();
                 Toast toast;
                 if (b_answer3.getText().toString().equalsIgnoreCase(list.get(turn - 1).getName())) {
                     //Toast.makeText(LevelFirstCountingGameActivity.this, "Correct", Toast.LENGTH_LONG).show();
-                    rightAnswers = rightAnswers +1;
+                    score = score +1;
                     toast = new Toast(getApplicationContext());
                     toast.setGravity(Gravity.CENTER, 0, 0);
 
@@ -236,13 +246,17 @@ getResults();
                     ring.start();
                     ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.error);
                     ring.start();
+
                     if (turn < list.size()) {
 
                         turn++;
                         newQuestion(turn);
 
                     } else {
-                        Toast.makeText(LevelFirstCountingGameActivity.this, " YOu finished the quiz", Toast.LENGTH_LONG).show();
+                       // Toast.makeText(LevelFirstCountingGameActivity.this, " YOu finished the quiz", Toast.LENGTH_LONG).show();
+                        getResults();
+                    }
+                    if (6 == turn) {
                         getResults();
                     }
                 }
@@ -256,7 +270,7 @@ getResults();
                 Toast toast;
                 if (b_answer4.getText().toString().equalsIgnoreCase(list.get(turn - 1).getName())) {
                     // Toast.makeText(LevelFirstCountingGameActivity.this, "Correct", Toast.LENGTH_LONG).show();
-                    rightAnswers = rightAnswers +1;
+                   score = score +1;
                     toast = new Toast(getApplicationContext());
                     toast.setGravity(Gravity.CENTER, 0, 0);
 
@@ -278,7 +292,7 @@ getResults();
                         turn++;
                         newQuestion(turn);
                     } else {
-                        Toast.makeText(LevelFirstCountingGameActivity.this, "You finished the quiz", Toast.LENGTH_LONG).show();
+
                         getResults();
                     }
                 } else {
@@ -301,16 +315,20 @@ getResults();
                     ring.start();
                     ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.error);
                     ring.start();
+
                     if (turn < list.size()) {
 
                         turn++;
                         newQuestion(turn);
 
                     } else {
-                        Toast.makeText(LevelFirstCountingGameActivity.this, " YOu finished the quiz", Toast.LENGTH_LONG).show();
+
 
                         getResults();
                     }
+                }
+                if (6 == turn) {
+                    getResults();
                 }
 
             }
@@ -318,10 +336,10 @@ getResults();
 
     }
    private void newQuestion(int number){
-        iv_zbiory.setImageResource(list.get(number - 1).getImage());
+        iv_zbiory.setImageResource(list.get(number-1).getImage());
 
         int correct_answer = r.nextInt(4) + 1;
-        int firstButton = number - 1;
+        int firstButton=number -1;
         int secondButton;
         int thirdButton;
         int fourthButton;
@@ -359,7 +377,8 @@ getResults();
                 }while (fourthButton == firstButton || fourthButton == secondButton || fourthButton == thirdButton);
 
                 b_answer1.setText(list.get(secondButton).getName());
-                b_answer3.setText(list.get(secondButton).getName());
+                b_answer3.setText(list.get(thirdButton).getName());
+
                 b_answer4.setText(list.get(fourthButton).getName());
 
                 break;
@@ -399,10 +418,13 @@ getResults();
                 break;
         }
 
+       if (6== turn) {
+           getResults();
+       }
    }
    public void getResults(){
         Intent intent = new Intent(getApplicationContext(),ResultActivity.class);
-        intent.putExtra("Odpowiedzi prawidłowe",rightAnswers);
+        intent.putExtra("Odpowiedzi prawidłowe",score);
         intent.putExtra("Gra", "cyfry");
         startActivity(intent);
    }

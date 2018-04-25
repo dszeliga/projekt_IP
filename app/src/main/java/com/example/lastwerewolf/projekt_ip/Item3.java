@@ -11,9 +11,9 @@ public class Item3 {
 
     }
 
-    public String getName() {
-        return answer3;
-    }
+   // public String getName() {
+     //   return answer3;
+    //}
     public int getImage() { return questions3;}
 
     public String getAnswer3() {

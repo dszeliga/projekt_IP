@@ -1,5 +1,6 @@
 package com.example.lastwerewolf.projekt_ip;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,11 +18,12 @@ public class LevelThirdCountingGameActivity extends AppCompatActivity {
 
     Database_two_level mQuestion1;
     int questionsLength;
-
+    int score = 0;
     ArrayList<Item> questionslist;
     int currentQuestion = 0;
     boolean winner = false;
-
+    int turn = 1;
+    int wrong=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +46,7 @@ public class LevelThirdCountingGameActivity extends AppCompatActivity {
             questionslist.add(new Item(new Database_two_level().mAnswer1[i], new Database_two_level().mQuestion1[i]));
         }
         Collections.shuffle(questionslist);
-
+        tv_question.setImageResource(questionslist.get(currentQuestion).getQuestions1());
         setQuestion1(currentQuestion);
 
         b_true.setOnClickListener(new View.OnClickListener() {
@@ -52,50 +54,64 @@ public class LevelThirdCountingGameActivity extends AppCompatActivity {
             public void onClick(View v) {
 if(checkQuestion1(currentQuestion)){
     currentQuestion++;
+    tv_question.setImageResource(questionslist.get(currentQuestion).getQuestions1());
+
     if(currentQuestion<questionsLength){
       setQuestion1(currentQuestion);
         MediaPlayer ring = MediaPlayer.create(LevelThirdCountingGameActivity.this, R.raw.bravo);
         ring.start();
-    }else {
-    winner=true;
-    endGame();
+
+        score= score +1;
+
 
     }
 }else{
-    endGame();
+    //winner=false;
+   currentQuestion++;
+    tv_question.setImageResource(questionslist.get(currentQuestion).getQuestions1());
+    // endGame();
     MediaPlayer ring = MediaPlayer.create(LevelThirdCountingGameActivity.this, R.raw.error);
     ring.start();
-}
+
+
+}if (currentQuestion==5){
+                    getResults();
+                }
             }
         });
 
         b_false.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!checkQuestion1(currentQuestion)){
+                if((!checkQuestion1(currentQuestion))){
                     currentQuestion++;
+                    tv_question.setImageResource(questionslist.get(currentQuestion).getQuestions1());
                     if(currentQuestion<questionsLength){
                         setQuestion1(currentQuestion)
                         ;MediaPlayer ring = MediaPlayer.create(LevelThirdCountingGameActivity.this, R.raw.bravo);
                         ring.start();
-                    }else {
+                        score= score +1;
 
-                        winner=true;
-                        endGame();
 
                     }
                 }else{
-                    endGame();
+                    currentQuestion++;
+                   tv_question.setImageResource(questionslist.get(currentQuestion).getQuestions1());
+                   // winner=false;
                     MediaPlayer ring = MediaPlayer.create(LevelThirdCountingGameActivity.this, R.raw.error);
                     ring.start();
                 }
+                if (currentQuestion==5){
+                    getResults();
+                }
             }
         });
+
     }
 
     // show questions on the screen
     private void setQuestion1(int number) {
-        tv_question.setImageResource(questionslist.get(number).getImage());
+        tv_question.setImageResource(questionslist.get(number).getQuestions1());
 
     }
 
@@ -103,13 +119,24 @@ if(checkQuestion1(currentQuestion)){
       String answers1= questionslist.get(number).getName();
       return answers1.equals("true");
     }
-private void endGame(){
+
+
+/*private void endGame(){
         if(winner){
             Toast.makeText(this, "you win", Toast.LENGTH_SHORT).show();
-            finish();
+           // finish();
+            getResults();
         } else {
             Toast.makeText(this,"you lost", Toast.LENGTH_SHORT).show();
-           finish();
+           //finish();
+           getResults();
         }
-}
+}*/
+    public void getResults(){
+        Intent intent = new Intent(getApplicationContext(),ResultActivity.class);
+        intent.putExtra("Odpowiedzi prawidłowe",score);
+        intent.putExtra("Gra", "cyfry2");
+        startActivity(intent);
+    }
+
 }

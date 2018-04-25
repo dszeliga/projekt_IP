@@ -1,6 +1,7 @@
 package com.example.lastwerewolf.projekt_ip;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.media.Image;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
@@ -32,7 +33,7 @@ public class LevelSecondCountingGameActivity extends AppCompatActivity {
 public ImageView imgViewQuestion;
 int[] image_list= new int[]{
 };
-
+int rightAnswers = 0;
 
 public char[] answer;
 String correct_answer;
@@ -70,10 +71,10 @@ String correct_answer;
                     //reset
                     Common.count=0;
                     Common.user_submit_answer = new char[correct_answer.length()];
-
+                    rightAnswers = rightAnswers +1;
                     //setAdapter
 
-                    GridViewAnswerAdapter answerAdapter = new GridViewAnswerAdapter(setupNullList(),getApplicationContext());
+                  //  GridViewAnswerAdapter answerAdapter = new GridViewAnswerAdapter(setupNullList(),getApplicationContext());
                     gridViewAnswer.setAdapter(answerAdapter);
                     answerAdapter.notifyDataSetChanged();
 
@@ -82,10 +83,11 @@ String correct_answer;
                     suggestAdapter.notifyDataSetChanged();
 
                     setupList();
-
+                    getResults();
                 }
                 else {
                     Toast.makeText(LevelSecondCountingGameActivity.this,"Incorret!!",Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
@@ -118,7 +120,7 @@ String correct_answer;
 
         //set for gridview
 
-        answerAdapter = new GridViewAnswerAdapter(setupNullList(),this);
+      //  answerAdapter = new GridViewAnswerAdapter(setupNullList(),this);
         suggestAdapter= new GridViewSuggestAdapter(suggestSource,this,this);
 
         answerAdapter.notifyDataSetChanged();;
@@ -138,6 +140,12 @@ String correct_answer;
         for(int i=0;i<answer.length;i++)
             result[i]=' ';
 
-        return result;
+      return result;
+    }
+    public void getResults(){
+        Intent intent = new Intent(getApplicationContext(),ResultActivity.class);
+        intent.putExtra("Odpowiedzi prawidłowe",rightAnswers);
+        intent.putExtra("Gra", "cyfry2");
+        startActivity(intent);
     }
 }

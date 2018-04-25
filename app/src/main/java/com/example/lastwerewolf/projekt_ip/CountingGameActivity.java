@@ -62,5 +62,12 @@ public Button Level2;
             }
         });
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
 }

@@ -1,5 +1,7 @@
 package com.example.lastwerewolf.projekt_ip;
 
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -21,10 +23,11 @@ public class Level3CountingActivity extends AppCompatActivity {
 Button b_countinue;
 ImageView tv_question3;
 EditText et_answer;
-
+    int score = 0;
 List<Item3> questions3list;
 int curQuestion3= 0;
-
+int wrong = 0;
+int turn=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +37,7 @@ int curQuestion3= 0;
         tv_question3= (ImageView) findViewById(R.id.tv_question3);
         et_answer= (EditText) findViewById(R.id.et_answer);
 
-        b_countinue.setVisibility(View.INVISIBLE);
+        b_countinue.setVisibility(View.VISIBLE);
 
        questions3list= new ArrayList<>();
 
@@ -46,7 +49,7 @@ int curQuestion3= 0;
         tv_question3.setImageResource(questions3list.get(curQuestion3).getQuestions3());
 
 
-       //tv_question3.setImageResource(Integer.parseInt(String.valueOf(questions3list.get(curQuestion3))));
+     //  tv_question3.setImageResource(Integer.parseInt(String.valueOf(questions3list.get(curQuestion3))));
 et_answer.addTextChangedListener(new TextWatcher() {
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -58,32 +61,54 @@ et_answer.addTextChangedListener(new TextWatcher() {
 if(et_answer.getText().toString().equalsIgnoreCase(questions3list.get(curQuestion3).getAnswer3())){
 b_countinue.setVisibility(View.VISIBLE);
 
-}else{
-    b_countinue.setVisibility(View.INVISIBLE);
-
+    score = score+1;
 }
+       // b_answer1.getText().toString().equalsIgnoreCase(list.get(turn - 1).getName()))
     }
 
     @Override
     public void afterTextChanged(Editable s) {
 
     }
+
 });
 b_countinue.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
        if(curQuestion3<(Database_three_level.questions3.length-1)){
            curQuestion3++;
+
            tv_question3.setImageResource(questions3list.get(curQuestion3).getQuestions3());
-           b_countinue.setVisibility(View.INVISIBLE);
+           b_countinue.setVisibility(View.VISIBLE);
            et_answer.setText("");
-       } else {
-           Toast.makeText(Level3CountingActivity.this,"Wygrałeś",Toast.LENGTH_SHORT).show();
-           finish();
+
        }
+       if (turn < questions3list.size()) {
+
+            turn++;
+
+
+        } if(turn==5) {
+            MediaPlayer ring = MediaPlayer.create(Level3CountingActivity.this, R.raw.bravo);
+            ring.start();
+
+              getResults();
+            et_answer.setVisibility(View.INVISIBLE);
+            b_countinue.setVisibility(View.INVISIBLE);
+
+        }
+    }
+
+});
 
     }
-});
+
+    public void getResults(){
+        Intent intent = new Intent(getApplicationContext(),ResultActivity.class);
+        intent.putExtra("Odpowiedzi prawidłowe",score);
+
+        intent.putExtra("Gra", "cyfry3");
+        startActivity(intent);
     }
 
 }
