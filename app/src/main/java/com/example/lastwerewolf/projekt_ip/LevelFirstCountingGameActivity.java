@@ -369,21 +369,36 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
         for (int i = 0; i < answers.length; i++) {
             answers[i] = i + 1;
         }
-        indexImage = rnd.nextInt(16) + 1;
+        indexImage = rnd.nextInt(24) + 1;
         int randomImage = zbiory[indexImage - 1];
 
         iv_zbiory.setImageResource(randomImage);
         randomAnswers = new int[4];
 
+        int indexImage2 = 0;
         Random randomPlaces = new Random();
         int a = randomPlaces.nextInt(4);
-        randomAnswers[a] = indexImage;
+        if(indexImage >= 16)
+        {
+            if(randomImage == 16)
+            {indexImage2 = 16;}
+            else
+            {indexImage2 = indexImage%16;}
+        }
+     randomAnswers[a] = indexImage;
 
         for (int i = 0; i < randomAnswers.length; i++) {
 
             if (randomAnswers[i] == 0) {
                 boolean isTheSameAnswer = false;
-                int answer = rnd.nextInt(16) + 1;
+                int answer = rnd.nextInt(24) + 1;
+               if(answer >= 16)
+                {
+                    if(answer == 16)
+                    {answer = 16;}
+                    else
+                    {answer = answer%16;}
+                }
 
                 for (int j = 0; j < randomAnswers.length; j++) {
                     if (randomAnswers[j] == answer) {
