@@ -31,9 +31,11 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
     Random r;
     int turn = 1;
     int score = 0;
+    int indexImage = 0;
     private Typeface t;
-    // private int zbiory;
+    private int[] zbiory;
     private int[] answers = null;
+    private int[] randomAnswers = null;
 
     private int[] imagesInPlaces = null;
     private int[] randomlyImages = null;
@@ -41,11 +43,11 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
     private Button[] allImageButtons = null;
 
 
-
     private ColorStateList textColorDefaultRb;
     private int questionCounter;
     private int questionCountTotal;
     private StateModel currentQuestion;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +55,7 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
         iv_zbiory = (ImageView) findViewById(R.id.iv_zbiory);
         r = new Random();
 
-       // zbiory = RandomlyImages();
+        zbiory = new Database().zbiory;
         b_answer1 = (Button) findViewById(R.id.b_answer1);
         b_answer2 = (Button) findViewById(R.id.b_answer2);
         b_answer3 = (Button) findViewById(R.id.b_answer3);
@@ -62,19 +64,15 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
         list = new ArrayList<>();
         textColorDefaultRb = b_answer1.getTextColors();
 
-        //allImageButtons = new Button[]{b_answer1, b_answer2, b_answer3, b_answer4};
+        allImageButtons = new Button[]{b_answer1, b_answer2, b_answer3, b_answer4};
 
-       //imagesInPlaces = new int[allImageButtons.length];
+        //imagesInPlaces = new int[allImageButtons.length];
         for (int i = 0; i < new Database().answers.length; i++) {
 
             list.add(new StateModel(new Database().answers[i], new Database().zbiory[i]));
 
 
-
-
         }
-
-
 
 
         Collections.shuffle(list);
@@ -89,7 +87,7 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
                 TextView tv;
                 Typeface t;
 
-                if (b_answer1.getText().toString().equalsIgnoreCase(list.get(turn - 1).getName())) {
+                if (b_answer1.getText().toString().equalsIgnoreCase(indexImage+"")) {
                     score = score + 1;
                     //Toast.makeText(LevelFirstCountingGameActivity.this, "Correct", Toast.LENGTH_LONG).show();
                     toast = new Toast(getApplicationContext());
@@ -157,7 +155,7 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Toast toast;
-                if (b_answer2.getText().toString().equalsIgnoreCase(list.get(turn - 1).getName())) {
+                if (b_answer2.getText().toString().equalsIgnoreCase(indexImage+ "")) {
                     // Toast.makeText(LevelFirstCountingGameActivity.this, "Correct", Toast.LENGTH_LONG).show();
                     score = score + 1;
                     toast = new Toast(getApplicationContext());
@@ -225,7 +223,7 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Toast toast;
-                if (b_answer3.getText().toString().equalsIgnoreCase(list.get(turn - 1).getName())) {
+                if (b_answer3.getText().toString().equalsIgnoreCase(indexImage + "")) {
                     //Toast.makeText(LevelFirstCountingGameActivity.this, "Correct", Toast.LENGTH_LONG).show();
                     score = score + 1;
                     toast = new Toast(getApplicationContext());
@@ -294,7 +292,7 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast toast;
-                if (b_answer4.getText().toString().equalsIgnoreCase(list.get(turn - 1).getName())) {
+                if (b_answer4.getText().toString().equalsIgnoreCase(indexImage+"")) {
                     // Toast.makeText(LevelFirstCountingGameActivity.this, "Correct", Toast.LENGTH_LONG).show();
                     score = score + 1;
                     toast = new Toast(getApplicationContext());
@@ -364,61 +362,53 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
 
 
     private void newQuestion(int number) {
-     /*  imagesInPlaces = new int[randomlyImages.length];
+        iv_zbiory.setImageResource(list.get(number - 1).getImage());
 
-        //randomlyImages = RandomlyImages(); // Losowanie obrazów do wyswietlenia
-        int z = 0;
-        int count = 0;
-        for (int i = 0; i < imagesInPlaces.length; i++) {
-            if (z == 2) {
-                z = 0;
-                count++;
+        //int correct_answer = r.nextInt(4) + 1;
+        answers = new int[new Database().zbiory.length];
+        for (int i = 0; i < answers.length; i++) {
+            answers[i] = i + 1;
+        }
+        indexImage = rnd.nextInt(16) + 1;
+        int randomImage = zbiory[indexImage - 1];
+
+        iv_zbiory.setImageResource(randomImage);
+        randomAnswers = new int[4];
+
+        Random randomPlaces = new Random();
+        int a = randomPlaces.nextInt(4);
+        randomAnswers[a] = indexImage;
+
+        for (int i = 0; i < randomAnswers.length; i++) {
+
+            if (randomAnswers[i] == 0) {
+                boolean isTheSameAnswer = false;
+                int answer = rnd.nextInt(16) + 1;
+
+                for (int j = 0; j < randomAnswers.length; j++) {
+                    if (randomAnswers[j] == answer) {
+                        isTheSameAnswer = true;
+                        i--;
+                    }
+                }
+                if (!isTheSameAnswer) {
+                    randomAnswers[i] = answer;
+                }
+
             }
-            allImageButtons[i].setEnabled(false);
-            imagesInPlaces[randomlyImages[i]] = randomlyImages[count];
-            z++;
         }
-        /*for (int i = 0; i < allImageButtons.length; i++) {
-            allImageButtons[i].setEnabled(true);
-        }
-*/
-       iv_zbiory.setImageResource(list.get(number - 1).getImage());
+        b_answer1.setText(randomAnswers[0] + "");
+        b_answer2.setText(randomAnswers[1] + "");
+        b_answer3.setText(randomAnswers[2] + "");
+        b_answer4.setText(randomAnswers[3] + "");
 
-        int correct_answer = r.nextInt(4) + 1;
-
-
-
-
-
-
-        // int[] tab =  list.add(new StateModel(new Database().answers[]);
-      /* for (int i = 0; i < number; i++) {
-           int r = rnd.nextInt(zbiory.length);
-
-           boolean isTheSameImage = true;
-           for (int j = 0; j < correct_answer; j++) {
-               if (list[j] != 0)
-                   if (zbiory[r] == number[j])
-                       isTheSameImage = false;
-           }
-           if (isTheSameImage == true)
-               number[i] = zbiory[r];
-           else
-               i--;
-       }
-       return number;*/
-
-
-
-
-
-        int firstButton=number-1;
+        int firstButton = number - 1;
         int secondButton;
         int thirdButton;
         int fourthButton;
 
 
-       switch (correct_answer) {
+        /*switch (correct_answer) {
             case 1:
                 b_answer1.setText(list.get(firstButton).getName());
 
@@ -454,7 +444,6 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
 
                 b_answer1.setText(list.get(secondButton).getName());
                 b_answer3.setText(list.get(thirdButton).getName());
-
                 b_answer4.setText(list.get(fourthButton).getName());
 
                 break;
@@ -495,7 +484,7 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
                 b_answer1.setText(list.get(fourthButton).getName());
                 break;
 
-        }
+        }*/
 
 
         if (6 == turn) {
@@ -503,31 +492,12 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
         }
     }
 
-    /*private int[] RandomlyImages() {
-        int[] tab = new int[allImageButtons.length];
-        for (int i = 0; i < tab.length; i++) {
-            int r = rnd.nextInt(answers.length);
 
-            boolean isTheSameImage = true;
-            for (int j = 0; j < tab.length; j++) {
-                if (tab[j] != 0)
-                    if (answers[r] == tab[j])
-                        isTheSameImage = false;
-            }
-            if (isTheSameImage == true)
-                tab[i] = answers[r];
-            else
-                i--;
-        }
-        return tab;
-    }*/
-
-
-   public void getResults(){
-        Intent intent = new Intent(getApplicationContext(),ResultActivity.class);
-        intent.putExtra("Odpowiedzi prawidłowe",score);
+    public void getResults() {
+        Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+        intent.putExtra("Odpowiedzi prawidłowe", score);
         intent.putExtra("Gra", "cyfry");
         startActivity(intent);
-   }
+    }
 
 }
