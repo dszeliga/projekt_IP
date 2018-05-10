@@ -29,8 +29,6 @@ public class Database {
             R.drawable.zb7_1,
             R.drawable.zb8_1,
             R.drawable.zb9_1,
-
-
     };
 
     String[] answers = {
@@ -59,9 +57,6 @@ public class Database {
             "7",
             "8",
             "9",
-
-
-
     };
 }
 

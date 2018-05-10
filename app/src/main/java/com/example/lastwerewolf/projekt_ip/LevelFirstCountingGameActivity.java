@@ -70,8 +70,6 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
         for (int i = 0; i < new Database().answers.length; i++) {
 
             list.add(new StateModel(new Database().answers[i], new Database().zbiory[i]));
-
-
         }
 
 
@@ -86,66 +84,13 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
                 Toast toast;
                 TextView tv;
                 Typeface t;
-
                 if (b_answer1.getText().toString().equalsIgnoreCase(indexImage+"")) {
-                    score = score + 1;
-                    //Toast.makeText(LevelFirstCountingGameActivity.this, "Correct", Toast.LENGTH_LONG).show();
-                    toast = new Toast(getApplicationContext());
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-
-                    tv = new TextView(LevelFirstCountingGameActivity.this);
-                    tv.setBackgroundColor(Color.GREEN);
-                    tv.setTextColor(Color.WHITE);
-                    tv.setTextSize(36);
-
-                    t = Typeface.create("serif", Typeface.BOLD);
-                    tv.setTypeface(t);
-                    tv.setPadding(40, 40, 40, 40);
-                    tv.setText("Brawo!");
-                    toast.setView(tv);
-                    toast.show();
-
-                    MediaPlayer ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.bravo);
-                    ring.start();
-                    if (turn < list.size()) {
-
-                        turn++;
-                        newQuestion(turn);
-                    } else {
-                        // Toast.makeText(LevelFirstCountingGameActivity.this, "You finished the quiz", Toast.LENGTH_LONG).show();
-                        getResults();
-                    }
+                    bravoInformation();
                 } else {
-                    //Toast.makeText(LevelFirstCountingGameActivity.this, "Incorrect", Toast.LENGTH_LONG).show();
-                    toast = new Toast(getApplicationContext());
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-
-                    tv = new TextView(LevelFirstCountingGameActivity.this);
-                    tv.setBackgroundColor(Color.RED);
-                    tv.setTextColor(Color.WHITE);
-                    tv.setTextSize(36);
-
-                    t = Typeface.create("serif", Typeface.BOLD);
-                    tv.setTypeface(t);
-                    tv.setPadding(40, 40, 40, 40);
-                    tv.setText("Błąd!");
-                    toast.setView(tv);
-                    toast.show();
-                    MediaPlayer ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.error);
-                    ring.start();
-
-                    if (turn < list.size()) {
-
-                        turn++;
-                        newQuestion(turn);
-
-                    } else {
-                        Toast.makeText(LevelFirstCountingGameActivity.this, " YOu finished the quiz", Toast.LENGTH_LONG).show();
-                        getResults();
-                    }
-                    if (6 == turn) {
-                        getResults();
-                    }
+                    mistakeInformation();
+                }
+                if (6 == turn) {
+                    getResults();
                 }
             }
         });
@@ -156,64 +101,12 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
 
                 Toast toast;
                 if (b_answer2.getText().toString().equalsIgnoreCase(indexImage+ "")) {
-                    // Toast.makeText(LevelFirstCountingGameActivity.this, "Correct", Toast.LENGTH_LONG).show();
-                    score = score + 1;
-                    toast = new Toast(getApplicationContext());
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-
-                    TextView tv = new TextView(LevelFirstCountingGameActivity.this);
-                    tv.setBackgroundColor(Color.GREEN);
-                    tv.setTextColor(Color.WHITE);
-                    tv.setTextSize(36);
-
-                    t = Typeface.create("serif", Typeface.BOLD);
-                    tv.setTypeface(t);
-                    tv.setPadding(40, 40, 40, 40);
-                    tv.setText("Brawo!");
-                    toast.setView(tv);
-                    toast.show();
-                    MediaPlayer ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.bravo);
-                    ring.start();
-                    if (turn < list.size()) {
-
-                        turn++;
-                        newQuestion(turn);
-                    } else {
-                        Toast.makeText(LevelFirstCountingGameActivity.this, "You finished the quiz", Toast.LENGTH_LONG).show();
-                        getResults();
-                    }
+                    bravoInformation();
                 } else {
-                    //Toast.makeText(LevelFirstCountingGameActivity.this, "Incorrect", Toast.LENGTH_LONG).show();
-                    toast = new Toast(getApplicationContext());
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-
-                    TextView tv = new TextView(LevelFirstCountingGameActivity.this);
-                    tv.setBackgroundColor(Color.RED);
-                    tv.setTextColor(Color.WHITE);
-                    tv.setTextSize(36);
-
-                    t = Typeface.create("serif", Typeface.BOLD);
-                    tv.setTypeface(t);
-                    tv.setPadding(40, 40, 40, 40);
-                    tv.setText("Błąd!");
-                    toast.setView(tv);
-                    toast.show();
-                    MediaPlayer ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.error);
-                    ring.start();
-
-                    if (turn < list.size()) {
-
-                        turn++;
-                        newQuestion(turn);
-
-                    } else {
-                        // Toast.makeText(LevelFirstCountingGameActivity.this, " YOu finished the quiz", Toast.LENGTH_LONG).show();
-                        getResults();
-                    }
-
-                    if (6 == turn) {
-                        getResults();
-                    }
+                    mistakeInformation();
+                }
+                if (6 == turn) {
+                    getResults();
                 }
             }
         });
@@ -224,67 +117,13 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
 
                 Toast toast;
                 if (b_answer3.getText().toString().equalsIgnoreCase(indexImage + "")) {
-                    //Toast.makeText(LevelFirstCountingGameActivity.this, "Correct", Toast.LENGTH_LONG).show();
-                    score = score + 1;
-                    toast = new Toast(getApplicationContext());
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-
-                    TextView tv = new TextView(LevelFirstCountingGameActivity.this);
-                    tv.setBackgroundColor(Color.GREEN);
-                    tv.setTextColor(Color.WHITE);
-                    tv.setTextSize(36);
-
-                    t = Typeface.create("serif", Typeface.BOLD);
-                    tv.setTypeface(t);
-                    tv.setPadding(40, 40, 40, 40);
-                    tv.setText("Brawo!");
-                    toast.setView(tv);
-                    toast.show();
-                    MediaPlayer ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.bravo);
-                    ring.start();
-                    if (turn < list.size()) {
-
-                        turn++;
-                        newQuestion(turn);
-                    } else {
-                        Toast.makeText(LevelFirstCountingGameActivity.this, "You finished the quiz", Toast.LENGTH_LONG).show();
-                        getResults();
-                    }
+                    bravoInformation();
                 } else {
-                    //Toast.makeText(LevelFirstCountingGameActivity.this, "Incorrect", Toast.LENGTH_LONG).show();
-                    toast = new Toast(getApplicationContext());
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-
-                    TextView tv = new TextView(LevelFirstCountingGameActivity.this);
-                    tv.setBackgroundColor(Color.RED);
-                    tv.setTextColor(Color.WHITE);
-                    tv.setTextSize(36);
-
-                    t = Typeface.create("serif", Typeface.BOLD);
-                    tv.setTypeface(t);
-                    tv.setPadding(40, 40, 40, 40);
-                    tv.setText("Błąd!");
-                    toast.setView(tv);
-                    toast.show();
-                    MediaPlayer ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.error);
-                    ring.start();
-                    ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.error);
-                    ring.start();
-
-                    if (turn < list.size()) {
-
-                        turn++;
-                        newQuestion(turn);
-
-                    } else {
-                        // Toast.makeText(LevelFirstCountingGameActivity.this, " YOu finished the quiz", Toast.LENGTH_LONG).show();
-                        getResults();
-                    }
-                    if (6 == turn) {
-                        getResults();
-                    }
+                    mistakeInformation();
                 }
-
+                if (6 == turn) {
+                    getResults();
+                }
             }
         });
 
@@ -293,78 +132,79 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast toast;
                 if (b_answer4.getText().toString().equalsIgnoreCase(indexImage+"")) {
-                    // Toast.makeText(LevelFirstCountingGameActivity.this, "Correct", Toast.LENGTH_LONG).show();
-                    score = score + 1;
-                    toast = new Toast(getApplicationContext());
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-
-                    TextView tv = new TextView(LevelFirstCountingGameActivity.this);
-                    tv.setBackgroundColor(Color.GREEN);
-                    tv.setTextColor(Color.WHITE);
-                    tv.setTextSize(36);
-
-                    t = Typeface.create("serif", Typeface.BOLD);
-                    tv.setTypeface(t);
-                    tv.setPadding(40, 40, 40, 40);
-                    tv.setText("Brawo!");
-                    toast.setView(tv);
-                    toast.show();
-                    MediaPlayer ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.bravo);
-                    ring.start();
-                    if (turn < list.size()) {
-
-                        turn++;
-                        newQuestion(turn);
-                    } else {
-
-                        getResults();
-                    }
+                    bravoInformation();
                 } else {
-                    //Toast.makeText(LevelFirstCountingGameActivity.this, "Incorrect", Toast.LENGTH_LONG).show();
-                    toast = new Toast(getApplicationContext());
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-
-                    TextView tv = new TextView(LevelFirstCountingGameActivity.this);
-                    tv.setBackgroundColor(Color.RED);
-                    tv.setTextColor(Color.WHITE);
-                    tv.setTextSize(36);
-
-                    t = Typeface.create("serif", Typeface.BOLD);
-                    tv.setTypeface(t);
-                    tv.setPadding(40, 40, 40, 40);
-                    tv.setText("Błąd!");
-                    toast.setView(tv);
-                    toast.show();
-                    MediaPlayer ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.error);
-                    ring.start();
-                    ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.error);
-                    ring.start();
-
-                    if (turn < list.size()) {
-
-                        turn++;
-                        newQuestion(turn);
-
-                    } else {
-
-
-                        getResults();
-                    }
+                    mistakeInformation();
                 }
                 if (6 == turn) {
                     getResults();
                 }
-
             }
         });
 
     }
 
+    private void mistakeInformation(){
+        Toast toast;
+        toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER, 0, 0);
+
+        TextView tv = new TextView(LevelFirstCountingGameActivity.this);
+        tv.setBackgroundColor(Color.RED);
+        tv.setTextColor(Color.WHITE);
+        tv.setTextSize(36);
+
+        t = Typeface.create("serif", Typeface.BOLD);
+        tv.setTypeface(t);
+        tv.setPadding(40, 40, 40, 40);
+        tv.setText("Błąd!");
+        toast.setView(tv);
+        toast.show();
+        MediaPlayer ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.error);
+        ring.start();
+        ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.error);
+        ring.start();
+
+        if (turn < list.size()) {
+            turn++;
+            newQuestion(turn);
+        } else {
+            getResults();
+        }
+    }
+
+    private void bravoInformation(){
+        Toast toast;
+        score = score + 1;
+        toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER, 0, 0);
+
+        TextView tv = new TextView(LevelFirstCountingGameActivity.this);
+        tv.setBackgroundColor(Color.GREEN);
+        tv.setTextColor(Color.WHITE);
+        tv.setTextSize(36);
+
+        t = Typeface.create("serif", Typeface.BOLD);
+        tv.setTypeface(t);
+        tv.setPadding(40, 40, 40, 40);
+        tv.setText("Brawo!");
+        toast.setView(tv);
+        toast.show();
+        MediaPlayer ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.bravo);
+        ring.start();
+        if (turn < list.size()) {
+            turn++;
+            newQuestion(turn);
+        } else {
+            getResults();
+        }
+
+    }
 
     private void newQuestion(int number) {
+
         iv_zbiory.setImageResource(list.get(number - 1).getImage());
 
-        //int correct_answer = r.nextInt(4) + 1;
         answers = new int[new Database().zbiory.length];
         for (int i = 0; i < answers.length; i++) {
             answers[i] = i + 1;
@@ -375,17 +215,12 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
         iv_zbiory.setImageResource(randomImage);
         randomAnswers = new int[4];
 
-        int indexImage2 = 0;
-        Random randomPlaces = new Random();
-        int a = randomPlaces.nextInt(4);
-        if(indexImage >= 16)
+        int a = rnd.nextInt(4);
+        if(indexImage > 16)
         {
-            if(randomImage == 16)
-            {indexImage2 = 16;}
-            else
-            {indexImage2 = indexImage%16;}
+            indexImage = indexImage - 16;
         }
-     randomAnswers[a] = indexImage;
+        randomAnswers[a] = indexImage;
 
         for (int i = 0; i < randomAnswers.length; i++) {
 
@@ -397,7 +232,7 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
                     if(answer == 16)
                     {answer = 16;}
                     else
-                    {answer = answer%16;}
+                    {answer = answer - 16;}
                 }
 
                 for (int j = 0; j < randomAnswers.length; j++) {
@@ -409,7 +244,6 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
                 if (!isTheSameAnswer) {
                     randomAnswers[i] = answer;
                 }
-
             }
         }
         b_answer1.setText(randomAnswers[0] + "");
@@ -417,96 +251,10 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
         b_answer3.setText(randomAnswers[2] + "");
         b_answer4.setText(randomAnswers[3] + "");
 
-        int firstButton = number - 1;
-        int secondButton;
-        int thirdButton;
-        int fourthButton;
-
-
-        /*switch (correct_answer) {
-            case 1:
-                b_answer1.setText(list.get(firstButton).getName());
-
-                do {
-                    secondButton = r.nextInt(list.size());
-                } while (secondButton == firstButton);
-                do {
-                    thirdButton = r.nextInt(list.size());
-                } while (thirdButton == firstButton || thirdButton == secondButton);
-                do {
-                    fourthButton = r.nextInt(list.size());
-                }
-                while (fourthButton == firstButton || fourthButton == secondButton || fourthButton == thirdButton);
-
-                b_answer2.setText(list.get(secondButton).getName());
-                b_answer3.setText(list.get(thirdButton).getName());
-                b_answer4.setText(list.get(fourthButton).getName());
-
-                break;
-            case 2:
-                b_answer2.setText(list.get(firstButton).getName());
-
-                do {
-                    secondButton = r.nextInt(list.size());
-                } while (secondButton == firstButton);
-                do {
-                    thirdButton = r.nextInt(list.size());
-                } while (thirdButton == firstButton || thirdButton == secondButton);
-                do {
-                    fourthButton = r.nextInt(list.size());
-                }
-                while (fourthButton == firstButton || fourthButton == secondButton || fourthButton == thirdButton);
-
-                b_answer1.setText(list.get(secondButton).getName());
-                b_answer3.setText(list.get(thirdButton).getName());
-                b_answer4.setText(list.get(fourthButton).getName());
-
-                break;
-            case 3:
-                b_answer3.setText(list.get(firstButton).getName());
-
-                do {
-                    secondButton = r.nextInt(list.size());
-                } while (secondButton == firstButton);
-                do {
-                    thirdButton = r.nextInt(list.size());
-                } while (thirdButton == firstButton || thirdButton == secondButton);
-                do {
-                    fourthButton = r.nextInt(list.size());
-                }
-                while (fourthButton == firstButton || fourthButton == secondButton || fourthButton == thirdButton);
-
-                b_answer2.setText(list.get(secondButton).getName());
-                b_answer1.setText(list.get(thirdButton).getName());
-                b_answer4.setText(list.get(fourthButton).getName());
-                break;
-            case 4:
-                b_answer4.setText(list.get(firstButton).getName());
-
-                do {
-                    secondButton = r.nextInt(list.size());
-                } while (secondButton == firstButton);
-                do {
-                    thirdButton = r.nextInt(list.size());
-                } while (thirdButton == firstButton || thirdButton == secondButton);
-                do {
-                    fourthButton = r.nextInt(list.size());
-                }
-                while (fourthButton == firstButton || fourthButton == secondButton || fourthButton == thirdButton);
-
-                b_answer2.setText(list.get(secondButton).getName());
-                b_answer3.setText(list.get(thirdButton).getName());
-                b_answer1.setText(list.get(fourthButton).getName());
-                break;
-
-        }*/
-
-
         if (6 == turn) {
             getResults();
         }
     }
-
 
     public void getResults() {
         Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
