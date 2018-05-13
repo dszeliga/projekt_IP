@@ -33,6 +33,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     private int timeOnLevel = 0;
     private int timeToRevert = 0;
     private boolean isRunning = false;
+    private  boolean ageAbove7;
     private CountDownTimer gameTime;
 
     private int[] imagesInPlaces = null;
@@ -52,20 +53,49 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
 
         Bundle b = getIntent().getExtras();
         if (b != null)
+        {
             value = b.getInt("key");
+            ageAbove7 = b.getBoolean("wiek");
+        }
+
 
         if (value == 1) {
             setContentView(R.layout.activity_memo_game);
-            timeOnLevel = 10000;
-            timeToRevert = 4000;
+            if(ageAbove7)
+            {
+                timeOnLevel = 7000;
+                timeToRevert = 4000;
+            }
+            else
+            {
+                timeOnLevel = 10000;
+                timeToRevert = 4000;
+            }
+
         } else if (value == 2) {
             setContentView(R.layout.activity_memo_game_lvl2);
-            timeOnLevel = 35000;
-            timeToRevert = 7000;
+            if(ageAbove7)
+            {
+                timeOnLevel = 25000;
+                timeToRevert = 5000;
+            }
+            else
+            {
+                timeOnLevel = 35000;
+                timeToRevert = 7000;
+            }
         } else {
             setContentView(R.layout.activity_memo_game_lvl3);
-            timeOnLevel = 70000;
-            timeToRevert = 10000;
+            if(ageAbove7)
+            {
+                timeOnLevel = 50000;
+                timeToRevert = 8000;
+            }
+            else
+            {
+                timeOnLevel = 70000;
+                timeToRevert = 10000;
+            }
         }
 
         txt = findViewById(R.id.infoTxt);
@@ -104,6 +134,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         }
         StartMemoryGame();
     }
+
 
     public void StartMemoryGame() {
         foundNumber = 0;
@@ -371,6 +402,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         intent.putExtra("Odpowiedzi prawidłowe", score);
         intent.putExtra("Gra", "memo");
         intent.putExtra("level", value);
+        intent.putExtra("wiek", ageAbove7);
         startActivity(intent);
     }
 

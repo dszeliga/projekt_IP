@@ -41,7 +41,7 @@ public class MenuActivity extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
 
         if(b!=null)
-           above7= b.getBoolean("age");
+           above7= b.getBoolean("wiek");
 
         if (isFirstRun) {
             AlertDialog.Builder chooseAge = new AlertDialog.Builder(this);
@@ -52,24 +52,26 @@ public class MenuActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int id) {
                     ageAbove7=true;
                     getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).edit().putBoolean("wiek", ageAbove7).commit();
-                    dialog.cancel();
+
                     if (ageAbove7) {
                         countingGameBtn.setVisibility(View.INVISIBLE);
                     } else {
                         countingGameBtn.setVisibility(View.VISIBLE);
                     }
+                    dialog.cancel();
                 }
             });
             chooseAge.setNegativeButton("Poniżej 7 lat", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     ageAbove7=false;
                     getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).edit().putBoolean("wiek", ageAbove7).commit();
-                    dialog.cancel();
+
                     if (ageAbove7) {
                         countingGameBtn.setVisibility(View.INVISIBLE);
                     } else {
                         countingGameBtn.setVisibility(View.VISIBLE);
                     }
+                    dialog.cancel();
                 }
             });
 
@@ -79,13 +81,14 @@ public class MenuActivity extends AppCompatActivity {
         }
 
 
-        getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
+        above7=getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
 
 
         memoGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent goToLevels = new Intent(v.getContext(), LevelsManagerActivity.class);
+                goToLevels.putExtra("wiek",above7);
                 finish();
                 startActivity(goToLevels);
             }

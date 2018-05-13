@@ -19,7 +19,6 @@ public class SettingsActivity extends AppCompatActivity {
     private RadioButton aboveSeven;
     private RadioGroup radioGroup;
     private boolean chooseAgeAbove7;
-    private boolean choosenAge;
 
 
     @Override
@@ -32,9 +31,7 @@ public class SettingsActivity extends AppCompatActivity {
         underSeven = findViewById(R.id.underFive);
         radioGroup = findViewById(R.id.radioGroup);
 
-        Bundle b = getIntent().getExtras();
-        if (b != null)
-            chooseAgeAbove7 = b.getBoolean("wiek");
+       chooseAgeAbove7 = getIntent().getBooleanExtra("wiek", true);
 
         if (chooseAgeAbove7) {
             aboveSeven.setChecked(true);
@@ -95,7 +92,7 @@ public class SettingsActivity extends AppCompatActivity {
         boolean age = getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
 
         Intent goToMenu = new Intent(getApplicationContext(), MenuActivity.class);
-        goToMenu.putExtra("age", age);
+        goToMenu.putExtra("wiek", age);
         startActivity(goToMenu);
         finish();
     }

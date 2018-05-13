@@ -12,6 +12,7 @@ public class LevelsManagerActivity extends AppCompatActivity {
     public Button firstLevel;
     public Button secondLevel;
     public Button thirdLevel;
+    public boolean ageAbove7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +23,7 @@ public class LevelsManagerActivity extends AppCompatActivity {
         firstLevel = findViewById(R.id.firstLevel);
         secondLevel = findViewById(R.id.secondLevel);
         thirdLevel = findViewById(R.id.thirdLevel);
-
+        ageAbove7 = getIntent().getBooleanExtra("wiek", true);
 
         firstLevel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,6 +31,7 @@ public class LevelsManagerActivity extends AppCompatActivity {
                 Intent goToMemoGame = new Intent(v.getContext(), MemoGameActivity.class);
                 Bundle b = new Bundle();
                 b.putInt("key", 1); //Your id
+                b.putBoolean("wiek", ageAbove7);
                 goToMemoGame.putExtras(b);
                 startActivity(goToMemoGame);
                 finish();
@@ -44,6 +46,7 @@ public class LevelsManagerActivity extends AppCompatActivity {
                 Intent goToMemoGame = new Intent(v.getContext(), MemoGameActivity.class);
                 Bundle b = new Bundle();
                 b.putInt("key", 2); //Your id
+                b.putBoolean("wiek", ageAbove7);
                 goToMemoGame.putExtras(b);
                 startActivity(goToMemoGame);
                 finish();
@@ -59,6 +62,7 @@ public class LevelsManagerActivity extends AppCompatActivity {
                 Intent goToMemoGame = new Intent(v.getContext(), MemoGameActivity.class);
                 Bundle b = new Bundle();
                 b.putInt("key", 3); //Your id
+                b.putBoolean("wiek", ageAbove7);
                 goToMemoGame.putExtras(b);
                 startActivity(goToMemoGame);
                 finish();

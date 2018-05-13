@@ -16,27 +16,24 @@ public class ResultActivity extends AppCompatActivity {
     private int value = 0;
     private String gra;
     private int level;
+    private boolean ageAbove7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        /*TextView tv_result = (TextView) findViewById(R.id.tv_result);
-        Intent intent = getIntent();
-        int score = intent.getIntExtra("score",0);
-        //tv_result.setText("Twoj wynik "+ score);
-*/
         int score = getIntent().getIntExtra("Odpowiedzi prawidłowe", 0);
 
-        TextView tv_result = (TextView) findViewById(R.id.tv_result);
+        TextView tv_result = findViewById(R.id.tv_result);
 
 
         Yes = findViewById(R.id.tak);
         No = findViewById(R.id.nie);
         Replay = findViewById(R.id.refrash);
         gra = getIntent().getStringExtra("Gra");
-        level=getIntent().getIntExtra("level",0);
+        level = getIntent().getIntExtra("level", 0);
+        ageAbove7 = getIntent().getBooleanExtra("wiek", true);
 
         if (gra.equals("memo")) {
             tv_result.setText(score + "/10");
@@ -78,6 +75,7 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent goToMenu = new Intent(v.getContext(), MenuActivity.class);
+                goToMenu.putExtra("wiek", ageAbove7);
                 startActivity(goToMenu);
             }
         });
@@ -93,6 +91,7 @@ public class ResultActivity extends AppCompatActivity {
                     Intent goToMemoGame = new Intent(v.getContext(), MemoGameActivity.class);
                     Bundle b1 = new Bundle();
                     b1.putInt("key", value); //Your id
+                    b1.putBoolean("wiek", ageAbove7);
                     goToMemoGame.putExtras(b1);
                     startActivity(goToMemoGame);
                     finish();
@@ -145,9 +144,6 @@ public class ResultActivity extends AppCompatActivity {
 
 
         });
-
     }
-
-
 }
 
