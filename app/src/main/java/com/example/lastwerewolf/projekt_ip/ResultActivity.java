@@ -26,34 +26,40 @@ public class ResultActivity extends AppCompatActivity {
         int score = intent.getIntExtra("score",0);
         //tv_result.setText("Twoj wynik "+ score);
 */
-      int score = getIntent().getIntExtra("Odpowiedzi prawidłowe", 0);
+        int score = getIntent().getIntExtra("Odpowiedzi prawidłowe", 0);
 
         TextView tv_result = (TextView) findViewById(R.id.tv_result);
-        tv_result.setText(score + "/10");
 
 
         Yes = findViewById(R.id.tak);
         No = findViewById(R.id.nie);
         Replay = findViewById(R.id.refrash);
         gra = getIntent().getStringExtra("Gra");
+
+        if (gra.equals("memo")) {
+            tv_result.setText(score + "/10");
+        } else if (gra.equals("cyfry") || gra.equals("cyfry2") || gra.equals("cyfry3")) {
+            tv_result.setText(score + "/5");
+        }
+
         Yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (gra.equals("memo")) {
-                    Intent goToMemoGame = new Intent(v.getContext(), LevelsManagerActivity.class);
-                    startActivity(goToMemoGame);
+                    Intent goToLevels = new Intent(v.getContext(), GiffActivity.class);
+                    startActivity(goToLevels);
                 } else if (gra.equals("cyfry")) {
 
                     Intent goToCountingLevel1;
                     goToCountingLevel1 = new Intent(v.getContext(), GiffActivity.class);
                     startActivity(goToCountingLevel1);
-                }else if (gra.equals("cyfry3")){
+                } else if (gra.equals("cyfry3")) {
                     Intent goToCountingLevel3;
                     goToCountingLevel3 = new Intent(v.getContext(), GiffActivity.class);
                     startActivity(goToCountingLevel3);
 
-                }else if (gra.equals("cyfry2")){
+                } else if (gra.equals("cyfry2")) {
                     Intent goToCountingLevel2;
                     goToCountingLevel2 = new Intent(v.getContext(), GiffActivity.class);
                     startActivity(goToCountingLevel2);
@@ -72,8 +78,7 @@ public class ResultActivity extends AppCompatActivity {
         Replay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(gra.equals("memo"))
-                {
+                if (gra.equals("memo")) {
                     Bundle b = getIntent().getExtras();
                     if (b != null)
                         value = b.getInt("level");
@@ -84,8 +89,7 @@ public class ResultActivity extends AppCompatActivity {
                     goToMemoGame.putExtras(b1);
                     startActivity(goToMemoGame);
                     finish();
-                } else if (gra.equals("cyfry"))
-                {
+                } else if (gra.equals("cyfry")) {
                     Bundle b = getIntent().getExtras();
                     if (b != null)
                         value = b.getInt("level");
@@ -96,8 +100,7 @@ public class ResultActivity extends AppCompatActivity {
                     goToMemoGame.putExtras(b1);
                     startActivity(goToMemoGame);
                     finish();
-                }else if (gra.equals("cyfry3"))
-                {
+                } else if (gra.equals("cyfry3")) {
                     Bundle b = getIntent().getExtras();
                     if (b != null)
                         value = b.getInt("level");
@@ -108,8 +111,7 @@ public class ResultActivity extends AppCompatActivity {
                     goToCountingLevel3.putExtras(b1);
                     startActivity(goToCountingLevel3);
                     finish();
-                }else if (gra.equals("cyfry2"))
-                {
+                } else if (gra.equals("cyfry2")) {
                     Bundle b = getIntent().getExtras();
                     if (b != null)
                         value = b.getInt("level");
@@ -120,9 +122,7 @@ public class ResultActivity extends AppCompatActivity {
                     goToCountingLevel2.putExtras(b1);
                     startActivity(goToCountingLevel2);
                     finish();
-                }
-                else if (gra.equals("litery"))
-                {
+                } else if (gra.equals("litery")) {
                     Bundle b = getIntent().getExtras();
                     if (b != null)
                         value = b.getInt("level");

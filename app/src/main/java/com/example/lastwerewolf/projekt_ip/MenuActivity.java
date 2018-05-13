@@ -15,18 +15,6 @@ import static android.app.PendingIntent.getActivity;
 
 public class MenuActivity extends AppCompatActivity {
 
-    public ColoursGameActivity GenerateColoursGame() {
-        return null;
-    }
-
-    public CountingGameActivity GenerateCountingGame() {
-        return null;
-    }
-
-    public MemoGameActivity GenerateMemoGame() {
-        return null;
-    }
-
     public Button countingGameBtn;
     private Button memoGameBtn;
     private Button coloursGameBtn;
