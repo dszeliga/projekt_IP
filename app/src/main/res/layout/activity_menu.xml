@@ -10,6 +10,7 @@
     <ImageView
         android:id="@+id/NameTxt"
         android:layout_width="265dp"
+<<<<<<< HEAD
         android:layout_height="57dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -17,6 +18,12 @@
         android:layout_marginTop="40dp"
         android:background="@drawable/logo"
         app:layout_constraintBottom_toBottomOf="parent"
+=======
+        android:layout_height="70dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/logo"
+>>>>>>> d4a2d4228b9f4f44c5dabe81e3c92206dcab5008
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.238"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,30 +34,54 @@
     <Button
         android:id="@+id/ColoursGameBtn"
         android:layout_width="wrap_content"
+<<<<<<< HEAD
         android:layout_height="79dp"
+=======
+        android:layout_height="wrap_content"
+>>>>>>> d4a2d4228b9f4f44c5dabe81e3c92206dcab5008
         android:background="@android:color/transparent"
-        android:fontFamily="casual"
+        android:fontFamily="serif"
+        android:shadowColor="@android:color/white"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="2"
         android:text="Dopasuj"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="35sp"
+<<<<<<< HEAD
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/MemoGameBtn"
+=======
+        app:layout_constraintBottom_toTopOf="@+id/CountingGameBtn"
+>>>>>>> d4a2d4228b9f4f44c5dabe81e3c92206dcab5008
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/starImage" />
+        app:layout_constraintTop_toBottomOf="@+id/MemoGameBtn" />
 
     <Button
         android:id="@+id/CountingGameBtn"
         android:layout_width="wrap_content"
+<<<<<<< HEAD
         android:layout_height="89dp"
+=======
+        android:layout_height="48dp"
+        android:layout_marginBottom="52dp"
+>>>>>>> d4a2d4228b9f4f44c5dabe81e3c92206dcab5008
         android:background="@android:color/transparent"
-        android:fontFamily="casual"
+        android:fontFamily="serif"
+        android:shadowColor="@android:color/white"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="2"
         android:text="Nauka cyfr"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="35sp"
+<<<<<<< HEAD
         android:textStyle="bold"
+=======
+>>>>>>> d4a2d4228b9f4f44c5dabe81e3c92206dcab5008
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -60,23 +91,40 @@
     <Button
         android:id="@+id/MemoGameBtn"
         android:layout_width="wrap_content"
+<<<<<<< HEAD
         android:layout_height="81dp"
+=======
+        android:layout_height="0dp"
+        android:layout_marginTop="52dp"
+>>>>>>> d4a2d4228b9f4f44c5dabe81e3c92206dcab5008
         android:background="@android:color/transparent"
-        android:fontFamily="casual"
+        android:fontFamily="serif"
+        android:shadowColor="@android:color/white"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="2"
         android:text="MEMORY"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="35sp"
+<<<<<<< HEAD
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/CountingGameBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ColoursGameBtn" />
+=======
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPoints" />
+>>>>>>> d4a2d4228b9f4f44c5dabe81e3c92206dcab5008
 
     <ImageView
         android:id="@+id/starImage"
         android:layout_width="81dp"
+<<<<<<< HEAD
         android:layout_height="91dp"
         android:layout_marginBottom="35dp"
         android:layout_marginStart="96dp"
@@ -85,21 +133,34 @@
         app:layout_constraintTop_toBottomOf="@+id/NameTxt"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/btn_star_big_on" />
+=======
+        android:layout_height="98dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toStartOf="@+id/txtPoints"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NameTxt"
+        app:srcCompat="@drawable/pointstar" />
+>>>>>>> d4a2d4228b9f4f44c5dabe81e3c92206dcab5008
 
     <TextView
         android:id="@+id/txtPoints"
-        android:layout_width="117dp"
-        android:layout_height="58dp"
-        android:layout_marginBottom="1dp"
+        android:layout_width="93dp"
+        android:layout_height="76dp"
         android:layout_marginEnd="88dp"
-        android:layout_marginTop="1dp"
-        android:fontFamily="casual"
+        android:layout_marginTop="8dp"
+        android:fontFamily="serif"
+        android:shadowColor="@android:color/white"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="2"
         android:text="50"
         android:textAlignment="viewStart"
         android:textColor="@android:color/holo_orange_dark"
-        android:textSize="45sp"
+        android:textSize="50sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/starImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/starImage" />
 

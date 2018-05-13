@@ -17,23 +17,7 @@ import static java.lang.Math.round;
 
 public class MemoGameActivity extends GameActivity implements View.OnClickListener {
     private Random rnd = new Random();
-    private ImageButton ib1;
-    private ImageButton ib2;
-    private ImageButton ib3;
-    private ImageButton ib4;
-    private ImageButton ib5;
-    private ImageButton ib6;
-    private ImageButton ib7;
-    private ImageButton ib8;
-    private ImageButton ib9;
-    private ImageButton ib10;
-    private ImageButton ib11;
-    private ImageButton ib12;
-    private ImageButton ib13;
-    private ImageButton ib14;
-    private ImageButton ib15;
-    private ImageButton ib16;
-
+    private ImageButton ib1, ib2, ib3, ib4, ib5, ib6, ib7, ib8, ib9, ib10, ib11, ib12, ib13, ib14, ib15, ib16;
     private Button resetButton;
     private TextView txt;
 
@@ -48,6 +32,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     private int score = 0;
     private int timeOnLevel = 0;
     private int timeToRevert = 0;
+    private boolean isRunning = false;
     private CountDownTimer gameTime;
 
     private int[] imagesInPlaces = null;
@@ -68,7 +53,6 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         Bundle b = getIntent().getExtras();
         if (b != null)
             value = b.getInt("key");
-
 
         if (value == 1) {
             setContentView(R.layout.activity_memo_game);
@@ -96,7 +80,6 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
             ib11 = findViewById(R.id.eleventhImage);
             ib10 = findViewById(R.id.tenthImage);
             ib9 = findViewById(R.id.ninthImage);
-
         }
 
         if (value == 2 || value == 3) {
@@ -151,7 +134,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         for (int i = 0; i < allImageButtons.length; i++) {
             allImageButtons[i].setEnabled(true);
         }
-        SetTimeGame();
+
         CompareImages();
 
     }
@@ -199,23 +182,31 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
 
     public void SetTimeGame() {
 
-            gameTime = new CountDownTimer(timeOnLevel, 1000) {
+        gameTime = new CountDownTimer(timeOnLevel, 1000) {
 
-                @Override
-                public void onTick(long millisUntilFinished) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if (isRunning == true)
                     txt.setText("" + round(millisUntilFinished / 1000));
-                }
+            }
 
-                @Override
-                public void onFinish() {
-                    txt.setText("Czas minał!");
+            @Override
+            public void onFinish() {
+                if (!txt.equals("BRAWO!!!")) {
+
+                    txt.setText("Czas minal!");
+                    for (int i = 0; i < allImageButtons.length; i++) {
+                        allImageButtons[i].setEnabled(false);
+                    }
                     MediaPlayer timeUp = MediaPlayer.create(MemoGameActivity.this, R.raw.czasminal);
                     timeUp.start();
                     resetButton.setVisibility(View.VISIBLE);
                     score += 0;
+                    isRunning = false;
                 }
-            }.start();
-
+            }
+        }.start();
+        isRunning = true;
     }
 
     public void RevertImages() {
@@ -233,6 +224,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
                     allImageButtons[i].setImageResource(R.drawable.tyl_kart);
                     allImageButtons[i].setEnabled(true);
                 }
+                SetTimeGame();
             }
         }.start();
     }
@@ -334,29 +326,37 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         if (foundNumber == 16 && value == 3) {
             MediaPlayer ring = MediaPlayer.create(MemoGameActivity.this, R.raw.bravo);
             ring.start();
+            gameTime.cancel();
+            gameTime = null;
+            isRunning = false;
             txt.setText("BRAWO!!!");
             resetButton.setVisibility(View.VISIBLE); // Pojawia się klawisz "Reset"
             choosenSecondImage = 0;
             choosenFirstImage = 0;
-            gameTime.cancel();
+
             score += 5;
         } else if (foundNumber == 8 && value == 2) {
             MediaPlayer ring = MediaPlayer.create(MemoGameActivity.this, R.raw.bravo);
             ring.start();
+            gameTime.cancel();
+            gameTime = null;
+            isRunning = false;
             txt.setText("BRAWO!!!");
             resetButton.setVisibility(View.VISIBLE); // Pojawia się klawisz "Reset"
             choosenSecondImage = 0;
             choosenFirstImage = 0;
-            gameTime.cancel();
             score += 5;
         } else if (foundNumber == 4 && value == 1) {
             MediaPlayer ring = MediaPlayer.create(MemoGameActivity.this, R.raw.bravo);
             ring.start();
+            gameTime.cancel();
+            gameTime = null;
+            isRunning = false;
             txt.setText("BRAWO!!!");
             resetButton.setVisibility(View.VISIBLE); // Pojawia się klawisz "Reset"
             choosenSecondImage = 0;
             choosenFirstImage = 0;
-            gameTime.cancel();
+
             score += 5;
 
         }
@@ -434,7 +434,6 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         foundNumber++;
     }
 
-
     public void setRevertImages(int ButtonID) {
 
         int i;
@@ -502,6 +501,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
 
     public void onBackPressed() {
 
+        gameTime.cancel();
 
         AlertDialog.Builder exitMessage = new AlertDialog.Builder(this);
         exitMessage.setMessage("Czy jesteś pewien, że chcesz opuścić grę?")
