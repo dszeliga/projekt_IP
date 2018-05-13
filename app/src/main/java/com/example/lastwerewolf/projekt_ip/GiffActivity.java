@@ -8,18 +8,30 @@ import android.os.Bundle;
 
 public class GiffActivity extends AppCompatActivity {
 
+    private String game;
+    private int level=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_giff);
 
+        game=getIntent().getStringExtra("gra");
+        level=getIntent().getIntExtra("level",0);
 
         final Handler handler = new Handler();
 
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(getApplicationContext(),CountingGameActivity.class));
+                if(game.equals("cyfry") || game.equals("cyfry2")|| game.equals("cyfry3"))
+                {
+                    startActivity(new Intent(getApplicationContext(),CountingGameActivity.class));
+                }
+                else if(game.equals("memo"))
+                {
+                    startActivity(new Intent(getApplicationContext(),LevelsManagerActivity.class));
+                }
+
 
                 finish();
             }

@@ -15,6 +15,7 @@ public class ResultActivity extends AppCompatActivity {
     public ImageButton Replay;
     private int value = 0;
     private String gra;
+    private int level;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class ResultActivity extends AppCompatActivity {
         No = findViewById(R.id.nie);
         Replay = findViewById(R.id.refrash);
         gra = getIntent().getStringExtra("Gra");
+        level=getIntent().getIntExtra("level",0);
 
         if (gra.equals("memo")) {
             tv_result.setText(score + "/10");
@@ -48,20 +50,25 @@ public class ResultActivity extends AppCompatActivity {
 
                 if (gra.equals("memo")) {
                     Intent goToLevels = new Intent(v.getContext(), GiffActivity.class);
+                    goToLevels.putExtra("gra", gra);
+                    goToLevels.putExtra("level", level);
                     startActivity(goToLevels);
                 } else if (gra.equals("cyfry")) {
 
                     Intent goToCountingLevel1;
                     goToCountingLevel1 = new Intent(v.getContext(), GiffActivity.class);
+                    goToCountingLevel1.putExtra("gra", gra);
                     startActivity(goToCountingLevel1);
                 } else if (gra.equals("cyfry3")) {
                     Intent goToCountingLevel3;
                     goToCountingLevel3 = new Intent(v.getContext(), GiffActivity.class);
+                    goToCountingLevel3.putExtra("gra", gra);
                     startActivity(goToCountingLevel3);
 
                 } else if (gra.equals("cyfry2")) {
                     Intent goToCountingLevel2;
                     goToCountingLevel2 = new Intent(v.getContext(), GiffActivity.class);
+                    goToCountingLevel2.putExtra("gra", gra);
                     startActivity(goToCountingLevel2);
 
                 }
