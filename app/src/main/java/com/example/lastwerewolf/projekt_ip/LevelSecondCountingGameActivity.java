@@ -2,6 +2,7 @@ package com.example.lastwerewolf.projekt_ip;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import static com.example.lastwerewolf.projekt_ip.Common.Common.count;
+import static com.example.lastwerewolf.projekt_ip.Common.Common.user_submit_answer;
+
 public class LevelSecondCountingGameActivity extends AppCompatActivity {
     public List<String> suggestSource = new ArrayList<>();
     public GridViewAnswerAdapter answerAdapter;
@@ -30,13 +34,28 @@ public class LevelSecondCountingGameActivity extends AppCompatActivity {
 
     public GridView gridViewAnswer,gridViewSuggest;
 
-public ImageView imgViewQuestion;
-int[] image_list= new int[]{
-};
-int rightAnswers = 0;
+    public ImageView imgViewQuestion;
 
-public char[] answer;
-String correct_answer;
+    int score = 0;
+int turn=0;
+    int[] image_list={
+            R.drawable.motyl,
+            R.drawable.ryba,
+            R.drawable.biedronka,
+            R.drawable.ciastko,
+            R.drawable.cukierek,
+            R.drawable.dom,
+            R.drawable.lizak,
+            R.drawable.lew,
+
+
+
+
+    };
+
+
+    public char[] answer;
+    String correct_answer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +64,7 @@ String correct_answer;
 
         initView();
 
-        }
-
+    }
 
     private void initView() {
         gridViewAnswer = (GridView)findViewById(R.id.gridViewAnswer);
@@ -56,38 +74,56 @@ String correct_answer;
 
         //dodaje setupliste
         setupList();
+        if (turn < suggestSource.size()) {
+            turn++;
+
+
+        } else {
+            getResults();
+        }
 
         btnSubmit = (Button)findViewById(R.id.btnSubmit);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String result="";
-                for(int i=0;i< Common.user_submit_answer.length;i++)
-                    result +=String.valueOf(Common.user_submit_answer[i]);
+                for(int i=0;i< user_submit_answer.length;i++)
+                    result +=String.valueOf(user_submit_answer[i]);
                 if(result.equals(correct_answer))
                 {
-                    Toast.makeText(getApplicationContext(),"Finish ! This is"+result,Toast.LENGTH_SHORT).show();
-
+                   // Toast.makeText(getApplicationContext(),"Finish ! This is"+result,Toast.LENGTH_SHORT).show();
+                    score = score+1;
                     //reset
-                    Common.count=0;
-                    Common.user_submit_answer = new char[correct_answer.length()];
-                    rightAnswers = rightAnswers +1;
+                    Common.count=1;
+                 //   Common.user_submit_answer = new char[correct_answer.length()];
+
                     //setAdapter
 
-                  //  GridViewAnswerAdapter answerAdapter = new GridViewAnswerAdapter(setupNullList(),getApplicationContext());
+                    GridViewAnswerAdapter answerAdapter = new GridViewAnswerAdapter(setupNullList(),getApplicationContext());
                     gridViewAnswer.setAdapter(answerAdapter);
                     answerAdapter.notifyDataSetChanged();
 
-                    GridViewAnswerAdapter suggestAdapter = new GridViewAnswerAdapter (suggestSource,getApplicationContext(),LevelSecondCountingGameActivity.this);
-                    gridViewAnswer.setAdapter(suggestAdapter);
+                    GridViewSuggestAdapter suggestAdapter = new GridViewSuggestAdapter (suggestSource,getApplicationContext(),LevelSecondCountingGameActivity.this);
+                    gridViewSuggest.setAdapter(suggestAdapter);
                     suggestAdapter.notifyDataSetChanged();
 
                     setupList();
-                    getResults();
-                }
-                else {
-                    Toast.makeText(LevelSecondCountingGameActivity.this,"Incorret!!",Toast.LENGTH_SHORT).show();
+                    if (6 == turn) {
+                        getResults();
+                    }
+                }else{
+                    score =+0;
+                    //reset
+                    Common.count=0;
+                  //  Common.user_submit_answer = new char[correct_answer.length()];
 
+                    //setAdapter
+
+
+
+                    setupList();
+                }if (6 ==score) {
+                    getResults();
                 }
             }
         });
@@ -103,7 +139,7 @@ String correct_answer;
 
         answer = correct_answer.toCharArray();
 
-        Common.user_submit_answer= new char[answer.length];
+        user_submit_answer= new char[answer.length];
 
         suggestSource.clear();
         for(char item:answer)
@@ -120,10 +156,10 @@ String correct_answer;
 
         //set for gridview
 
-      //  answerAdapter = new GridViewAnswerAdapter(setupNullList(),this);
+        answerAdapter = new GridViewAnswerAdapter(setupNullList(),this);
         suggestAdapter= new GridViewSuggestAdapter(suggestSource,this,this);
 
-        answerAdapter.notifyDataSetChanged();;
+        answerAdapter.notifyDataSetChanged();
         suggestAdapter.notifyDataSetChanged();
 
         gridViewSuggest.setAdapter(suggestAdapter);
@@ -140,12 +176,12 @@ String correct_answer;
         for(int i=0;i<answer.length;i++)
             result[i]=' ';
 
-      return result;
+        return result;
     }
-    public void getResults(){
-        Intent intent = new Intent(getApplicationContext(),ResultActivity.class);
-        intent.putExtra("Odpowiedzi prawidłowe",rightAnswers);
-        intent.putExtra("Gra", "cyfry2");
+    public void getResults() {
+        Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+        intent.putExtra("Odpowiedzi prawidłowe", score);
+        intent.putExtra("Gra", "litery");
         startActivity(intent);
     }
 }

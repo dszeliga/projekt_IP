@@ -46,16 +46,16 @@ public class ResultActivity extends AppCompatActivity {
                 } else if (gra.equals("cyfry")) {
 
                     Intent goToCountingLevel1;
-                    goToCountingLevel1 = new Intent(v.getContext(), CountingGameActivity.class);
+                    goToCountingLevel1 = new Intent(v.getContext(), GiffActivity.class);
                     startActivity(goToCountingLevel1);
                 }else if (gra.equals("cyfry3")){
                     Intent goToCountingLevel3;
-                    goToCountingLevel3 = new Intent(v.getContext(), CountingGameActivity.class);
+                    goToCountingLevel3 = new Intent(v.getContext(), GiffActivity.class);
                     startActivity(goToCountingLevel3);
 
                 }else if (gra.equals("cyfry2")){
                     Intent goToCountingLevel2;
-                    goToCountingLevel2 = new Intent(v.getContext(), CountingGameActivity.class);
+                    goToCountingLevel2 = new Intent(v.getContext(), GiffActivity.class);
                     startActivity(goToCountingLevel2);
 
                 }
@@ -121,7 +121,22 @@ public class ResultActivity extends AppCompatActivity {
                     startActivity(goToCountingLevel2);
                     finish();
                 }
+                else if (gra.equals("litery"))
+                {
+                    Bundle b = getIntent().getExtras();
+                    if (b != null)
+                        value = b.getInt("level");
+
+                    Intent goToCountingLevel2 = new Intent(v.getContext(), LevelSecondCountingGameActivity.class);
+                    Bundle b1 = new Bundle();
+                    b1.putInt("key", value); //Your id
+                    goToCountingLevel2.putExtras(b1);
+                    startActivity(goToCountingLevel2);
+                    finish();
+                }
             }
+
+
         });
 
     }

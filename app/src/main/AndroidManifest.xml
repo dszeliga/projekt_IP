@@ -42,7 +42,7 @@
         <activity
             android:name=".SettingsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".GiffActivity"></activity>
+        <activity android:name=".GiffActivity" />
     </application>
 
 </manifest>

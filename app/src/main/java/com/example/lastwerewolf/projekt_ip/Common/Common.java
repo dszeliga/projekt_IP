@@ -7,7 +7,7 @@ public class Common {
     public static int count=1;
     public static String [] number_character=
     {
-            "a","b","c","d","e","f","g","h","i","j","k"
-,"l","m","n","o","p","r","s","t","u","w","z",    };
+            "a","b","c","f","g","h","j","k"
+,"l","m","n","o","r","s","t","u","w","ż","ń","ł","ś"   };
 
 }

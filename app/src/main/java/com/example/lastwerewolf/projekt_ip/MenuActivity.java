@@ -30,7 +30,7 @@ public class MenuActivity extends AppCompatActivity {
     private Button coloursGameBtn;
     private ImageButton settingsBtn;
     private TextView points;
-
+    private Button wordGamebtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +78,8 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(goToCountingGame);
             }
         });
+
+
     }
 
     public void onBackPressed() {
