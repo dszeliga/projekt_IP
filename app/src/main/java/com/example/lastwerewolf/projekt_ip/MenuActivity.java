@@ -131,6 +131,12 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(goToCountingGame);
             }
         });
+
+        if (above7) {
+            countingGameBtn.setVisibility(View.INVISIBLE);
+        } else {
+            countingGameBtn.setVisibility(View.VISIBLE);
+        }
     }
 
     public void onBackPressed() {
