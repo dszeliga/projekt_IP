@@ -29,7 +29,7 @@ public class ResultActivity extends AppCompatActivity {
       int score = getIntent().getIntExtra("Odpowiedzi prawidłowe", 0);
 
         TextView tv_result = (TextView) findViewById(R.id.tv_result);
-        tv_result.setText(score + "/5");
+        tv_result.setText(score + "/10");
 
 
         Yes = findViewById(R.id.tak);

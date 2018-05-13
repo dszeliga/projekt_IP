@@ -8,14 +8,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity {
 
     private Button resetButton;
 
-    private RadioButton underFive;
-    private RadioButton aboveFive;
+    private RadioButton underSeven;
+    private RadioButton aboveSeven;
+    private RadioGroup radioGroup;
+    private boolean chooseAgeAbove7;
+    private boolean choosenAge;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +28,40 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         resetButton = findViewById(R.id.resetPointsBtn);
-        aboveFive = findViewById(R.id.aboveFive);
-        underFive = findViewById(R.id.underFive);
+        aboveSeven = findViewById(R.id.aboveFive);
+        underSeven = findViewById(R.id.underFive);
+        radioGroup = findViewById(R.id.radioGroup);
+
+        Bundle b = getIntent().getExtras();
+        if (b != null)
+            chooseAgeAbove7 = b.getBoolean("wiek");
+
+        if (chooseAgeAbove7) {
+            aboveSeven.setChecked(true);
+            underSeven.setChecked(false);
+        } else {
+            underSeven.setChecked(true);
+            aboveSeven.setChecked(false);
+        }
+
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton rb = findViewById(checkedId);
+
+
+                if (rb == aboveSeven) {
+                    Toast.makeText(getApplicationContext(), "Ustawiono powyzej 7 lat", Toast.LENGTH_SHORT).show();
+                    chooseAgeAbove7 = true;
+                    putChoosenAge(chooseAgeAbove7);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Ustawiono ponizej 7 lat", Toast.LENGTH_SHORT).show();
+                    chooseAgeAbove7 = false;
+                    putChoosenAge(chooseAgeAbove7);
+                }
+            }
+        });
 
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +88,16 @@ public class SettingsActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void putChoosenAge(boolean chooseAgeAbove7) {
+        getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).edit().putBoolean("wiek", chooseAgeAbove7).commit();
+        boolean age = getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
+
+        Intent goToMenu = new Intent(getApplicationContext(), MenuActivity.class);
+        goToMenu.putExtra("age", age);
+        startActivity(goToMenu);
+        finish();
     }
 
     @Override
