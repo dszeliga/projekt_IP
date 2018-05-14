@@ -20,15 +20,16 @@
         </activity>
         <activity android:name=".ColoursGameActivity" />
         <activity android:name=".dopasuj.DopasujLvl1Activity" />
-        <activity android:name=".dopasuj.MatchingPuzzlesGameActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".dopasuj.MatchingPuzzlesGameActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".GameActivity" />
-        <activity android:name=".CountingGameActivity"/>
+        <activity android:name=".CountingGameActivity" />
         <activity android:name=".LevelFirstCountingGameActivity" />
         <activity android:name=".ResultActivity" />
         <activity android:name=".LevelSecondCountingGameActivity" />
         <activity android:name=".LevelThirdCountingGameActivity" />
-        <activity android:name=".Level3CountingActivity"/>
+        <activity android:name=".Level3CountingActivity" />
         <activity
             android:name=".MemoGameActivity"
             android:screenOrientation="portrait" />
@@ -38,8 +39,10 @@
         <activity
             android:name=".ColorsLevelsManagerActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".SettingsActivity"
-            android:screenOrientation="portrait" ></activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".dopasuj.DopasujLvl3Activity"></activity>
     </application>
 
 </manifest>
