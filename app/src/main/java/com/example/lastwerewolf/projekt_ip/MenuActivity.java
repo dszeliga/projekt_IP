@@ -123,11 +123,11 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        if (above7) {
+/*        if (above7) {
             countingGameBtn.setVisibility(View.INVISIBLE);
         } else {
             countingGameBtn.setVisibility(View.VISIBLE);
-        }
+        }*/
     }
 
     public void onBackPressed() {

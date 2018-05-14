@@ -11,6 +11,7 @@ public class CountingGameActivity extends GameActivity {
 public Button Level1;
 public Button Level3;
 public Button Level2;
+    public boolean above7;
     public void PlaySound() {}
 
     public Image ReadImage(String sciezka) {return null;}
@@ -26,6 +27,7 @@ public Button Level2;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_counting_game);
         Level1= findViewById(R.id.level1);
+
         Level1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,6 +40,14 @@ public Button Level2;
             }
         });
         Level3= findViewById(R.id.level3);
+
+        above7=getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
+        if (above7) {
+            Level3.setVisibility(View.VISIBLE);
+        } else {
+            Level3.setVisibility(View.INVISIBLE);
+        }
+
         Level3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
