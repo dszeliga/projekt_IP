@@ -33,8 +33,8 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
     ImageView mainView;
 
     int matching[] = {-1, -1, -1};
-    ImageView activeView = null; // maybe view reference?
-
+    ImageView activeView = null;
+    
     List<ProfessionType> leftP;
     List<ProfessionType> rightP;
 
@@ -142,26 +142,9 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
         for(int i = 0; i < matching.length; i++) {
             matching[i] = -1;
         }
-
         //TODO: dodaj punkty!
 
-        // Wyczyść bitmapę i przygotuj nową grę ręcznie.
-//        setViews();
-//        Rect mrect = new Rect();
-//        mainView.getLocalVisibleRect(mrect);
-//        Bitmap bmp = Bitmap.createBitmap(mrect.width(), mrect.height(), Bitmap.Config.ARGB_8888);
-//        Canvas canvas = new Canvas(bmp);
-//        Paint p = new Paint();
-//        p.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-//        p.setColor(Color.GREEN);
-//        canvas.drawLine(0,10,100,100, p);
-//        canvas.translate(mrect.left, mrect.top);
-//        mainView.draw(canvas);
-//        mainView.setImageBitmap(bmp);
-//        mainView.invalidate();
-//        canvas.drawColor(Color.BLACK, PorterDuff.Mode.CLEAR);
-
-        // Albo odpal recreate, aby rozpocząć grę od nowa.
+        // Recreate activity, aby rozpocząć grę od nowa.
          this.recreate();
     }
 
