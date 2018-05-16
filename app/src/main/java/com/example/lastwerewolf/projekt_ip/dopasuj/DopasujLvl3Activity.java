@@ -1,8 +1,10 @@
 package com.example.lastwerewolf.projekt_ip.dopasuj;
 
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.example.lastwerewolf.projekt_ip.R;
@@ -14,11 +16,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class DopasujLvl3Activity extends AppCompatActivity {
+public class DopasujLvl3Activity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView leftV[];
 
     ImageView rightV[];
+
+    int matching[] = {0, 0, 0};
+    ImageView activeView = null; // maybe view reference?
 
     List<ProfessionType> leftP;
     List<ProfessionType> rightP;
@@ -67,9 +72,11 @@ public class DopasujLvl3Activity extends AppCompatActivity {
         rightP = selectThreeRandomProfessions(leftP);
         for(int i = 0; i < leftV.length; i++) {
             leftV[i].setImageDrawable(profMap.get(leftP.get(i)).profPic);
+            leftV[i].setOnClickListener(this);
         }
         for(int i = 0; i < rightV.length; i++) {
             rightV[i].setImageDrawable(profMap.get(rightP.get(i)).profTool);
+            rightV[i].setOnClickListener(this);
         }
     }
 
@@ -85,5 +92,32 @@ public class DopasujLvl3Activity extends AppCompatActivity {
         }
 
         setViews();
+    }
+
+    @Override
+    public void onClick(View v) {
+        boolean isLeft = false;
+        int index = -1;
+        for(int i = 0; i < leftV.length; i++) {
+            if(leftV[i].getId() == v.getId()) {
+                isLeft = true;
+                index = i;
+                break;
+            }
+        }
+        if(isLeft == false) {
+            for (int i = 0; i < rightV.length; i++) {
+                if(rightV[i].getId() == v.getId()) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+
+        if(activeView != null) {
+            activeView.setBackground(null);
+        }
+        v.setBackground(getDrawable(R.drawable.ic_green_circle));
+        activeView = (ImageView) v;
     }
 }
