@@ -23,17 +23,17 @@ public class LevelsManagerActivity extends AppCompatActivity {
         firstLevel = findViewById(R.id.firstLevel);
         secondLevel = findViewById(R.id.secondLevel);
         thirdLevel = findViewById(R.id.thirdLevel);
-        ageAbove7 = getIntent().getBooleanExtra("wiek", true);
+        ageAbove7 = getIntent().getBooleanExtra("wiek", true);//pobranie informacji o module wieku
 
         firstLevel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goToMemoGame = new Intent(v.getContext(), MemoGameActivity.class);
+                Intent goToMemoGame = new Intent(v.getContext(), MemoGameActivity.class);//przejście do gry
                 Bundle b = new Bundle();
-                b.putInt("key", 1); //Your id
-                b.putBoolean("wiek", ageAbove7);
+                b.putInt("key", 1); //ustalenie poziomu gry
+                b.putBoolean("wiek", ageAbove7);//przekazanie informacji o module wieku
                 goToMemoGame.putExtras(b);
-                startActivity(goToMemoGame);
+                startActivity(goToMemoGame);//przejście do gry
                 finish();
             }
         });
@@ -45,10 +45,10 @@ public class LevelsManagerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent goToMemoGame = new Intent(v.getContext(), MemoGameActivity.class);
                 Bundle b = new Bundle();
-                b.putInt("key", 2); //Your id
-                b.putBoolean("wiek", ageAbove7);
+                b.putInt("key", 2); //ustalenie poziomu gry
+                b.putBoolean("wiek", ageAbove7);//przekazanie informacji o module wieku
                 goToMemoGame.putExtras(b);
-                startActivity(goToMemoGame);
+                startActivity(goToMemoGame);//przejście do gry
                 finish();
             }
         });
@@ -61,15 +61,16 @@ public class LevelsManagerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent goToMemoGame = new Intent(v.getContext(), MemoGameActivity.class);
                 Bundle b = new Bundle();
-                b.putInt("key", 3); //Your id
-                b.putBoolean("wiek", ageAbove7);
+                b.putInt("key", 3); //ustalenie poziomu gry
+                b.putBoolean("wiek", ageAbove7);//przekazanie informacji o module wieku
                 goToMemoGame.putExtras(b);
-                startActivity(goToMemoGame);
+                startActivity(goToMemoGame);//przejście do gry
                 finish();
             }
         });
     }
 
+    //powrót do menu po kliknięciu przycisku "wróć"
     @Override
     public void onBackPressed() {
         super.onBackPressed();

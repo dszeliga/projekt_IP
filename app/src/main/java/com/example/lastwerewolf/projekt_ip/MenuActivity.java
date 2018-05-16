@@ -36,21 +36,23 @@ public class MenuActivity extends AppCompatActivity {
         settingsBtn = findViewById(R.id.settingsBtn);
         points = findViewById(R.id.txtPoints);
 
+        //pobranie informacji czy aplikacja jest uruchomiona po raz pierwszy
         isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isfirstrun", true);
 
         Bundle b = getIntent().getExtras();
-
-        if(b!=null)
-           above7= b.getBoolean("wiek");
+        if (b != null)
+            above7 = b.getBoolean("wiek");//pobranie informacji o module wieku
 
         if (isFirstRun) {
+            //utworzenie okna wyboru wieku przy pierwszym uruchomieniu aplikacji
             AlertDialog.Builder chooseAge = new AlertDialog.Builder(this);
             chooseAge.setMessage("Wybierz moduł wieku, w którym chcesz rozpocząć przygodę! W każdej chwili możesz zmienić moduł w ustawieniach.")
                     .setTitle("Wybierz wiek");
 
             chooseAge.setPositiveButton("Powyżej 7 lat", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    ageAbove7=true;
+                    //ustawienie że wybrano wiek powyżej 7 lat
+                    ageAbove7 = true;
                     getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).edit().putBoolean("wiek", ageAbove7).commit();
 
                     if (ageAbove7) {
@@ -63,34 +65,30 @@ public class MenuActivity extends AppCompatActivity {
             });
             chooseAge.setNegativeButton("Poniżej 7 lat", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    ageAbove7=false;
+                    //ustawienie że wybrano wiek poniżej 7 lat
+                    ageAbove7 = false;
                     getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).edit().putBoolean("wiek", ageAbove7).commit();
-
-                    if (ageAbove7) {
-                        countingGameBtn.setVisibility(View.INVISIBLE);
-                    } else {
-                        countingGameBtn.setVisibility(View.VISIBLE);
-                    }
                     dialog.cancel();
                 }
             });
 
-            AlertDialog dialog = chooseAge.create();
-            dialog.show();
+            AlertDialog dialog = chooseAge.create();//stworzenie okna
+            dialog.show();//wyswietlenie okna
+            //ustawienie informacji że aplikacja była już uruchomiona pierwszy raz
             getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("isfirstrun", false).commit();
         }
 
-
-        above7=getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
+        //pobranie informacji o wybranym module wieku
+        above7 = getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
 
 
         memoGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent goToLevels = new Intent(v.getContext(), LevelsManagerActivity.class);
-                goToLevels.putExtra("wiek",above7);
+                goToLevels.putExtra("wiek", above7);//przekazanie informacji o module wieku
                 finish();
-                startActivity(goToLevels);
+                startActivity(goToLevels);//przejście do ekranu leveli memo
             }
         });
 
@@ -99,7 +97,7 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent goToLevels = new Intent(v.getContext(), ColorsLevelsManagerActivity.class);
                 finish();
-                startActivity(goToLevels);
+                startActivity(goToLevels);//przejscie do ekranu leveli gry dopasuj
             }
         });
 
@@ -107,8 +105,8 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent goToSettings = new Intent(v.getContext(), SettingsActivity.class);
-                goToSettings.putExtra("wiek", above7);
-                startActivity(goToSettings);
+                goToSettings.putExtra("wiek", above7);//przekazanie informacji o module wieku
+                startActivity(goToSettings);//przejscie do ustawień gry
                 finish();
             }
         });
@@ -119,17 +117,12 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent goToCountingGame = new Intent(v.getContext(), CountingGameActivity.class);
                 finish(); // jeśli chcesz, zlikwidować poprzednie activity, aby nie było go na stosie.
-                startActivity(goToCountingGame);
+                startActivity(goToCountingGame);//przejscie do ekranu leveli nauki cyfr
             }
         });
-
-/*        if (above7) {
-            countingGameBtn.setVisibility(View.INVISIBLE);
-        } else {
-            countingGameBtn.setVisibility(View.VISIBLE);
-        }*/
     }
 
+    //ustawienia okna wyjścia z aplikacji
     public void onBackPressed() {
 
 
