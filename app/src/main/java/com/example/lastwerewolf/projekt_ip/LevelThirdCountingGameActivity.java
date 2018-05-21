@@ -15,7 +15,7 @@ import java.util.Collections;
 public class LevelThirdCountingGameActivity extends AppCompatActivity {
     ImageView tv_question;
     Button b_true, b_false;
-
+    Button btn_speaker2;
     Database_two_level mQuestion1;
     int questionsLength;
     int score = 0;
@@ -37,6 +37,17 @@ public class LevelThirdCountingGameActivity extends AppCompatActivity {
         questionsLength = mQuestion1.mQuestion1.length;
 
         questionslist = new ArrayList<>();
+
+        btn_speaker2 = findViewById(R.id.btn_speaker2);
+
+        btn_speaker2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MediaPlayer ring = MediaPlayer.create(LevelThirdCountingGameActivity.this, R.raw.soundlevel2);
+                ring.start();
+            }
+        });
+
 
         //sev q
 

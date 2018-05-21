@@ -27,7 +27,7 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
     private Random rnd = new Random();
     ImageView iv_zbiory;
     List<StateModel> list;
-
+    Button btn_speaker4;
     Random r;
     int turn = 1;
     int score = 0;
@@ -65,6 +65,17 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
         textColorDefaultRb = b_answer1.getTextColors();
 
         allImageButtons = new Button[]{b_answer1, b_answer2, b_answer3, b_answer4};
+
+
+        btn_speaker4 = findViewById(R.id.btn_speaker4);
+
+        btn_speaker4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MediaPlayer ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.error);
+                ring.start();
+            }
+        });
 
         //imagesInPlaces = new int[allImageButtons.length];
         for (int i = 0; i < new Database().answers.length; i++) {

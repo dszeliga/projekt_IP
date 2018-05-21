@@ -21,7 +21,9 @@ import java.util.Random;
 
 public class Level3CountingActivity extends AppCompatActivity {
 Button b_countinue;
+Button btn_speaker3;
 ImageView tv_question3;
+
 EditText et_answer;
     int score = 0;
 List<Item3> questions3list;
@@ -40,7 +42,15 @@ int turn=0;
         b_countinue.setVisibility(View.VISIBLE);
 
        questions3list= new ArrayList<>();
+        btn_speaker3 = findViewById(R.id.btn_speaker3);
 
+        btn_speaker3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MediaPlayer ring = MediaPlayer.create(Level3CountingActivity.this, R.raw.soundlevel3);
+                ring.start();
+            }
+        });
         for (int i = 0; i < new Database_three_level().answer3.length; i++) {
 
           questions3list.add(new Item3(Database_three_level.answer3[i], Database_three_level.questions3[i]));
