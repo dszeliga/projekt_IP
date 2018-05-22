@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import static java.lang.Math.round;
@@ -30,8 +31,10 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     private int foundNumber = 0;
     private int value = -1;
     private int score = 0;
+    private int counterGames = 0;
     private int timeOnLevel = 0;
     private int timeToRevert = 0;
+    private long timeToEnd = 0;
     private boolean isRunning = false;
     private boolean ageAbove7;
     private CountDownTimer gameTime;
@@ -40,7 +43,6 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     private int[] randomlyImages = null;
     private int[] randomlyPlaces = null;
     private ImageButton[] allImageButtons = null;
-
     private int[] photos = {R.drawable.i1, R.drawable.i2, R.drawable.i3, R.drawable.i4, R.drawable.i5,
             R.drawable.i6, R.drawable.i7, R.drawable.i8, R.drawable.i9, R.drawable.i10, R.drawable.i11,
             R.drawable.i12, R.drawable.i13, R.drawable.i14, R.drawable.i15, R.drawable.i16, R.drawable.i17,
@@ -49,7 +51,6 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
 
         //pobranie informacji o wybranym module wieku i poziomie gry
@@ -125,15 +126,17 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         }
         //uruchomienie gry
         StartMemoryGame();
+
     }
 
-
     public void StartMemoryGame() {
+
         foundNumber = 0;
         //uruchomienie dźwięku przy starcie gry
         MediaPlayer findPairs = MediaPlayer.create(MemoGameActivity.this, R.raw.znajdz);
         findPairs.start();
         resetButton.setVisibility(View.INVISIBLE);
+        counterGames += 1;
         randomlyImages = RandomlyImages(); // Losowanie obrazów do wyswietlenia
         randomlyPlaces = RandomlyPlaces(); // Losowanie miejsc, w których wyświetlone będą obrazki
         imagesInPlaces = new int[randomlyPlaces.length]; //tablica obrazków na konretnych miejscach
@@ -209,7 +212,6 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         return tab;
     }
 
-
     public void SetTimeGame() {
         //ustawienia czasu podczas gry
         gameTime = new CountDownTimer(timeOnLevel, 1000) {
@@ -218,8 +220,11 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
             public void onTick(long millisUntilFinished) {
                 //ustawienie wyświetlania czasu co 1s
                 if (isRunning == true)
-                    txt.setText("" + round(millisUntilFinished / 1000));
+                    timeToEnd = round(millisUntilFinished / 1000);
+                txt.setText("" + timeToEnd);
+
             }
+
             //ustawienie wyświetlenia napisu i przycisku ponownego losowania oraz włączenia dźwięku po zakończeniu gry
             @Override
             public void onFinish() {
@@ -235,6 +240,10 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
                     resetButton.setVisibility(View.VISIBLE);
                     score += 0;
                     isRunning = false;
+                    //pobranie wyniku, jeśli gracz przeszedł odpowiednią ilość gier
+                    if (counterGames == 2) {
+                        getResults();
+                    }
                 }
             }
         }.start();
@@ -292,6 +301,15 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
 
         //sczytanie id wciśniętego obrazka
         int i;
+        int index = 0;
+        for (int j = 0; j < allImageButtons.length; j++)
+        {
+            if (allImageButtons[j].getId() == v.getId())
+            {
+                index = j;
+                break;
+            }
+        }
         switch (v.getId()) {
             case R.id.firstImage:
                 i = 0;
@@ -363,44 +381,53 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         CompareImages();
         //ustalenie kiedy wszystkie pary zostały znalezione
         if (foundNumber == 16 && value == 3) {
-            MediaPlayer ring = MediaPlayer.create(MemoGameActivity.this, R.raw.bravo);
-            ring.start(); //właczenie dźwięki
-            gameTime.cancel();//wyłaczenie timera gry
-            gameTime = null; //ustawienie wartości timera na null
-            isRunning = false; //ustalenie flagi dot. działania timera na false
-            txt.setText("BRAWO!!!"); //wyświetlenie tekstu BRAWO
-            resetButton.setVisibility(View.VISIBLE); // Pojawia się klawisz "Reset"
-            choosenSecondImage = 0; //wyzerowanie wartosci wybranego obrazka 1
-            choosenFirstImage = 0; //wyzerowanie wartosci wybranego obrazka 2
-            score += 5;//dodanie punktów po przejściu poziomu w czasie
+            SetSettingsOnEndOfLevel();
+            if (timeToEnd > (timeOnLevel * 70 / 100)) {
+                score += 5;
+            } else {
+                score += 3;
+            }
+            //pobranie wyniku, jeśli gracz przeszedł odpowiednią ilość gier
+            if (counterGames == 2) {
+                getResults();
+            }
         } else if (foundNumber == 8 && value == 2) {
-            MediaPlayer ring = MediaPlayer.create(MemoGameActivity.this, R.raw.bravo);
-            ring.start();
-            gameTime.cancel();
-            gameTime = null;
-            isRunning = false;
-            txt.setText("BRAWO!!!");
-            resetButton.setVisibility(View.VISIBLE); // Pojawia się klawisz "Reset"
-            choosenSecondImage = 0;
-            choosenFirstImage = 0;
-            score += 5;
+            SetSettingsOnEndOfLevel();
+            if (timeToEnd > (timeOnLevel * 50 / 100)) {
+                score += 5;
+            } else {
+                score += 3;
+            }
+            //pobranie wyniku, jeśli gracz przeszedł odpowiednią ilość gier
+            if (counterGames == 2) {
+                getResults();
+            }
         } else if (foundNumber == 4 && value == 1) {
-            MediaPlayer ring = MediaPlayer.create(MemoGameActivity.this, R.raw.bravo);
-            ring.start();
-            gameTime.cancel();
-            gameTime = null;
-            isRunning = false;
-            txt.setText("BRAWO!!!");
-            resetButton.setVisibility(View.VISIBLE); // Pojawia się klawisz "Reset"
-            choosenSecondImage = 0;
-            choosenFirstImage = 0;
-            score += 5;
+            SetSettingsOnEndOfLevel();
+            if (timeToEnd > (timeOnLevel * 30 / 100)) {
+                score += 5;
+            } else {
+                score += 3;
+            }
 
+            //pobranie wyniku, jeśli gracz przeszedł odpowiednią ilość gier
+            if (counterGames == 2) {
+                getResults();
+            }
         }
-        //pobranie wyniku, jeśli gracz przeszedł odpowiednią ilość gier
-        if (score == 10) {
-            getResults();
-        }
+
+    }
+
+    public void SetSettingsOnEndOfLevel() {
+        MediaPlayer ring = MediaPlayer.create(MemoGameActivity.this, R.raw.bravo);
+        ring.start(); //właczenie dźwięki
+        gameTime.cancel();//wyłaczenie timera gry
+        gameTime = null; //ustawienie wartości timera na null
+        isRunning = false; //ustalenie flagi dot. działania timera na false
+        txt.setText("BRAWO!!!"); //wyświetlenie tekstu BRAWO
+        resetButton.setVisibility(View.VISIBLE); // Pojawia się klawisz "Reset"
+        choosenSecondImage = 0; //wyzerowanie wartosci wybranego obrazka 1
+        choosenFirstImage = 0; //wyzerowanie wartosci wybranego obrazka 2
     }
 
     public void getResults() {
@@ -415,6 +442,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
 
     public void setImages(int ButtonID) {
         //pobranie id wybranego buttonu
+        int  xxx = Arrays.asList(allImageButtons).indexOf(ButtonID);
         int i;
         switch (ButtonID) {
             case R.id.firstImage:
@@ -538,6 +566,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         StartMemoryGame();
         txt.setText("Wyszukaj pary");
     }
+
     //przejście do głownego menu lub powrót do gry po kliknięciu przycisku "wróć"
     public void onBackPressed() {
 
