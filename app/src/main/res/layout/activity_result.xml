@@ -14,7 +14,7 @@
         android:layout_width="100dp"
         android:layout_height="75dp"
         android:layout_marginBottom="128dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="12dp"
         android:layout_marginStart="40dp"
         android:backgroundTint="@android:color/holo_green_dark"
         android:fontFamily="casual"
@@ -91,7 +91,7 @@
 
     <TextView
         android:id="@+id/tv_result"
-        android:layout_width="126dp"
+        android:layout_width="425dp"
         android:layout_height="70dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"

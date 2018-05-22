@@ -36,7 +36,7 @@ public class ResultActivity extends AppCompatActivity {
         ageAbove7 = getIntent().getBooleanExtra("wiek", true);
 
         if (gra.equals("memo")) {
-            tv_result.setText(score + "/10");
+            tv_result.setText("+" + score + " pkt.");
         } else if (gra.equals("cyfry") || gra.equals("cyfry2") || gra.equals("cyfry3")) {
             tv_result.setText(score + "/5");
         }
