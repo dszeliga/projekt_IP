@@ -19,6 +19,8 @@ public class LevelThirdCountingGameActivity extends AppCompatActivity {
     Database_two_level mQuestion1;
     int questionsLength;
     int score = 0;
+    public int score2 = 0;
+
     ArrayList<Item> questionslist;
     int currentQuestion = 0;
     boolean winner = false;
@@ -73,6 +75,7 @@ if(checkQuestion1(currentQuestion)){
         ring.start();
 
         score= score +1;
+        score2= score2+1;
 
 
     }
@@ -149,5 +152,11 @@ if(checkQuestion1(currentQuestion)){
         intent.putExtra("Gra", "cyfry2");
         startActivity(intent);
     }
+    /*  public void getResults1(){
+        Intent intent = new Intent(getApplicationContext(),ResultActivity.class);
+        intent.putExtra("Odpowiedzi prawidłowe",score2);
+       // intent.putExtra("Gra", "cyfry2");
+        startActivity(intent);
+    }*/
 
 }

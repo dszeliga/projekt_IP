@@ -26,7 +26,9 @@ ImageView tv_question3;
 
 EditText et_answer;
     int score = 0;
-List<Item3> questions3list;
+    public int score3 = 0;
+
+    List<Item3> questions3list;
 int curQuestion3= 0;
 int wrong = 0;
 int turn=0;
@@ -72,6 +74,7 @@ if(et_answer.getText().toString().equalsIgnoreCase(questions3list.get(curQuestio
 b_countinue.setVisibility(View.VISIBLE);
 
     score = score+1;
+    score3 = score3+1;
 }
        // b_answer1.getText().toString().equalsIgnoreCase(list.get(turn - 1).getName()))
     }
@@ -120,5 +123,10 @@ b_countinue.setOnClickListener(new View.OnClickListener() {
         intent.putExtra("Gra", "cyfry3");
         startActivity(intent);
     }
-
+ /* public void getResults1() {
+        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+        intent.putExtra("Odpowiedzi prawidłowe", score3);
+    //    intent.putExtra("Gra", "cyfry");
+        startActivity(intent);
+    }*/
 }
