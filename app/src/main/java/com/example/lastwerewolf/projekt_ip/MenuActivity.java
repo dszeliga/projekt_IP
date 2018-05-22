@@ -24,7 +24,9 @@ public class MenuActivity extends AppCompatActivity {
     public boolean above7;
     public boolean isFirstRun;
     private boolean ageAbove7;
-    public int scoreall= 0;
+    private int allPoints;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,14 +37,11 @@ public class MenuActivity extends AppCompatActivity {
         settingsBtn = findViewById(R.id.settingsBtn);
         points = findViewById(R.id.txtPoints);
 
-        int allPoints = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getInt("points", 0);
-        int score3= getIntent().getIntExtra("Odpowiedzi prawidłowe", 0);
-        int score1= getIntent().getIntExtra("Odpowiedzi prawidłowe", 0);
-        int score2= getIntent().getIntExtra("Odpowiedzi prawidłowe", 0);
-        //int scoreall= getIntent().getIntExtra("Odpowiedzi prawidłowe", 0);
-        scoreall= score3+score1+score2;
+        allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
+
+
         points = findViewById(R.id.txtPoints);
-        points.setText(scoreall+"");
+        points.setText(allPoints + "");
         //pobranie informacji czy aplikacja jest uruchomiona po raz pierwszy
         isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isfirstrun", true);
 

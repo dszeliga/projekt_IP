@@ -17,6 +17,7 @@ public class ResultActivity extends AppCompatActivity {
     private String gra;
     private int level;
     private boolean ageAbove7;
+    private int allPoints;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +35,12 @@ public class ResultActivity extends AppCompatActivity {
         gra = getIntent().getStringExtra("Gra");
         level = getIntent().getIntExtra("level", 0);
         ageAbove7 = getIntent().getBooleanExtra("wiek", true);
+        allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
 
         if (gra.equals("memo")) {
             tv_result.setText("+" + score + " pkt.");
+            allPoints += score;
+            getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
         } else if (gra.equals("cyfry") || gra.equals("cyfry2") || gra.equals("cyfry3")) {
             tv_result.setText(score + "/5");
         }

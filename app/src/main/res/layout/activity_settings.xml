@@ -20,7 +20,7 @@
 
     <TextView
         android:id="@+id/txtPoints"
-        android:layout_width="102dp"
+        android:layout_width="153dp"
         android:layout_height="70dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="16dp"
@@ -31,6 +31,7 @@
         android:shadowDy="5"
         android:shadowRadius="2"
         android:text="50"
+        android:textAlignment="center"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="50sp"
         android:textStyle="bold"

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -19,7 +20,8 @@ public class SettingsActivity extends AppCompatActivity {
     private RadioButton aboveSeven;
     private RadioGroup radioGroup;
     private boolean chooseAgeAbove7;
-
+    private int allPoints;
+    private TextView pointsTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +32,12 @@ public class SettingsActivity extends AppCompatActivity {
         aboveSeven = findViewById(R.id.aboveFive);
         underSeven = findViewById(R.id.underFive);
         radioGroup = findViewById(R.id.radioGroup);
+        pointsTxt = findViewById(R.id.txtPoints);
 
-       chooseAgeAbove7 = getIntent().getBooleanExtra("wiek", true);
+        chooseAgeAbove7 = getIntent().getBooleanExtra("wiek", true);
+        allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
+
+        pointsTxt.setText(""+allPoints);
 
         if (chooseAgeAbove7) {
             aboveSeven.setChecked(true);
@@ -46,7 +52,6 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton rb = findViewById(checkedId);
-
 
                 if (rb == aboveSeven) {
                     Toast.makeText(getApplicationContext(), "Ustawiono powyzej 7 lat", Toast.LENGTH_SHORT).show();
@@ -71,18 +76,19 @@ public class SettingsActivity extends AppCompatActivity {
                 exitMessage.setPositiveButton("Resetuj", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Toast.makeText(SettingsActivity.this, "Zresetowano", Toast.LENGTH_LONG).show();
+                        allPoints = 0;
+                        getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
+                        pointsTxt.setText(""+allPoints);
                     }
                 });
                 exitMessage.setNegativeButton("Anuluj", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
-
                     }
                 });
 
                 AlertDialog dialog = exitMessage.create();
                 dialog.show();
-
             }
         });
     }
