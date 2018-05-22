@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.example.lastwerewolf.projekt_ip.dopasuj.DopasujLvl1Activity;
 import com.example.lastwerewolf.projekt_ip.dopasuj.MatchingPuzzlesGameActivity;
+import com.example.lastwerewolf.projekt_ip.dopasuj.DopasujLvl3Activity;
 
 public class ColorsLevelsManagerActivity extends AppCompatActivity {
 
@@ -53,19 +54,19 @@ public class ColorsLevelsManagerActivity extends AppCompatActivity {
         });
 
 
-//        thirdLevel.setEnabled(true);
-//
-//        thirdLevel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent goToMemoGame = new Intent(v.getContext(), MemoGameActivity.class);
-//                Bundle b = new Bundle();
-//                b.putInt("key", 3); //Your id
-//                goToMemoGame.putExtras(b);
-//                startActivity(goToMemoGame);
-//                finish();
-//            }
-//        });
+        thirdLevel.setEnabled(true);
+
+        thirdLevel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToLvl3 = new Intent(v.getContext(), DopasujLvl3Activity.class);
+                Bundle b = new Bundle();
+                b.putInt("key", 3); //Your id
+                goToLvl3.putExtras(b);
+                startActivity(goToLvl3);
+                //                finish();
+            }
+        });
     }
 
     @Override
