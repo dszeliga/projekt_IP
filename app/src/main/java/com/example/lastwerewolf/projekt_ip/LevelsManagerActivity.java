@@ -1,6 +1,7 @@
 package com.example.lastwerewolf.projekt_ip;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,10 +10,12 @@ import android.widget.ImageButton;
 
 public class LevelsManagerActivity extends AppCompatActivity {
 
-    public Button firstLevel;
-    public Button secondLevel;
-    public Button thirdLevel;
-    public boolean ageAbove7;
+    private Button firstLevel;
+    private Button secondLevel;
+    private Button thirdLevel;
+    private boolean ageAbove7;
+    private int allPoints;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,7 @@ public class LevelsManagerActivity extends AppCompatActivity {
         secondLevel = findViewById(R.id.secondLevel);
         thirdLevel = findViewById(R.id.thirdLevel);
         ageAbove7 = getIntent().getBooleanExtra("wiek", true);//pobranie informacji o module wieku
+        allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
 
         firstLevel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,8 +42,14 @@ public class LevelsManagerActivity extends AppCompatActivity {
             }
         });
 
-        secondLevel.setEnabled(true);
-
+        if(allPoints<10) {
+            secondLevel.setEnabled(false);
+        }
+        else
+        {
+            secondLevel.setEnabled(true);
+            secondLevel.setBackgroundColor(Color.TRANSPARENT);
+        }
         secondLevel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +64,14 @@ public class LevelsManagerActivity extends AppCompatActivity {
         });
 
 
-        thirdLevel.setEnabled(true);
+        if(allPoints<50) {
+            thirdLevel.setEnabled(false);
+        }
+        else
+        {
+            thirdLevel.setEnabled(true);
+            thirdLevel.setBackgroundColor(Color.TRANSPARENT);
+        }
 
         thirdLevel.setOnClickListener(new View.OnClickListener() {
             @Override

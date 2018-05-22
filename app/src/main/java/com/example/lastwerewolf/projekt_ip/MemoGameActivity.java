@@ -37,7 +37,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     private long timeToEnd = 0;
     private boolean isRunning = false;
     private boolean ageAbove7;
-    private CountDownTimer gameTime;
+    private CountDownTimer gameTime, timeRevert;
 
     private int[] imagesInPlaces = null;
     private int[] randomlyImages = null;
@@ -235,7 +235,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
 
     public void RevertImages() {
         //ustawienie po jakim czasie obrazki mają się odwrócić
-        new CountDownTimer(timeToRevert, 1000) {
+        timeRevert = new CountDownTimer(timeToRevert, 1000) {
             public void onTick(long millisUntilFinished) {
                 //wyłączenie możliwości klikania na przyciski
                 for (int i = 0; i < allImageButtons.length; i++) {
@@ -384,7 +384,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
 
     //przejście do głownego menu lub powrót do gry po kliknięciu przycisku "wróć"
     public void onBackPressed() {
-        gameTime.cancel();
+        timeRevert.cancel();
         AlertDialog.Builder exitMessage = new AlertDialog.Builder(this);
         exitMessage.setMessage("Czy jesteś pewien, że chcesz opuścić grę?")
                 .setTitle("WYJŚCIE");
