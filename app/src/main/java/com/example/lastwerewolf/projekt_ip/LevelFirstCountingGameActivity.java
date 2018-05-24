@@ -103,7 +103,11 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
                     mistakeInformation();
                 }
                 if (6 == turn) {
-                    getResults();
+                    if(score>=3){
+                        getResults();
+                    }else{
+                        getResults1();
+                    }
                 }
             }
         });
@@ -119,7 +123,11 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
                     mistakeInformation();
                 }
                 if (6 == turn) {
-                    getResults();
+                    if(score>=3){
+                        getResults();
+                    }else{
+                        getResults1();
+                    }
                 }
             }
         });
@@ -135,7 +143,11 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
                     mistakeInformation();
                 }
                 if (6 == turn) {
-                    getResults();
+                    if(score>=3){
+                        getResults();
+                    }else{
+                        getResults1();
+                    }
                 }
             }
         });
@@ -150,7 +162,11 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
                     mistakeInformation();
                 }
                 if (6 == turn) {
-                    getResults();
+                    if(score>=3){
+                        getResults();
+                    }else{
+                        getResults1();
+                    }
                 }
             }
         });
@@ -182,7 +198,11 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
             turn++;
             newQuestion(turn);
         } else {
-            getResults();
+            if(score>=3){
+                getResults();
+            }else{
+                getResults1();
+            }
         }
     }
 
@@ -210,7 +230,11 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
             turn++;
             newQuestion(turn);
         } else {
-            getResults();
+            if(score>=3){
+                getResults();
+            }else{
+                getResults1();
+            }
         }
 
     }
@@ -266,14 +290,27 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
         b_answer4.setText(randomAnswers[3] + "");
 
         if (6 == turn) {
-            getResults();
+            if(score>=3){
+                getResults();
+            }else{
+                getResults1();
+            }
         }
+
     }
 
     public void getResults() {
-        Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-        intent.putExtra("Odpowiedzi prawidłowe", score);
-        intent.putExtra("Gra", "cyfry");
+        Intent intent = new Intent(getApplicationContext(), GiffActivity.class );
+       // intent.putExtra("Odpowiedzi prawidłowe", score);
+        intent.putExtra("Giff",0);
+
+        startActivity(intent);
+    }
+    public void getResults1() {
+        Intent intent = new Intent(getApplicationContext(), GiffActivityFailActivity.class );
+        // intent.putExtra("Odpowiedzi prawidłowe", score);
+        intent.putExtra("Giff",0);
+
         startActivity(intent);
     }
 

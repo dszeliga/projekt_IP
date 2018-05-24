@@ -9,6 +9,7 @@ import android.os.Bundle;
 public class GiffActivityFailActivity extends AppCompatActivity {
     private String game;
     private int level=0;
+    public int gifffail=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,7 +17,7 @@ public class GiffActivityFailActivity extends AppCompatActivity {
 
         game = getIntent().getStringExtra("gra");
         level = getIntent().getIntExtra("level", 0);
-
+gifffail=getIntent().getIntExtra("gifffail",0);
         final Handler handler = new Handler();
 
         handler.postDelayed(new Runnable() {

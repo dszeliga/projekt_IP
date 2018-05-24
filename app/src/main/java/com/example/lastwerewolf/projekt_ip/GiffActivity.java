@@ -10,6 +10,8 @@ public class GiffActivity extends AppCompatActivity {
 
     private String game;
     private int level=0;
+    private int giff=0;
+    public int result=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,6 +19,7 @@ public class GiffActivity extends AppCompatActivity {
 
         game=getIntent().getStringExtra("gra");
         level=getIntent().getIntExtra("level",0);
+        giff = getIntent().getIntExtra("gif", 0);
 
         final Handler handler = new Handler();
 
@@ -25,7 +28,7 @@ public class GiffActivity extends AppCompatActivity {
             public void run() {
                 if(game.equals("cyfry") || game.equals("cyfry2")|| game.equals("cyfry3"))
                 {
-                    startActivity(new Intent(getApplicationContext(),CountingGameActivity.class));
+                    startActivity(new Intent(getApplicationContext(),ResultActivity.class));
                 }
                 else if(game.equals("memo"))
                 {

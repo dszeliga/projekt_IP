@@ -58,43 +58,30 @@ public int score;
                         goToLevels.putExtra("level", level);
                         startActivity(goToLevels);
                     } else if (gra.equals("cyfry")) {
-                         if(score>=3){
+
                               Intent goToCountingLevel1;
-                              goToCountingLevel1 = new Intent(v.getContext(), GiffActivity.class);
+                              goToCountingLevel1 = new Intent(v.getContext(), CountingGameActivity.class);
                               goToCountingLevel1.putExtra("gra", gra);
+                        goToCountingLevel1.putExtra("level", level);
                               startActivity(goToCountingLevel1);
-                            }else{
-                              Intent goToCountingLevel1;
-                              goToCountingLevel1 = new Intent(v.getContext(), GiffActivityFailActivity.class);
-                              goToCountingLevel1.putExtra("gra", gra);
-                              startActivity(goToCountingLevel1);
-}
+
+
 
                     } else if (gra.equals("cyfry3")) {
-                        if(score>=3){
+
                             Intent goToCountingLevel3;
-                            goToCountingLevel3 = new Intent(v.getContext(), GiffActivity.class);
+                            goToCountingLevel3 = new Intent(v.getContext(), CountingGameActivity.class);
                             goToCountingLevel3.putExtra("gra", gra);
                             startActivity(goToCountingLevel3);
-                        }else{
-                            Intent goToCountingLevel3;
-                            goToCountingLevel3 = new Intent(v.getContext(), GiffActivityFailActivity.class);
-                            goToCountingLevel3.putExtra("gra", gra);
-                            startActivity(goToCountingLevel3);
-                        }
+
 
                     } else if(gra.equals("cyfry2")) {
-                        if(score>=3){
+
                             Intent goToCountingLevel2;
-                            goToCountingLevel2 = new Intent(v.getContext(), GiffActivity.class);
+                            goToCountingLevel2 = new Intent(v.getContext(), CountingGameActivity.class);
                             goToCountingLevel2.putExtra("gra", gra);
                             startActivity(goToCountingLevel2);
-                        }else{
-                            Intent goToCountingLevel2;
-                            goToCountingLevel2 = new Intent(v.getContext(), GiffActivityFailActivity.class);
-                            goToCountingLevel2.putExtra("gra", gra);
-                            startActivity(goToCountingLevel2);
-                        }
+
                     }
                 }
             });
