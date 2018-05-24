@@ -9,36 +9,46 @@ import android.os.Bundle;
 public class GiffActivity extends AppCompatActivity {
 
     private String game;
-    private int level=0;
-    private int giff=0;
-    public int result=0;
+    private int level = 0;
+    private int giff = 0;
+    public int goodAnswers;
+    public boolean ageAbove7;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_giff);
 
-        game=getIntent().getStringExtra("gra");
-        level=getIntent().getIntExtra("level",0);
+        game = getIntent().getStringExtra("Gra");
+        level = getIntent().getIntExtra("level", 0);
         giff = getIntent().getIntExtra("gif", 0);
+        goodAnswers = getIntent().getIntExtra("Odpowiedzi prawidłowe", 0);
+        ageAbove7=getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
 
         final Handler handler = new Handler();
 
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(game.equals("cyfry") || game.equals("cyfry2")|| game.equals("cyfry3"))
-                {
-                    startActivity(new Intent(getApplicationContext(),ResultActivity.class));
-                }
-                else if(game.equals("memo"))
-                {
-                    startActivity(new Intent(getApplicationContext(),LevelsManagerActivity.class));
+                if (game.equals("cyfry") || game.equals("cyfry2") || game.equals("cyfry3")) {
+                    Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                    intent.putExtra("Odpowiedzi prawidłowe", goodAnswers);//przekazanie informacji o ilości uzyskanych punktów
+                    intent.putExtra("Gra", game);//przekazanie informacji o grze
+                    intent.putExtra("level", level);//przekazanie informacji o levelu
+                    startActivity(intent);
+                } else if (game.equals("memo")) {
+                    Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                    intent.putExtra("Odpowiedzi prawidłowe", goodAnswers);//przekazanie informacji o ilości uzyskanych punktów
+                    intent.putExtra("Gra", "memo");//przekazanie informacji o grze
+                    intent.putExtra("level", level);//przekazanie informacji o levelu
+                    startActivity(intent);
                 }
 
 
                 finish();
             }
-        },2500); MediaPlayer ring = MediaPlayer.create(GiffActivity.this, R.raw.gifsound);
+        }, 2500);
+        MediaPlayer ring = MediaPlayer.create(GiffActivity.this, R.raw.gifsound);
         ring.start();
     }
 

@@ -34,7 +34,7 @@ public int score;
         Replay = findViewById(R.id.refrash);
         gra = getIntent().getStringExtra("Gra");
         level = getIntent().getIntExtra("level", 0);
-        ageAbove7 = getIntent().getBooleanExtra("wiek", true);
+        ageAbove7=getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
         allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
 
         if (gra.equals("memo")) {
@@ -53,9 +53,10 @@ public int score;
                 public void onClick(View v) {
 
                     if (gra.equals("memo")) {
-                        Intent goToLevels = new Intent(v.getContext(), GiffActivity.class);
+                        Intent goToLevels = new Intent(v.getContext(), LevelsManagerActivity.class);
                         goToLevels.putExtra("gra", gra);
                         goToLevels.putExtra("level", level);
+                        goToLevels.putExtra("wiek", ageAbove7);
                         startActivity(goToLevels);
                     } else if (gra.equals("cyfry")) {
 

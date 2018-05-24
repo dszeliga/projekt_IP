@@ -49,12 +49,14 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
     private int questionCounter;
     private int questionCountTotal;
     private StateModel currentQuestion;
+    private boolean ageAbove7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level_first_counting_game);
         iv_zbiory = (ImageView) findViewById(R.id.iv_zbiory);
+        ageAbove7=getIntent().getBooleanExtra("wiek", true);
         r = new Random();
 
         zbiory = new Database().zbiory;
@@ -301,14 +303,16 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
 
     public void getResults() {
         Intent intent = new Intent(getApplicationContext(), GiffActivity.class );
-       // intent.putExtra("Odpowiedzi prawidłowe", score);
+        intent.putExtra("Odpowiedzi prawidłowe", score);//przekazanie informacji o ilości uzyskanych punktów
+        intent.putExtra("Gra", "cyfry");
         intent.putExtra("Giff",0);
 
         startActivity(intent);
     }
     public void getResults1() {
         Intent intent = new Intent(getApplicationContext(), GiffActivityFailActivity.class );
-        // intent.putExtra("Odpowiedzi prawidłowe", score);
+        intent.putExtra("Odpowiedzi prawidłowe", score);
+        intent.putExtra("Gra", "cyfry");
         intent.putExtra("Giff",0);
 
         startActivity(intent);

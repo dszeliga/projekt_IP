@@ -340,13 +340,25 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     }
 
     public void getResults() {
-        //przejście do ekranu wyniku
-        Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-        intent.putExtra("Odpowiedzi prawidłowe", score);//przekazanie informacji o ilości uzyskanych punktów
-        intent.putExtra("Gra", "memo");//przekazanie informacji o grze
-        intent.putExtra("level", value);//przekazanie informacji o levelu
-        intent.putExtra("wiek", ageAbove7); //przekazanie informacji o module wieku
-        startActivity(intent);
+        if(score<6)
+        {
+            //przejście do ekranu wyniku
+            Intent intent = new Intent(getApplicationContext(), GiffActivityFailActivity.class);
+            intent.putExtra("Odpowiedzi prawidłowe", score);//przekazanie informacji o ilości uzyskanych punktów
+            intent.putExtra("Gra", "memo");//przekazanie informacji o grze
+            intent.putExtra("level", value);//przekazanie informacji o levelu
+            intent.putExtra("wiek", ageAbove7); //przekazanie informacji o module wieku
+            startActivity(intent);
+        }
+        else {
+            //przejście do ekranu wyniku
+            Intent intent = new Intent(getApplicationContext(), GiffActivity.class);
+            intent.putExtra("Odpowiedzi prawidłowe", score);//przekazanie informacji o ilości uzyskanych punktów
+            intent.putExtra("Gra", "memo");//przekazanie informacji o grze
+            intent.putExtra("level", value);//przekazanie informacji o levelu
+            intent.putExtra("wiek", ageAbove7); //przekazanie informacji o module wieku
+            startActivity(intent);
+        }
     }
 
     public void setImages(int ButtonID) {

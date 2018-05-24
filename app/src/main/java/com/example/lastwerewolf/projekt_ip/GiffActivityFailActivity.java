@@ -8,34 +8,50 @@ import android.os.Bundle;
 
 public class GiffActivityFailActivity extends AppCompatActivity {
     private String game;
-    private int level=0;
-    public int gifffail=0;
+    private int level = 0;
+    public int gifffail = 0;
+    private  boolean ageAbove7;
+    private  int goodAnswers;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.giff_activity_fail);
 
-        game = getIntent().getStringExtra("gra");
+        game = getIntent().getStringExtra("Gra");
         level = getIntent().getIntExtra("level", 0);
-gifffail=getIntent().getIntExtra("gifffail",0);
+        gifffail = getIntent().getIntExtra("gifffail", 0);
+        ageAbove7=getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
+        goodAnswers = getIntent().getIntExtra("Odpowiedzi prawidłowe", 0);
+
         final Handler handler = new Handler();
 
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (game.equals("cyfry") || game.equals("cyfry2") || game.equals("cyfry3")) {
-                    startActivity(new Intent(getApplicationContext(), CountingGameActivity.class));
+                    Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                    intent.putExtra("Odpowiedzi prawidłowe", goodAnswers);//przekazanie informacji o ilości uzyskanych punktów
+                    intent.putExtra("Gra", game);//przekazanie informacji o grze
+                    intent.putExtra("level", level);//przekazanie informacji o levelu
+                    startActivity(intent);
                 } else if (game.equals("memo")) {
-                    startActivity(new Intent(getApplicationContext(), LevelsManagerActivity.class));
+                    Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                    intent.putExtra("Odpowiedzi prawidłowe", goodAnswers);//przekazanie informacji o ilości uzyskanych punktów
+                    intent.putExtra("Gra", "memo");//przekazanie informacji o grze
+                    intent.putExtra("level", level);//przekazanie informacji o levelu
+                    startActivity(intent);
                 }
 
 
                 finish();
             }
         }, 2500);
-        MediaPlayer ring = MediaPlayer.create(GiffActivityFailActivity.this, R.raw.sadsound);
+        MediaPlayer ring = MediaPlayer.create(GiffActivityFailActivity.this, R.raw.gifsound);
         ring.start();
-    }}
+    }
+}
 
 
 

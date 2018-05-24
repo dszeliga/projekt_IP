@@ -26,6 +26,8 @@ public Button Level2;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_counting_game);
+
+        above7=getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
         Level1= findViewById(R.id.level1);
 
         Level1.setOnClickListener(new View.OnClickListener() {
@@ -41,7 +43,7 @@ public Button Level2;
         });
         Level3= findViewById(R.id.level3);
 
-        above7=getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
+
         if (above7) {
             Level3.setVisibility(View.VISIBLE);
         } else {
