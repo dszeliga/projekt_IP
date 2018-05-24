@@ -18,13 +18,13 @@ public class ResultActivity extends AppCompatActivity {
     private int level;
     private boolean ageAbove7;
     private int allPoints;
-
+public int score;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        int score = getIntent().getIntExtra("Odpowiedzi prawidłowe", 0);
+         score = getIntent().getIntExtra("Odpowiedzi prawidłowe", 0);
 
         TextView tv_result = findViewById(R.id.tv_result);
 
@@ -43,38 +43,62 @@ public class ResultActivity extends AppCompatActivity {
             getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
         } else if (gra.equals("cyfry") || gra.equals("cyfry2") || gra.equals("cyfry3")) {
             tv_result.setText(score + "/5");
+            allPoints += score;
+            getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
         }
 
-        Yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                if (gra.equals("memo")) {
-                    Intent goToLevels = new Intent(v.getContext(), GiffActivity.class);
-                    goToLevels.putExtra("gra", gra);
-                    goToLevels.putExtra("level", level);
-                    startActivity(goToLevels);
-                } else if (gra.equals("cyfry")) {
+            Yes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                    Intent goToCountingLevel1;
-                    goToCountingLevel1 = new Intent(v.getContext(), GiffActivity.class);
-                    goToCountingLevel1.putExtra("gra", gra);
-                    startActivity(goToCountingLevel1);
-                } else if (gra.equals("cyfry3")) {
-                    Intent goToCountingLevel3;
-                    goToCountingLevel3 = new Intent(v.getContext(), GiffActivity.class);
-                    goToCountingLevel3.putExtra("gra", gra);
-                    startActivity(goToCountingLevel3);
+                    if (gra.equals("memo")) {
+                        Intent goToLevels = new Intent(v.getContext(), GiffActivity.class);
+                        goToLevels.putExtra("gra", gra);
+                        goToLevels.putExtra("level", level);
+                        startActivity(goToLevels);
+                    } else if (gra.equals("cyfry")) {
+                         if(score>=3){
+                              Intent goToCountingLevel1;
+                              goToCountingLevel1 = new Intent(v.getContext(), GiffActivity.class);
+                              goToCountingLevel1.putExtra("gra", gra);
+                              startActivity(goToCountingLevel1);
+                            }else{
+                              Intent goToCountingLevel1;
+                              goToCountingLevel1 = new Intent(v.getContext(), GiffActivityFailActivity.class);
+                              goToCountingLevel1.putExtra("gra", gra);
+                              startActivity(goToCountingLevel1);
+}
 
-                } else if (gra.equals("cyfry2")) {
-                    Intent goToCountingLevel2;
-                    goToCountingLevel2 = new Intent(v.getContext(), GiffActivity.class);
-                    goToCountingLevel2.putExtra("gra", gra);
-                    startActivity(goToCountingLevel2);
+                    } else if (gra.equals("cyfry3")) {
+                        if(score>=3){
+                            Intent goToCountingLevel3;
+                            goToCountingLevel3 = new Intent(v.getContext(), GiffActivity.class);
+                            goToCountingLevel3.putExtra("gra", gra);
+                            startActivity(goToCountingLevel3);
+                        }else{
+                            Intent goToCountingLevel3;
+                            goToCountingLevel3 = new Intent(v.getContext(), GiffActivityFailActivity.class);
+                            goToCountingLevel3.putExtra("gra", gra);
+                            startActivity(goToCountingLevel3);
+                        }
 
+                    } else if(gra.equals("cyfry2")) {
+                        if(score>=3){
+                            Intent goToCountingLevel2;
+                            goToCountingLevel2 = new Intent(v.getContext(), GiffActivity.class);
+                            goToCountingLevel2.putExtra("gra", gra);
+                            startActivity(goToCountingLevel2);
+                        }else{
+                            Intent goToCountingLevel2;
+                            goToCountingLevel2 = new Intent(v.getContext(), GiffActivityFailActivity.class);
+                            goToCountingLevel2.putExtra("gra", gra);
+                            startActivity(goToCountingLevel2);
+                        }
+                    }
                 }
-            }
-        });
+            });
+
         No.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,17 +151,6 @@ public class ResultActivity extends AppCompatActivity {
                         value = b.getInt("level");
 
                     Intent goToCountingLevel2 = new Intent(v.getContext(), LevelThirdCountingGameActivity.class);
-                    Bundle b1 = new Bundle();
-                    b1.putInt("key", value); //Your id
-                    goToCountingLevel2.putExtras(b1);
-                    startActivity(goToCountingLevel2);
-                    finish();
-                } else if (gra.equals("litery")) {
-                    Bundle b = getIntent().getExtras();
-                    if (b != null)
-                        value = b.getInt("level");
-
-                    Intent goToCountingLevel2 = new Intent(v.getContext(), LevelSecondCountingGameActivity.class);
                     Bundle b1 = new Bundle();
                     b1.putInt("key", value); //Your id
                     goToCountingLevel2.putExtras(b1);

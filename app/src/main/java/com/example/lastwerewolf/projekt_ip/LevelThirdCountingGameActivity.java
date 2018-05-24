@@ -19,7 +19,7 @@ public class LevelThirdCountingGameActivity extends AppCompatActivity {
     Database_two_level mQuestion1;
     int questionsLength;
     int score = 0;
-    public int score2 = 0;
+
 
     ArrayList<Item> questionslist;
     int currentQuestion = 0;
@@ -75,7 +75,7 @@ if(checkQuestion1(currentQuestion)){
         ring.start();
 
         score= score +1;
-        score2= score2+1;
+
 
 
     }
@@ -135,28 +135,12 @@ if(checkQuestion1(currentQuestion)){
     }
 
 
-/*private void endGame(){
-        if(winner){
-            Toast.makeText(this, "you win", Toast.LENGTH_SHORT).show();
-           // finish();
-            getResults();
-        } else {
-            Toast.makeText(this,"you lost", Toast.LENGTH_SHORT).show();
-           //finish();
-           getResults();
-        }
-}*/
+
     public void getResults(){
         Intent intent = new Intent(getApplicationContext(),ResultActivity.class);
         intent.putExtra("Odpowiedzi prawidłowe",score);
         intent.putExtra("Gra", "cyfry2");
         startActivity(intent);
     }
-    /*  public void getResults1(){
-        Intent intent = new Intent(getApplicationContext(),ResultActivity.class);
-        intent.putExtra("Odpowiedzi prawidłowe",score2);
-       // intent.putExtra("Gra", "cyfry2");
-        startActivity(intent);
-    }*/
 
 }

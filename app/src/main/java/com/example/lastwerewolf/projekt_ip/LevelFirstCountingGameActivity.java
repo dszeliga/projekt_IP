@@ -31,7 +31,7 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
     Random r;
     int turn = 1;
     int score = 0;
-    public int score1 = 0;
+
 
     int indexImage = 0;
     private Typeface t;
@@ -189,7 +189,6 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
     private void bravoInformation(){
         Toast toast;
         score = score + 1;
-        score1 = score1 + 1;
 
         toast = new Toast(getApplicationContext());
         toast.setGravity(Gravity.CENTER, 0, 0);
@@ -277,10 +276,5 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
         intent.putExtra("Gra", "cyfry");
         startActivity(intent);
     }
-/* public void getResults1() {
-        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-        intent.putExtra("Odpowiedzi prawidłowe", score1);
-    //    intent.putExtra("Gra", "cyfry");
-        startActivity(intent);
-    }*/
+
 }

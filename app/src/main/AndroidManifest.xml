@@ -42,11 +42,12 @@
         <activity
             android:name=".SettingsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".dopasuj.DopasujLvl3Activity"></activity>
+        <activity android:name=".dopasuj.DopasujLvl3Activity" />
         <activity
             android:name=".SettingsActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".GiffActivity" />
+        <activity android:name=".GiffActivityFailActivity"></activity>
     </application>
 
 </manifest>
