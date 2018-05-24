@@ -13,4 +13,32 @@
         android:src="@drawable/rabit"
 
         />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="51dp"
+        android:fontFamily="serif"
+        android:text="Brawo!"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="346dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="18dp"
+        android:fontFamily="serif"
+        android:text="ODBLOKOWAŁEŚ NOWY POZIOM!"
+        android:textDirection="locale"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textSize="26dp"
+        android:textStyle="bold" />
 </RelativeLayout>
