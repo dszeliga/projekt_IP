@@ -74,7 +74,7 @@ if(checkQuestion1(currentQuestion)){
         MediaPlayer ring = MediaPlayer.create(LevelThirdCountingGameActivity.this, R.raw.bravo);
         ring.start();
 
-        score= score +1;
+        score= score +2;
 
 
 
@@ -89,7 +89,11 @@ if(checkQuestion1(currentQuestion)){
 
 
 }if (currentQuestion==5){
-                    getResults();
+                    if(score>=6){
+                        getResults();
+                    }else{
+                        getResults1();
+                    }
                 }
             }
         });
@@ -104,7 +108,7 @@ if(checkQuestion1(currentQuestion)){
                         setQuestion1(currentQuestion)
                         ;MediaPlayer ring = MediaPlayer.create(LevelThirdCountingGameActivity.this, R.raw.bravo);
                         ring.start();
-                        score= score +1;
+                        score= score +2;
 
 
                     }
@@ -116,7 +120,11 @@ if(checkQuestion1(currentQuestion)){
                     ring.start();
                 }
                 if (currentQuestion==5){
-                    getResults();
+                    if(score>=6){
+                        getResults();
+                    }else{
+                        getResults1();
+                    }
                 }
             }
         });
@@ -137,10 +145,19 @@ if(checkQuestion1(currentQuestion)){
 
 
     public void getResults(){
-        Intent intent = new Intent(getApplicationContext(),ResultActivity.class);
+        Intent intent = new Intent(getApplicationContext(),GiffActivity.class);
         intent.putExtra("Odpowiedzi prawidłowe",score);
         intent.putExtra("Gra", "cyfry2");
+        intent.putExtra("Giff",0);
         startActivity(intent);
     }
 
+    public void getResults1() {
+        Intent intent = new Intent(getApplicationContext(), GiffActivityFailActivity.class );
+        intent.putExtra("Odpowiedzi prawidłowe", score);
+        intent.putExtra("Gra", "cyfry2");
+        intent.putExtra("Giff",0);
+
+        startActivity(intent);
+    }
 }

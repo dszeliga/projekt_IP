@@ -73,7 +73,7 @@ et_answer.addTextChangedListener(new TextWatcher() {
 if(et_answer.getText().toString().equalsIgnoreCase(questions3list.get(curQuestion3).getAnswer3())){
 b_countinue.setVisibility(View.VISIBLE);
 
-    score = score+1;
+    score = score+2;
 
 }
        // b_answer1.getText().toString().equalsIgnoreCase(list.get(turn - 1).getName()))
@@ -102,12 +102,17 @@ b_countinue.setOnClickListener(new View.OnClickListener() {
 
 
         } if(turn==5) {
-            MediaPlayer ring = MediaPlayer.create(Level3CountingActivity.this, R.raw.bravo);
+            if(score>=6){
+                getResults();
+            }else{
+                getResults1();
+            }
+           /* MediaPlayer ring = MediaPlayer.create(Level3CountingActivity.this, R.raw.bravo);
             ring.start();
 
               getResults();
             et_answer.setVisibility(View.INVISIBLE);
-            b_countinue.setVisibility(View.INVISIBLE);
+            b_countinue.setVisibility(View.INVISIBLE);*/
 
         }
     }
@@ -117,10 +122,19 @@ b_countinue.setOnClickListener(new View.OnClickListener() {
     }
 
     public void getResults(){
-        Intent intent = new Intent(getApplicationContext(),ResultActivity.class);
+        Intent intent = new Intent(getApplicationContext(),GiffActivity.class);
         intent.putExtra("Odpowiedzi prawidłowe",score);
-
         intent.putExtra("Gra", "cyfry3");
+        intent.putExtra("Giff",0);
+       // intent.putExtra("Gra", "cyfry3");
+        startActivity(intent);
+    }
+    public void getResults1() {
+        Intent intent = new Intent(getApplicationContext(), GiffActivityFailActivity.class );
+        intent.putExtra("Odpowiedzi prawidłowe", score);
+        intent.putExtra("Gra", "cyfry3");
+        intent.putExtra("Giff",0);
+
         startActivity(intent);
     }
 

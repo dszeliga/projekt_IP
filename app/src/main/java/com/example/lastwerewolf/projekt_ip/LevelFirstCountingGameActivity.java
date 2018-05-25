@@ -105,7 +105,7 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
                     mistakeInformation();
                 }
                 if (6 == turn) {
-                    if(score>=3){
+                    if(score>=6){
                         getResults();
                     }else{
                         getResults1();
@@ -125,7 +125,7 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
                     mistakeInformation();
                 }
                 if (6 == turn) {
-                    if(score>=3){
+                    if(score>=6){
                         getResults();
                     }else{
                         getResults1();
@@ -145,7 +145,7 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
                     mistakeInformation();
                 }
                 if (6 == turn) {
-                    if(score>=3){
+                    if(score>=6){
                         getResults();
                     }else{
                         getResults1();
@@ -164,7 +164,7 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
                     mistakeInformation();
                 }
                 if (6 == turn) {
-                    if(score>=3){
+                    if(score>=6){
                         getResults();
                     }else{
                         getResults1();
@@ -200,7 +200,7 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
             turn++;
             newQuestion(turn);
         } else {
-            if(score>=3){
+            if(score>=6){
                 getResults();
             }else{
                 getResults1();
@@ -210,7 +210,7 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
 
     private void bravoInformation(){
         Toast toast;
-        score = score + 1;
+        score = score + 2;
 
         toast = new Toast(getApplicationContext());
         toast.setGravity(Gravity.CENTER, 0, 0);
@@ -232,7 +232,7 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
             turn++;
             newQuestion(turn);
         } else {
-            if(score>=3){
+            if(score>=6){
                 getResults();
             }else{
                 getResults1();
@@ -292,10 +292,11 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
         b_answer4.setText(randomAnswers[3] + "");
 
         if (6 == turn) {
-            if(score>=3){
+            if(score>=6){
                 getResults();
             }else{
                 getResults1();
+
             }
         }
 

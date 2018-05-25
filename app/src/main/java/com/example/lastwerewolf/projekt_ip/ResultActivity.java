@@ -42,7 +42,7 @@ public int score;
             allPoints += score;
             getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
         } else if (gra.equals("cyfry") || gra.equals("cyfry2") || gra.equals("cyfry3")) {
-            tv_result.setText(score + "/5");
+            tv_result.setText(score + "/10");
             allPoints += score;
             getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
         }
@@ -73,6 +73,7 @@ public int score;
                             Intent goToCountingLevel3;
                             goToCountingLevel3 = new Intent(v.getContext(), CountingGameActivity.class);
                             goToCountingLevel3.putExtra("gra", gra);
+                        goToCountingLevel3.putExtra("level", level);
                             startActivity(goToCountingLevel3);
 
 
@@ -81,6 +82,7 @@ public int score;
                             Intent goToCountingLevel2;
                             goToCountingLevel2 = new Intent(v.getContext(), CountingGameActivity.class);
                             goToCountingLevel2.putExtra("gra", gra);
+                        goToCountingLevel2.putExtra("level", level);
                             startActivity(goToCountingLevel2);
 
                     }

@@ -35,6 +35,7 @@ public class GiffActivityFailActivity extends AppCompatActivity {
                     intent.putExtra("Odpowiedzi prawidłowe", goodAnswers);//przekazanie informacji o ilości uzyskanych punktów
                     intent.putExtra("Gra", game);//przekazanie informacji o grze
                     intent.putExtra("level", level);//przekazanie informacji o levelu
+
                     startActivity(intent);
                 } else if (game.equals("memo")) {
                     Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
@@ -47,8 +48,8 @@ public class GiffActivityFailActivity extends AppCompatActivity {
 
                 finish();
             }
-        }, 2500);
-        MediaPlayer ring = MediaPlayer.create(GiffActivityFailActivity.this, R.raw.gifsound);
+        }, 3000);
+        MediaPlayer ring = MediaPlayer.create(GiffActivityFailActivity.this, R.raw.sadsound);
         ring.start();
     }
 }

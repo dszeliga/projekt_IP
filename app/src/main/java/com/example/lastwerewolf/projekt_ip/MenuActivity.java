@@ -3,6 +3,7 @@ package com.example.lastwerewolf.projekt_ip;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -126,6 +127,14 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(goToCountingGame);//przejscie do ekranu leveli nauki cyfr
             }
         });
+        if(allPoints<100) {
+            countingGameBtn.setEnabled(false);
+        }
+        else
+        {
+            countingGameBtn.setEnabled(true);
+            countingGameBtn.setBackgroundColor(Color.TRANSPARENT);
+        }
     }
 
     //ustawienia okna wyjścia z aplikacji
