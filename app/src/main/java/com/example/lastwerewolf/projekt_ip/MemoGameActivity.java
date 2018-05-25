@@ -57,6 +57,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
             value = b.getInt("key");
             ageAbove7 = b.getBoolean("wiek");
         }
+
         //ustawienie czasu gry i widoku na podstawie wybranego modułu wieku
         if (value == 1) {
             setContentView(R.layout.activity_memo_game);

@@ -5,6 +5,8 @@ import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class GiffActivity extends AppCompatActivity {
 
@@ -13,19 +15,37 @@ public class GiffActivity extends AppCompatActivity {
     private int giff = 0;
     public int goodAnswers;
     public boolean ageAbove7;
+    private String string;
+    private TextView tv;
+    private int allPoints;
+    private boolean unlockLvl2Memo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_giff);
 
+        tv = findViewById(R.id.textView4);
         game = getIntent().getStringExtra("Gra");
         level = getIntent().getIntExtra("level", 0);
         giff = getIntent().getIntExtra("gif", 0);
         goodAnswers = getIntent().getIntExtra("Odpowiedzi prawidłowe", 0);
-        ageAbove7=getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
+        ageAbove7 = getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
+        allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
+
+        // %%%%%%%%%%%%%%%%%%%DO POPRAWY!!!!!!%%%%%%%%%%%%%%%%%%%%%
+        // +  nową grę
+        if (allPoints + goodAnswers > 10 && !unlockLvl2Memo) {
+            tv.setText("ODBLOKOWANO NOWY LEVEL");
+            unlockLvl2Memo = true;
+        }
+
+        if (allPoints + goodAnswers > 90)
+            tv.setText("ODBLOKOWANO NOWĄ GRĘ");
+        //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
         final Handler handler = new Handler();
+
 
         handler.postDelayed(new Runnable() {
             @Override
