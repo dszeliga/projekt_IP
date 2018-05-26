@@ -34,7 +34,7 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
 
     int matching[] = {-1, -1, -1};
     ImageView activeView = null;
-    
+
     List<ProfessionType> leftP;
     List<ProfessionType> rightP;
 

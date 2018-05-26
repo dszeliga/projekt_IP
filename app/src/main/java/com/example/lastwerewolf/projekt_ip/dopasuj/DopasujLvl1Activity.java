@@ -6,6 +6,7 @@ import android.content.res.AssetFileDescriptor;
 import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -21,12 +22,14 @@ import java.util.Random;
 
 public class DopasujLvl1Activity extends AppCompatActivity {
 
+    private final Handler handler = new Handler();
     private Colors currentColorToGuess = Colors.NONE;
     private Item currentColorToGuessObject;
     private Colors currentButtons[] = { Colors.NONE, Colors.NONE, Colors.NONE};
     private Button buttons[];
     private ImageView imv;
     private ImageView point;
+    private Button speaker;
 
     private void setColorButtonsAndTShirt() {
         Resources res = getResources();
@@ -39,18 +42,18 @@ public class DopasujLvl1Activity extends AppCompatActivity {
 
         imv = (ImageView) findViewById(R.id.imageView2);
         point = (ImageView) findViewById(R.id.imageView);
+        speaker = (Button) findViewById(R.id.btn_speaker);
     }
 
+    MediaPlayer m = new MediaPlayer();
+
     public void playSound(String fileName) {
-
-        MediaPlayer m = new MediaPlayer();
-
         try {
             if (m.isPlaying()) {
                 m.stop();
                 m.release();
-                m = new MediaPlayer();
             }
+            m = new MediaPlayer();
 
             AssetFileDescriptor descriptor = getAssets().openFd(fileName);
             m.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
@@ -70,6 +73,7 @@ public class DopasujLvl1Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dopasuj_lvl1_activity);
         setColorButtonsAndTShirt();
+        this.onSpeakerClick(imv);
     }
 
     public void onSpeakerClick(View view) {
@@ -169,6 +173,22 @@ public class DopasujLvl1Activity extends AppCompatActivity {
             point.setVisibility(View.VISIBLE);
             playSound("bravo.mp3");
             resetGame();
+
+            speaker.setEnabled(false);
+            for(Button btn : buttons) {
+                btn.setEnabled(false);
+            }
+
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    speaker.setEnabled(true);
+                    for(Button btn : buttons) {
+                        btn.setEnabled(true);
+                    }
+                    onSpeakerClick(imv);
+                }
+            }, 4000);
         } else {
             Log.i("Dopasuj:"," " + selectedColor.name() + " is not right answer :(");
             playSound("error.mp3");

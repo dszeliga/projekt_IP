@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".dopasuj.DopasujLvl3Activity">
+    tools:context=".dopasuj.DopasujLvl3Activity"
+    android:background="#93d9fb">
 
     <ImageView
         android:id="@+id/dopasuj_lvl3_wrapper"
