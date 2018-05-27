@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.lastwerewolf.projekt_ip.dopasuj.DopasujLvl1Activity;
+import com.example.lastwerewolf.projekt_ip.dopasuj.DopasujLvl3Activity;
+
 import java.util.logging.Level;
 
 public class ResultActivity extends AppCompatActivity {
@@ -39,13 +42,14 @@ public int score;
 
         if (gra.equals("memo")) {
             tv_result.setText("+" + score + " pkt.");
-            allPoints += score;
-            getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
         } else if (gra.equals("cyfry") || gra.equals("cyfry2") || gra.equals("cyfry3")) {
             tv_result.setText(score + "/10");
-            allPoints += score;
-            getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
+        } else if(gra.equals("dopasuj")) {
+            tv_result.setText("+" + score + " pkt.");
         }
+
+        allPoints += score;
+        getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
 
 
             Yes.setOnClickListener(new View.OnClickListener() {
@@ -70,22 +74,27 @@ public int score;
 
                     } else if (gra.equals("cyfry3")) {
 
-                            Intent goToCountingLevel3;
-                            goToCountingLevel3 = new Intent(v.getContext(), CountingGameActivity.class);
-                            goToCountingLevel3.putExtra("gra", gra);
+                        Intent goToCountingLevel3;
+                        goToCountingLevel3 = new Intent(v.getContext(), CountingGameActivity.class);
+                        goToCountingLevel3.putExtra("gra", gra);
                         goToCountingLevel3.putExtra("level", level);
-                            startActivity(goToCountingLevel3);
+                        startActivity(goToCountingLevel3);
 
 
                     } else if(gra.equals("cyfry2")) {
 
-                            Intent goToCountingLevel2;
-                            goToCountingLevel2 = new Intent(v.getContext(), CountingGameActivity.class);
-                            goToCountingLevel2.putExtra("gra", gra);
+                        Intent goToCountingLevel2;
+                        goToCountingLevel2 = new Intent(v.getContext(), CountingGameActivity.class);
+                        goToCountingLevel2.putExtra("gra", gra);
                         goToCountingLevel2.putExtra("level", level);
-                            startActivity(goToCountingLevel2);
+                        startActivity(goToCountingLevel2);
 
+                    } else if(gra.equals("dopasuj")) {
+                        Intent goToDopasujMenu = new Intent(v.getContext(), ColorsLevelsManagerActivity.class);
+                        goToDopasujMenu.putExtra("wiek", ageAbove7);
+                        startActivity(goToDopasujMenu);
                     }
+                    finish();
                 }
             });
 
@@ -95,6 +104,7 @@ public int score;
                 Intent goToMenu = new Intent(v.getContext(), MenuActivity.class);
                 goToMenu.putExtra("wiek", ageAbove7);
                 startActivity(goToMenu);
+                finish();
             }
         });
 
@@ -145,6 +155,25 @@ public int score;
                     b1.putInt("key", value); //Your id
                     goToCountingLevel2.putExtras(b1);
                     startActivity(goToCountingLevel2);
+                    finish();
+                } else if (gra.equals("dopasuj")) {
+                    Intent goToDopasuj;
+                    switch (level) {
+                        case 1:
+                            goToDopasuj = new Intent(v.getContext(), DopasujLvl1Activity.class);
+                            break;
+                        case 3:
+                            goToDopasuj = new Intent(v.getContext(), DopasujLvl3Activity.class);
+                            break;
+                        default:
+                            Intent goToMenu = new Intent(v.getContext(), MenuActivity.class);
+                            goToMenu.putExtra("wiek", ageAbove7);
+                            startActivity(goToMenu);
+                            return;
+                    }
+                    goToDopasuj.putExtra("gra", gra);
+                    goToDopasuj.putExtra("level", level);
+                    startActivity(goToDopasuj);
                     finish();
                 }
             }

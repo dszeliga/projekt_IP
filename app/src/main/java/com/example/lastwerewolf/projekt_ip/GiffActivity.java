@@ -50,20 +50,11 @@ public class GiffActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (game.equals("cyfry") || game.equals("cyfry2") || game.equals("cyfry3")) {
-                    Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-                    intent.putExtra("Odpowiedzi prawidłowe", goodAnswers);//przekazanie informacji o ilości uzyskanych punktów
-                    intent.putExtra("Gra", game);//przekazanie informacji o grze
-                    intent.putExtra("level", level);//przekazanie informacji o levelu
-                    startActivity(intent);
-                } else if (game.equals("memo")) {
-                    Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-                    intent.putExtra("Odpowiedzi prawidłowe", goodAnswers);//przekazanie informacji o ilości uzyskanych punktów
-                    intent.putExtra("Gra", "memo");//przekazanie informacji o grze
-                    intent.putExtra("level", level);//przekazanie informacji o levelu
-                    startActivity(intent);
-                }
-
+                Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                intent.putExtra("Odpowiedzi prawidłowe", goodAnswers);//przekazanie informacji o ilości uzyskanych punktów
+                intent.putExtra("Gra", game);//przekazanie informacji o grze
+                intent.putExtra("level", level);//przekazanie informacji o levelu
+                startActivity(intent);
 
                 finish();
             }

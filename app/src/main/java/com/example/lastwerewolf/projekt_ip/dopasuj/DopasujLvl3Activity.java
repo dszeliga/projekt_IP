@@ -1,5 +1,7 @@
 package com.example.lastwerewolf.projekt_ip.dopasuj;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -11,12 +13,16 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.lastwerewolf.projekt_ip.GiffActivity;
+import com.example.lastwerewolf.projekt_ip.MenuActivity;
 import com.example.lastwerewolf.projekt_ip.R;
 
 import java.util.Arrays;
@@ -29,8 +35,11 @@ import java.util.Random;
 public class DopasujLvl3Activity extends AppCompatActivity implements View.OnClickListener {
 
     private final int SCORE_FOR_WIN = 1;
+    private final int SHOW_RESULT_AFTER = 5;
+    final Handler handler = new Handler();
 
-    private int allPoints;
+//    private int allPoints;
+    private int winCounter = 0;
 
     ImageView leftV[];
 
@@ -102,7 +111,7 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dopasuj_lvl3);
 
-        allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
+//        allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
 
         Resources res = getResources();
 
@@ -174,12 +183,29 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
             matching[i] = -1;
         }
 
-        allPoints += SCORE_FOR_WIN;
-        getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
+//        allPoints += SCORE_FOR_WIN;
+//        getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
         playSound("bravo.mp3");
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                winCounter++;
+                if (winCounter % SHOW_RESULT_AFTER == 0) {
+                    Intent intent = new Intent(getApplicationContext(), GiffActivity.class);
+                    intent.putExtra("Odpowiedzi prawidłowe", winCounter * SCORE_FOR_WIN);//przekazanie informacji o ilości uzyskanych punktów
+                    intent.putExtra("Gra", "dopasuj");
+                    intent.putExtra("level", 3);
 
-        // Recreate activity, aby rozpocząć grę od nowa.
-        this.recreate();
+                    winCounter = 0;
+
+                    startActivity(intent);
+                    finish();
+                } else {
+                    // Recreate activity, aby rozpocząć grę od nowa.
+                    recreate();
+                }
+            }
+        }, 4000);
     }
 
     @Override
@@ -262,5 +288,29 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
         if(correct == matching.length) {
             finishGame();
         }
+    }
+
+    public void onBackPressed() {
+        AlertDialog.Builder exitMessage = new AlertDialog.Builder(this);
+        exitMessage.setMessage("Czy jesteś pewien, że chcesz opuścić grę?")
+                .setTitle("WYJŚCIE");
+
+        exitMessage.setPositiveButton("Zakończ grę", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                setResult(RESULT_OK);
+                Intent goToMenu = new Intent(getApplicationContext(), MenuActivity.class);
+                goToMenu.putExtra("wiek", getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true));
+                startActivity(goToMenu);
+                finish();
+            }
+        });
+        exitMessage.setNegativeButton("Pozostań w grze", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog dialog = exitMessage.create();
+        dialog.show();
     }
 }

@@ -43,7 +43,7 @@ public class ColorsLevelsManagerActivity extends AppCompatActivity {
                 b.putInt("key", 1); //Your id
                 goToDopasujGame.putExtras(b);
                 startActivity(goToDopasujGame);
-                // finish();
+                finish();
             }
         });
         if(allPoints >= pointsToUnlockFirstLevel) {
@@ -61,7 +61,7 @@ public class ColorsLevelsManagerActivity extends AppCompatActivity {
                 b.putInt("key", 2); //Your id
                 goToPuzzlesGame.putExtras(b);
                 startActivity(goToPuzzlesGame);
-                // finish();
+                finish();
             }
         });
         if(allPoints >= pointsToUnlockSecondLevel) {
@@ -79,7 +79,7 @@ public class ColorsLevelsManagerActivity extends AppCompatActivity {
                 b.putInt("key", 3); //Your id
                 goToLvl3.putExtras(b);
                 startActivity(goToLvl3);
-                // finish();
+                finish();
             }
         });
         if(allPoints >= pointsToUnlockThirdLevel) {

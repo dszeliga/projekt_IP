@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.lastwerewolf.projekt_ip.GiffActivity;
 import com.example.lastwerewolf.projekt_ip.MemoGameActivity;
 import com.example.lastwerewolf.projekt_ip.MenuActivity;
 import com.example.lastwerewolf.projekt_ip.R;
@@ -24,6 +25,8 @@ public class DopasujLvl1Activity extends AppCompatActivity {
 
     private final Handler handler = new Handler();
     private final int SCORE_FOR_WIN = 1;
+    private final int SHOW_RESULT_AFTER = 3;
+
     private Colors currentColorToGuess = Colors.NONE;
     private Item currentColorToGuessObject;
     private Colors currentButtons[] = { Colors.NONE, Colors.NONE, Colors.NONE};
@@ -31,7 +34,8 @@ public class DopasujLvl1Activity extends AppCompatActivity {
     private ImageView imv;
     private ImageView point;
     private Button speaker;
-    private int allPoints;
+//    private int allPoints;
+    private int winCounter = 0;
 
     private void setColorButtonsAndTShirt() {
         Resources res = getResources();
@@ -75,7 +79,7 @@ public class DopasujLvl1Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dopasuj_lvl1_activity);
         setColorButtonsAndTShirt();
-        allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
+//        allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
         this.onSpeakerClick(imv);
     }
 
@@ -175,8 +179,9 @@ public class DopasujLvl1Activity extends AppCompatActivity {
             imv.setBackground(currentColorToGuessObject.getImage());
             point.setVisibility(View.VISIBLE);
             playSound("bravo.mp3");
-            allPoints += SCORE_FOR_WIN;
-            getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
+//            allPoints += SCORE_FOR_WIN;
+//            getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
+
             resetGame();
 
             speaker.setEnabled(false);
@@ -187,11 +192,24 @@ public class DopasujLvl1Activity extends AppCompatActivity {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    speaker.setEnabled(true);
-                    for(Button btn : buttons) {
-                        btn.setEnabled(true);
+                    winCounter++;
+                    if(winCounter % SHOW_RESULT_AFTER == 0) {
+                        Intent intent = new Intent(getApplicationContext(), GiffActivity.class );
+                        intent.putExtra("Odpowiedzi prawidłowe", winCounter * SCORE_FOR_WIN);//przekazanie informacji o ilości uzyskanych punktów
+                        intent.putExtra("Gra", "dopasuj");
+                        intent.putExtra("level", 1);
+
+                        winCounter = 0;
+
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        speaker.setEnabled(true);
+                        for(Button btn : buttons) {
+                            btn.setEnabled(true);
+                        }
+                        onSpeakerClick(imv);
                     }
-                    onSpeakerClick(imv);
                 }
             }, 4000);
         } else {
@@ -201,18 +219,16 @@ public class DopasujLvl1Activity extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-
-
         AlertDialog.Builder exitMessage = new AlertDialog.Builder(this);
         exitMessage.setMessage("Czy jesteś pewien, że chcesz opuścić grę?")
                 .setTitle("WYJŚCIE");
 
         exitMessage.setPositiveButton("Zakończ grę", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                Intent data = new Intent();
-//                data.putExtra("", "")
-//                setResult(RESULT_OK, data);
                 setResult(RESULT_OK);
+                Intent goToMenu = new Intent(getApplicationContext(), MenuActivity.class);
+                goToMenu.putExtra("wiek", getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true));
+                startActivity(goToMenu);
                 finish();
             }
         });
@@ -224,6 +240,5 @@ public class DopasujLvl1Activity extends AppCompatActivity {
 
         AlertDialog dialog = exitMessage.create();
         dialog.show();
-
     }
 }
