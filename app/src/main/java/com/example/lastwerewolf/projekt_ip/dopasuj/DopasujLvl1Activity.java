@@ -23,6 +23,7 @@ import java.util.Random;
 public class DopasujLvl1Activity extends AppCompatActivity {
 
     private final Handler handler = new Handler();
+    private final int SCORE_FOR_WIN = 1;
     private Colors currentColorToGuess = Colors.NONE;
     private Item currentColorToGuessObject;
     private Colors currentButtons[] = { Colors.NONE, Colors.NONE, Colors.NONE};
@@ -30,6 +31,7 @@ public class DopasujLvl1Activity extends AppCompatActivity {
     private ImageView imv;
     private ImageView point;
     private Button speaker;
+    private int allPoints;
 
     private void setColorButtonsAndTShirt() {
         Resources res = getResources();
@@ -73,6 +75,7 @@ public class DopasujLvl1Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dopasuj_lvl1_activity);
         setColorButtonsAndTShirt();
+        allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
         this.onSpeakerClick(imv);
     }
 
@@ -172,6 +175,8 @@ public class DopasujLvl1Activity extends AppCompatActivity {
             imv.setBackground(currentColorToGuessObject.getImage());
             point.setVisibility(View.VISIBLE);
             playSound("bravo.mp3");
+            allPoints += SCORE_FOR_WIN;
+            getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
             resetGame();
 
             speaker.setEnabled(false);

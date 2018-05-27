@@ -26,6 +26,10 @@ import java.util.Random;
 
 public class DopasujLvl3Activity extends AppCompatActivity implements View.OnClickListener {
 
+    private final int SCORE_FOR_WIN = 1;
+
+    private int allPoints;
+
     ImageView leftV[];
 
     ImageView rightV[];
@@ -96,6 +100,8 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dopasuj_lvl3);
 
+        allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
+
         Resources res = getResources();
 
         for(ProfessionType pt : ProfessionType.values()) {
@@ -142,10 +148,12 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
         for(int i = 0; i < matching.length; i++) {
             matching[i] = -1;
         }
-        //TODO: dodaj punkty!
+
+        allPoints += SCORE_FOR_WIN;
+        getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
 
         // Recreate activity, aby rozpocząć grę od nowa.
-         this.recreate();
+        this.recreate();
     }
 
     @Override

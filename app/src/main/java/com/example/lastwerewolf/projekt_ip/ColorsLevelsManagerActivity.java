@@ -18,6 +18,8 @@ public class ColorsLevelsManagerActivity extends AppCompatActivity {
     public final int pointsToUnlockSecondLevel = 10;
     public final int pointsToUnlockThirdLevel = 20;
 
+    private int allPoints;
+
     public Button firstLevel;
     public Button secondLevel;
     public Button thirdLevel;
@@ -27,7 +29,7 @@ public class ColorsLevelsManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_colors_levels_manager);
 
-        int currentPoints = 20;
+        allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
 
         firstLevel = findViewById(R.id.firstLevel);
         secondLevel = findViewById(R.id.secondLevel);
@@ -44,7 +46,7 @@ public class ColorsLevelsManagerActivity extends AppCompatActivity {
                 // finish();
             }
         });
-        if(currentPoints >= pointsToUnlockFirstLevel) {
+        if(allPoints >= pointsToUnlockFirstLevel) {
             firstLevel.setBackground(new ColorDrawable(0x00000000));
             firstLevel.setEnabled(true);
         } else {
@@ -62,7 +64,7 @@ public class ColorsLevelsManagerActivity extends AppCompatActivity {
                 // finish();
             }
         });
-        if(currentPoints >= pointsToUnlockSecondLevel) {
+        if(allPoints >= pointsToUnlockSecondLevel) {
             secondLevel.setBackground(new ColorDrawable(0x00000000));
             secondLevel.setEnabled(true);
         } else {
@@ -80,7 +82,7 @@ public class ColorsLevelsManagerActivity extends AppCompatActivity {
                 // finish();
             }
         });
-        if(currentPoints >= pointsToUnlockThirdLevel) {
+        if(allPoints >= pointsToUnlockThirdLevel) {
             thirdLevel.setBackground(new ColorDrawable(0x00000000));
             thirdLevel.setEnabled(true);
         } else {
