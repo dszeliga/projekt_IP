@@ -1,5 +1,6 @@
 package com.example.lastwerewolf.projekt_ip.dopasuj;
 
+import android.content.res.AssetFileDescriptor;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -8,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -143,6 +145,29 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
         return -1;
     }
 
+    MediaPlayer m = new MediaPlayer();
+
+    public void playSound(String fileName) {
+        try {
+            if (m.isPlaying()) {
+                m.stop();
+                m.release();
+            }
+            m = new MediaPlayer();
+
+            AssetFileDescriptor descriptor = getAssets().openFd(fileName);
+            m.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
+            descriptor.close();
+
+            m.prepare();
+            m.setVolume(1f, 1f);
+            m.setLooping(false);
+            m.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void finishGame() {
         Toast.makeText(this, "Gratulacje!", Toast.LENGTH_SHORT).show();
         for(int i = 0; i < matching.length; i++) {
@@ -151,6 +176,7 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
 
         allPoints += SCORE_FOR_WIN;
         getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
+        playSound("bravo.mp3");
 
         // Recreate activity, aby rozpocząć grę od nowa.
         this.recreate();
