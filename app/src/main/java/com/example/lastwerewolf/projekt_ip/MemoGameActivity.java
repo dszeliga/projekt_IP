@@ -34,6 +34,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     private int counterGames = 0;
     private int timeOnLevel = 0;
     private int timeToRevert = 0;
+    private int allPoints;
     private long timeToEnd = 0;
     private boolean isRunning = false;
     private boolean ageAbove7;
@@ -57,7 +58,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
             value = b.getInt("key");
             ageAbove7 = b.getBoolean("wiek");
         }
-
+        allPoints=getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
         //ustawienie czasu gry i widoku na podstawie wybranego modułu wieku
         if (value == 1) {
             setContentView(R.layout.activity_memo_game);
@@ -341,7 +342,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
     }
 
     public void getResults() {
-        if(score<6)
+        if(score==0)
         {
             //przejście do ekranu wyniku
             Intent intent = new Intent(getApplicationContext(), GiffActivityFailActivity.class);
@@ -351,13 +352,21 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
             intent.putExtra("wiek", ageAbove7); //przekazanie informacji o module wieku
             startActivity(intent);
         }
-        else {
+        else if(score==10 || (allPoints+score >= 10 && value==1)){
             //przejście do ekranu wyniku
             Intent intent = new Intent(getApplicationContext(), GiffActivity.class);
             intent.putExtra("Odpowiedzi prawidłowe", score);//przekazanie informacji o ilości uzyskanych punktów
             intent.putExtra("Gra", "memo");//przekazanie informacji o grze
             intent.putExtra("level", value);//przekazanie informacji o levelu
             intent.putExtra("wiek", ageAbove7); //przekazanie informacji o module wieku
+            startActivity(intent);
+        }
+        else
+        {
+            Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+            intent.putExtra("Odpowiedzi prawidłowe", score);//przekazanie informacji o ilości uzyskanych punktów
+            intent.putExtra("Gra", "memo");//przekazanie informacji o grze
+            intent.putExtra("level", value);//przekazanie informacji o levelu
             startActivity(intent);
         }
     }

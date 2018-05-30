@@ -15,7 +15,7 @@ public class LevelsManagerActivity extends AppCompatActivity {
     private Button thirdLevel;
     private boolean ageAbove7;
     private int allPoints;
-
+    private boolean firstLvlUnlock, secondLvlUnlock, thirdLvlUnlock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,10 @@ public class LevelsManagerActivity extends AppCompatActivity {
         thirdLevel = findViewById(R.id.thirdLevel);
         ageAbove7 = getIntent().getBooleanExtra("wiek", true);//pobranie informacji o module wieku
         allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
+
+        firstLvlUnlock = getSharedPreferences("LVL1_PREFERENCE", MODE_PRIVATE).getBoolean("lvl1", false);
+        secondLvlUnlock = getSharedPreferences("LVL2_PREFERENCE", MODE_PRIVATE).getBoolean("lvl2", false);
+        thirdLvlUnlock = getSharedPreferences("LVL3_PREFERENCE", MODE_PRIVATE).getBoolean("lvl3", false);
 
         firstLevel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,11 +46,9 @@ public class LevelsManagerActivity extends AppCompatActivity {
             }
         });
 
-        if(allPoints<10) {
+        if (allPoints < 10) {
             secondLevel.setEnabled(false);
-        }
-        else
-        {
+        } else {
             secondLevel.setEnabled(true);
             secondLevel.setBackgroundColor(Color.TRANSPARENT);
         }
@@ -64,13 +66,13 @@ public class LevelsManagerActivity extends AppCompatActivity {
         });
 
 
-        if(allPoints<50) {
+        if (allPoints < 50) {
             thirdLevel.setEnabled(false);
-        }
-        else
-        {
+        } else {
             thirdLevel.setEnabled(true);
             thirdLevel.setBackgroundColor(Color.TRANSPARENT);
+            thirdLvlUnlock = true;
+            getSharedPreferences("LVL3_PREFERENCE", MODE_PRIVATE).edit().putBoolean("lvl3", thirdLvlUnlock).commit();
         }
 
         thirdLevel.setOnClickListener(new View.OnClickListener() {
