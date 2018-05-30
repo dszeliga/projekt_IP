@@ -39,7 +39,8 @@ public class GiffActivity extends AppCompatActivity {
 
         // %%%%%%%%%%%%%%%%%%%DO POPRAWY!!!!!!%%%%%%%%%%%%%%%%%%%%%
         // +  nową grę
-        if (secondLvlUnlock == false && allPoints + goodAnswers >= 10) {
+        if ((secondLvlUnlock == false && allPoints + goodAnswers >= 10 && game.equals("memo")) ||
+        (thirdLvlUnlock == false && allPoints + goodAnswers >= 10 && game.equals("memo"))){
             tv.setText("ODBLOKOWANO NOWY POZIOM");
         }
 
@@ -50,28 +51,29 @@ public class GiffActivity extends AppCompatActivity {
         final Handler handler = new Handler();
 //USTAWEINIE KIEDY JEST ODBLOKOWANIE LEVELU
         if ((secondLvlUnlock == false && game.equals("memo") && level == 1 && allPoints + goodAnswers >= 10) ||
-                (thirdLvlUnlock && game.equals("memo") && level == 2 && allPoints + goodAnswers >= 50)) {
+                (thirdLvlUnlock == false && game.equals("memo") && level == 2 && allPoints + goodAnswers >= 50)) {
+
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-                    intent.putExtra("Odpowiedzi prawidłowe", goodAnswers);//przekazanie informacji o ilości uzyskanych punktów
-                    intent.putExtra("Gra", game);//przekazanie informacji o grze
-                    intent.putExtra("level", level);//przekazanie informacji o levelu
-                    startActivity(intent);
-
+                    GoToResultView();
                     finish();
                 }
             }, 2500);
             MediaPlayer ring = MediaPlayer.create(GiffActivity.this, R.raw.gifsound);
             ring.start();
+
         } else {
-            Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-            intent.putExtra("Odpowiedzi prawidłowe", goodAnswers);//przekazanie informacji o ilości uzyskanych punktów
-            intent.putExtra("Gra", game);//przekazanie informacji o grze
-            intent.putExtra("level", level);//przekazanie informacji o levelu
-            startActivity(intent);
+            GoToResultView();
         }
+    }
+
+    private void GoToResultView() {
+        Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+        intent.putExtra("Odpowiedzi prawidłowe", goodAnswers);//przekazanie informacji o ilości uzyskanych punktów
+        intent.putExtra("Gra", game);//przekazanie informacji o grze
+        intent.putExtra("level", level);//przekazanie informacji o levelu
+        startActivity(intent);
     }
 
 }

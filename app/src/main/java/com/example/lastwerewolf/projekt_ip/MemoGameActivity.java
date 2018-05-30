@@ -352,7 +352,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
             intent.putExtra("wiek", ageAbove7); //przekazanie informacji o module wieku
             startActivity(intent);
         }
-        else if(score==10 || (allPoints+score >= 10 && value==1)){
+        else if(score==10){
             //przejście do ekranu wyniku
             Intent intent = new Intent(getApplicationContext(), GiffActivity.class);
             intent.putExtra("Odpowiedzi prawidłowe", score);//przekazanie informacji o ilości uzyskanych punktów

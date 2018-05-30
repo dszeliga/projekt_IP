@@ -66,7 +66,7 @@ public class LevelsManagerActivity extends AppCompatActivity {
         });
 
 
-        if (allPoints < 50) {
+        if (allPoints < 40) {
             thirdLevel.setEnabled(false);
         } else {
             thirdLevel.setEnabled(true);

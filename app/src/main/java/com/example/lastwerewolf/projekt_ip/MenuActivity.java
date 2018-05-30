@@ -99,7 +99,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        if(allPoints<80) {
+        if(allPoints<60) {
             coloursGameBtn.setEnabled(false);
         }
         else

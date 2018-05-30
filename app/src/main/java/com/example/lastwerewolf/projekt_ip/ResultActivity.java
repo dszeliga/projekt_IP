@@ -53,12 +53,12 @@ public class ResultActivity extends AppCompatActivity {
         }
 
         //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        //ANIA W TYM IFIE MUSISZ DOPISAĆ WASZE WARUNKI, ŻE PO ODBLOKOWANIU KOLEJNEGO LEVELU
+        //W TYM IFIE NALEŻY DOPISAĆ WASZE WARUNKI, ŻE PO ODBLOKOWANIU KOLEJNEGO LEVELU
         // NIE DODAJĄ SIĘ PUNKTY Z POPRZEDNIEGO :D
         //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        if ((gra.equals("memo") && level == 1 && allPoints > 10) || (gra.equals("memo") && level == 2 && allPoints > 30)
-                || (gra.equals("memo") && level == 3 && allPoints > 50) || (gra.equals("cyfry") && allPoints > 106) ||
-                (gra.equals("cyfry2") && allPoints > 112)) {
+        if ((gra.equals("memo") && level == 1 && allPoints > 9) || (gra.equals("memo") && level == 2 && allPoints > 39)
+                || (gra.equals("memo") && level == 3 && allPoints > 59) || (gra.equals("cyfry") && allPoints > 105) ||
+                (gra.equals("cyfry2") && allPoints > 111)) {
             allPoints += 0;
             tv_result.setText("");
             tv2.setVisibility(View.INVISIBLE);
