@@ -1,4 +1,16 @@
 package com.example.lastwerewolf.projekt_ip.dopasuj;
 
-public class ShapeType {
+public enum ShapeType {
+    APPLE,
+    BANANAS,
+    CIRCLE,
+    DROP,
+    HEART,
+    KEY,
+    PEAR,
+    PENTOID,
+    SQUARE,
+    STAR,
+    TRIANGLE,
+    EX
 }
