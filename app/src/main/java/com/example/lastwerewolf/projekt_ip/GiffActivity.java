@@ -46,17 +46,17 @@ public class GiffActivity extends AppCompatActivity {
 
 
         List<Integer> lvls = Arrays.asList(0, 10, 40, 60, 70, 80, 100, 115, 130);
-        int currentLVL = lvls.size() - 1;
-        int nextLVL = lvls.size() - 1;
+        int currentLVL = lvls.size();
+        int nextLVL = lvls.size() + 1;
         for (int i = 0; i < lvls.size(); i++) {
             if(lvls.get(i) > allPoints) {
-                currentLVL = i - 1;
+                currentLVL = i;
                 break;
             }
         }
         for (int i = 0; i < lvls.size(); i++) {
             if(lvls.get(i) > allPoints + goodAnswers) {
-                nextLVL = i - 1;
+                nextLVL = i;
                 break;
             }
         }
@@ -67,14 +67,14 @@ public class GiffActivity extends AppCompatActivity {
         } else if(game.equals("cyfry") || game.equals("cyfry2") || game.equals("cyfry3")) {
             countableLVL += 6;
         }
-        countableLVL += level - 1;
+        countableLVL += level;
 
         countPoints = countableLVL == currentLVL;
 
         if(countPoints && currentLVL != nextLVL) {
             this.nextLVL = nextLVL;
-            if((currentLVL + 1) % 3 == 0) {
-                if(currentLVL != lvls.size() - 1) {
+            if(currentLVL % 3 == 0) {
+                if(currentLVL != lvls.size()) {
                     tv.setText("ODBLOKOWANO NOWĄ GRĘ");
                 } else {
                     tv.setText("WYGRAŁEŚ!");
