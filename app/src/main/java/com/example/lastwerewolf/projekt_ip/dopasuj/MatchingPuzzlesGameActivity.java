@@ -32,7 +32,7 @@ import java.util.Random;
 
 public class MatchingPuzzlesGameActivity extends AppCompatActivity {
 
-    ImageView iv1,iv2,iv3,iv4,iv5,iv6,iv7,iv8;
+    ImageView iv1, iv2, iv3, iv4, iv5, iv6, iv7, iv8;
     ImageView emptyV[];
     ImageView filledV[];
     int correct = 0;
@@ -56,7 +56,7 @@ public class MatchingPuzzlesGameActivity extends AppCompatActivity {
 
         Resources res = getResources();
 
-        for(ShapeType shapeType : ShapeType.values()) {
+        for (ShapeType shapeType : ShapeType.values()) {
             shapeMap.put(shapeType, new Shape(shapeType, res));
         }
 
@@ -80,15 +80,15 @@ public class MatchingPuzzlesGameActivity extends AppCompatActivity {
 
         filledP = selectFourRandomShapes();
         emptyP = filledP;
-        for(int i = 0; i < emptyV.length; i++) {
+        for (int i = 0; i < emptyV.length; i++) {
             emptyV[i].setImageDrawable(shapeMap.get(emptyP.get(i)).shapeEmpty);
             emptyV[i].setTag(i);
             emptyV[i].setOnTouchListener(new choiceTouchListner());
             emptyV[i].setOnDragListener(new choiceDraglistner());
         }
-        for(int i = 0; i < filledV.length; i++) {
+        for (int i = 0; i < filledV.length; i++) {
             filledV[i].setImageDrawable(shapeMap.get(filledP.get(i)).shapeFilled);
-            filledV[i].setTag(i+4);
+            filledV[i].setTag(i + 4);
             filledV[i].setOnTouchListener(new choiceTouchListner());
             filledV[i].setOnDragListener(new choiceDraglistner());
         }
@@ -120,94 +120,81 @@ public class MatchingPuzzlesGameActivity extends AppCompatActivity {
         }
         return result;
     }
-    private class choiceTouchListner implements View.OnTouchListener{
+
+    private class choiceTouchListner implements View.OnTouchListener {
 
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-            if((event.getAction() == MotionEvent.ACTION_DOWN) && ((ImageView)v).getDrawable() !=null) {
-               ClipData data =ClipData.newPlainText("","");
+            if ((event.getAction() == MotionEvent.ACTION_DOWN) && ((ImageView) v).getDrawable() != null) {
+                ClipData data = ClipData.newPlainText("", "");
                 View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
                 v.startDrag(data, shadowBuilder, v, 0);
                 return true;
-            }else {
+            } else {
                 return false;
             }
         }
     }
 
-    private class choiceDraglistner implements View.OnDragListener{
+    private class choiceDraglistner implements View.OnDragListener {
 
 
         @Override
         public boolean onDrag(View v, DragEvent event) {
-                switch (event.getAction()){
-                    case DragEvent.ACTION_DRAG_STARTED:
+            switch (event.getAction()) {
+                case DragEvent.ACTION_DRAG_STARTED:
 
-                        break;
+                    break;
 
-                    case DragEvent.ACTION_DRAG_ENTERED:
+                case DragEvent.ACTION_DRAG_ENTERED:
 
-                        break;
+                    break;
 
-                    case DragEvent.ACTION_DRAG_EXITED:
+                case DragEvent.ACTION_DRAG_EXITED:
 
-                        break;
+                    break;
 
-                    case DragEvent.ACTION_DROP:
+                case DragEvent.ACTION_DROP:
 
-                        ImageView view1 = (ImageView)event.getLocalState();
+                    ImageView view1 = (ImageView) event.getLocalState();
 
-                        String s = ((ImageView)v).getTag().toString();
+                    String s = ((ImageView) v).getTag().toString();
 
-                        int x = Integer.parseInt(s);
-                        int y = x+4;
+                    int x = Integer.parseInt(s);
+                    int y = x + 4;
 
-                        String s2 = Integer.toString(y);
+                    String s2 = Integer.toString(y);
 
-                        if (view1.getTag().toString().equals(s2)){
-                            ((ImageView)v).setImageDrawable(view1.getDrawable());
-                            ((ImageView) view1).setImageDrawable(null);
-                            Toast.makeText(MatchingPuzzlesGameActivity.this, "Dobrze", Toast.LENGTH_SHORT).show();
-                            correct++;
-                            winCounter++;
-                            if(correct == 4) {
-                                    finishGame();
-                            }
-                            break;
-
-                        }else
-                        {
-                            Toast.makeText(MatchingPuzzlesGameActivity.this, "Spróbuj jeszcze raz", Toast.LENGTH_SHORT).show();
-
+                    if (view1.getTag().toString().equals(s2)) {
+                        ((ImageView) v).setImageDrawable(view1.getDrawable());
+                        ((ImageView) view1).setImageDrawable(null);
+                        Toast.makeText(MatchingPuzzlesGameActivity.this, "Dobrze", Toast.LENGTH_SHORT).show();
+                        correct++;
+                        winCounter++;
+                        if (correct == 4) {
+                            finishGame();
                         }
-                            break;
+                        break;
 
-                }
+                    } else {
+                        Toast.makeText(MatchingPuzzlesGameActivity.this, "Spróbuj jeszcze raz", Toast.LENGTH_SHORT).show();
 
+                    }
+                    break;
+            }
 
-
-
-
-
-                return true;
+            return true;
         }
     }
 
     public void onBackPressed() {
-
-
         AlertDialog.Builder exitMessage = new AlertDialog.Builder(this);
         exitMessage.setMessage("Czy jesteś pewien, że chcesz opuścić grę?")
                 .setTitle("WYJŚCIE");
-
         exitMessage.setPositiveButton("Zakończ grę", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                Intent data = new Intent();
-//                data.putExtra("", "")
-//                setResult(RESULT_OK, data);
-                setResult(RESULT_OK);
-                finish();
+                startActivity(new Intent(MatchingPuzzlesGameActivity.this, MenuActivity.class));
             }
         });
         exitMessage.setNegativeButton("Pozostań w grze", new DialogInterface.OnClickListener() {
@@ -215,15 +202,13 @@ public class MatchingPuzzlesGameActivity extends AppCompatActivity {
                 dialog.cancel();
             }
         });
-
         AlertDialog dialog = exitMessage.create();
         dialog.show();
-
     }
 
     boolean isLeft(View v) {
-        for(int i = 0; i < emptyV.length; i++) {
-            if(emptyV[i].getId() == v.getId()) {
+        for (int i = 0; i < emptyV.length; i++) {
+            if (emptyV[i].getId() == v.getId()) {
                 return true;
             }
         }
@@ -233,8 +218,8 @@ public class MatchingPuzzlesGameActivity extends AppCompatActivity {
     int getPoz(View v) {
         boolean isLeft = isLeft(v);
         ImageView iva[] = isLeft ? emptyV : filledV;
-        for(int i = 0; i < emptyV.length; i++) {
-            if(iva[i].getId() == v.getId()) {
+        for (int i = 0; i < emptyV.length; i++) {
+            if (iva[i].getId() == v.getId()) {
                 return i;
             }
         }
@@ -244,14 +229,16 @@ public class MatchingPuzzlesGameActivity extends AppCompatActivity {
 
     private void finishGame() {
         Toast.makeText(this, "Gratulacje!", Toast.LENGTH_SHORT).show();
-        for(int i = 0; i < matching.length; i++) {
+        for (int i = 0; i < matching.length; i++) {
             matching[i] = -1;
         }
 
 //        allPoints += SCORE_FOR_WIN;
 //        getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
         playSound("bravo.mp3");
-
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// JEŻELI MA 0p to idzie do GiffActivityFailActivity, w innym wypadku do ResultActivity
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
