@@ -99,6 +99,15 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+        if(allPoints<60) {
+            coloursGameBtn.setEnabled(false);
+        }
+        else
+        {
+            coloursGameBtn.setEnabled(true);
+            coloursGameBtn.setBackgroundColor(Color.TRANSPARENT);
+        }
+
         coloursGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

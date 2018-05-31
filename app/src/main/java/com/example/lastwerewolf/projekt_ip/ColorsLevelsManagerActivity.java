@@ -14,9 +14,9 @@ import com.example.lastwerewolf.projekt_ip.dopasuj.DopasujLvl3Activity;
 
 public class ColorsLevelsManagerActivity extends AppCompatActivity {
 
-    public final int pointsToUnlockFirstLevel = 0;
-    public final int pointsToUnlockSecondLevel = 10;
-    public final int pointsToUnlockThirdLevel = 20;
+    public final int pointsToUnlockFirstLevel = 60;
+    public final int pointsToUnlockSecondLevel = 70;
+    public final int pointsToUnlockThirdLevel = 80;
 
     private int allPoints;
 

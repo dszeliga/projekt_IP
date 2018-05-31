@@ -8,17 +8,24 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class GiffActivity extends AppCompatActivity {
 
     private String game;
     private int level = 0;
+    private boolean countPoints = false;
+    private int nextLVL = 0;
     private int giff = 0;
     public int goodAnswers;
     public boolean ageAbove7;
     private String string;
     private TextView tv;
     private int allPoints;
-    private boolean unlockLvl2Memo;
+    private boolean firstLvlUnlock, secondLvlUnlock, thirdLvlUnlock;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,34 +40,78 @@ public class GiffActivity extends AppCompatActivity {
         ageAbove7 = getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
         allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
 
-        // %%%%%%%%%%%%%%%%%%%DO POPRAWY!!!!!!%%%%%%%%%%%%%%%%%%%%%
-        // +  nową grę
-        if (allPoints + goodAnswers > 10 && !unlockLvl2Memo) {
-            tv.setText("ODBLOKOWANO NOWY LEVEL");
-            unlockLvl2Memo = true;
+        firstLvlUnlock = getSharedPreferences("LVL1_PREFERENCE", MODE_PRIVATE).getBoolean("lvl1", false);
+        secondLvlUnlock = getSharedPreferences("LVL2_PREFERENCE", MODE_PRIVATE).getBoolean("lvl2", false);
+        thirdLvlUnlock = getSharedPreferences("LVL3_PREFERENCE", MODE_PRIVATE).getBoolean("lvl3", false);
+
+
+        List<Integer> lvls = Arrays.asList(0, 10, 40, 60, 70, 80, 100, 115, 130);
+        int currentLVL = lvls.size();
+        int nextLVL = lvls.size() + 1;
+        for (int i = 0; i < lvls.size(); i++) {
+            if(lvls.get(i) > allPoints) {
+                currentLVL = i;
+                break;
+            }
+        }
+        for (int i = 0; i < lvls.size(); i++) {
+            if(lvls.get(i) > allPoints + goodAnswers) {
+                nextLVL = i;
+                break;
+            }
         }
 
-        if (allPoints + goodAnswers > 90)
-            tv.setText("ODBLOKOWANO NOWĄ GRĘ");
-        //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        int countableLVL = 0;
+        if(game.equals("dopasuj")) {
+            countableLVL += 3;
+        } else if(game.equals("cyfry") || game.equals("cyfry2") || game.equals("cyfry3")) {
+            countableLVL += 6;
+        }
+        countableLVL += level;
+
+        countPoints = countableLVL == currentLVL;
+
+        if(countPoints && currentLVL != nextLVL) {
+            this.nextLVL = nextLVL;
+            if(currentLVL % 3 == 0) {
+                if(currentLVL != lvls.size()) {
+                    tv.setText("ODBLOKOWANO NOWĄ GRĘ");
+                } else {
+                    tv.setText("WYGRAŁEŚ!");
+                }
+
+            } else {
+                tv.setText("ODBLOKOWANO NOWY POZIOM");
+            }
+        }
 
         final Handler handler = new Handler();
 
+        if (countPoints && currentLVL != nextLVL) {
 
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-                intent.putExtra("Odpowiedzi prawidłowe", goodAnswers);//przekazanie informacji o ilości uzyskanych punktów
-                intent.putExtra("Gra", game);//przekazanie informacji o grze
-                intent.putExtra("level", level);//przekazanie informacji o levelu
-                startActivity(intent);
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    GoToResultView();
+                    finish();
+                }
+            }, 2500);
+            MediaPlayer ring = MediaPlayer.create(GiffActivity.this, R.raw.gifsound);
+            ring.start();
 
-                finish();
-            }
-        }, 2500);
-        MediaPlayer ring = MediaPlayer.create(GiffActivity.this, R.raw.gifsound);
-        ring.start();
+        } else {
+            GoToResultView();
+        }
+    }
+
+    private void GoToResultView() {
+        Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+        intent.putExtra("Odpowiedzi prawidłowe", goodAnswers);//przekazanie informacji o ilości uzyskanych punktów
+        intent.putExtra("Gra", game);//przekazanie informacji o grze
+        intent.putExtra("level", level);//przekazanie informacji o levelu
+        intent.putExtra("countPoints", countPoints);
+        intent.putExtra("lvlUnlocked", nextLVL);
+        startActivity(intent);
     }
 
 }

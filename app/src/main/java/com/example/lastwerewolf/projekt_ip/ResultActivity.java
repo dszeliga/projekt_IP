@@ -21,15 +21,23 @@ public class ResultActivity extends AppCompatActivity {
     private int level;
     private boolean ageAbove7;
     private int allPoints;
-public int score;
+    private boolean countPoints;
+    private int lvlUnlocked;
+    public int score;
+    private TextView tv_result, tv2;
+    private boolean secondLvlUnlock;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-         score = getIntent().getIntExtra("Odpowiedzi prawidłowe", 0);
-
-        TextView tv_result = findViewById(R.id.tv_result);
+        score = getIntent().getIntExtra("Odpowiedzi prawidłowe", 0);
+        countPoints = getIntent().getBooleanExtra("countPoints", false);
+        lvlUnlocked = getIntent().getIntExtra("lvlUnlocked", 0);
+        secondLvlUnlock = getSharedPreferences("LVL2_PREFERENCE", MODE_PRIVATE).getBoolean("lvl2", false);
+        tv_result = findViewById(R.id.tv_result);
+        tv2 = findViewById(R.id.textView2);
 
 
         Yes = findViewById(R.id.tak);
@@ -37,66 +45,83 @@ public int score;
         Replay = findViewById(R.id.refrash);
         gra = getIntent().getStringExtra("Gra");
         level = getIntent().getIntExtra("level", 0);
-        ageAbove7=getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
+        ageAbove7 = getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
         allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
 
         if (gra.equals("memo")) {
             tv_result.setText("+" + score + " pkt.");
         } else if (gra.equals("cyfry") || gra.equals("cyfry2") || gra.equals("cyfry3")) {
             tv_result.setText(score + "/10");
-        } else if(gra.equals("dopasuj")) {
+        } else if (gra.equals("dopasuj")) {
             tv_result.setText("+" + score + " pkt.");
         }
 
-        allPoints += score;
+        //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        //W TYM IFIE NALEŻY DOPISAĆ WASZE WARUNKI, ŻE PO ODBLOKOWANIU KOLEJNEGO LEVELU
+        // NIE DODAJĄ SIĘ PUNKTY Z POPRZEDNIEGO :D
+        //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        if (countPoints == false) {
+            allPoints += 0;
+            tv_result.setText("");
+            tv2.setVisibility(View.INVISIBLE);
+        } else {
+            allPoints += score;
+            tv_result.setText("+" + score + " pkt.");
+            tv2.setVisibility(View.VISIBLE);
+            if(allPoints>=10)
+            {
+                secondLvlUnlock = true;
+                getSharedPreferences("LVL2_PREFERENCE", MODE_PRIVATE).edit().putBoolean("lvl2", secondLvlUnlock).commit();
+            }
+        }
+
         getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
 
 
-            Yes.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        Yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                    if (gra.equals("memo")) {
-                        Intent goToLevels = new Intent(v.getContext(), LevelsManagerActivity.class);
-                        goToLevels.putExtra("gra", gra);
-                        goToLevels.putExtra("level", level);
-                        goToLevels.putExtra("wiek", ageAbove7);
-                        startActivity(goToLevels);
-                    } else if (gra.equals("cyfry")) {
+                if (gra.equals("memo")) {
+                    Intent goToLevels = new Intent(v.getContext(), LevelsManagerActivity.class);
+                    goToLevels.putExtra("gra", gra);
+                    goToLevels.putExtra("level", level);
+                    goToLevels.putExtra("wiek", ageAbove7);
+                    startActivity(goToLevels);
+                } else if (gra.equals("cyfry")) {
 
-                              Intent goToCountingLevel1;
-                              goToCountingLevel1 = new Intent(v.getContext(), CountingGameActivity.class);
-                              goToCountingLevel1.putExtra("gra", gra);
-                        goToCountingLevel1.putExtra("level", level);
-                              startActivity(goToCountingLevel1);
-
-
-
-                    } else if (gra.equals("cyfry3")) {
-
-                        Intent goToCountingLevel3;
-                        goToCountingLevel3 = new Intent(v.getContext(), CountingGameActivity.class);
-                        goToCountingLevel3.putExtra("gra", gra);
-                        goToCountingLevel3.putExtra("level", level);
-                        startActivity(goToCountingLevel3);
+                    Intent goToCountingLevel1;
+                    goToCountingLevel1 = new Intent(v.getContext(), CountingGameActivity.class);
+                    goToCountingLevel1.putExtra("gra", gra);
+                    goToCountingLevel1.putExtra("level", level);
+                    startActivity(goToCountingLevel1);
 
 
-                    } else if(gra.equals("cyfry2")) {
+                } else if (gra.equals("cyfry3")) {
 
-                        Intent goToCountingLevel2;
-                        goToCountingLevel2 = new Intent(v.getContext(), CountingGameActivity.class);
-                        goToCountingLevel2.putExtra("gra", gra);
-                        goToCountingLevel2.putExtra("level", level);
-                        startActivity(goToCountingLevel2);
+                    Intent goToCountingLevel3;
+                    goToCountingLevel3 = new Intent(v.getContext(), CountingGameActivity.class);
+                    goToCountingLevel3.putExtra("gra", gra);
+                    goToCountingLevel3.putExtra("level", level);
+                    startActivity(goToCountingLevel3);
 
-                    } else if(gra.equals("dopasuj")) {
-                        Intent goToDopasujMenu = new Intent(v.getContext(), ColorsLevelsManagerActivity.class);
-                        goToDopasujMenu.putExtra("wiek", ageAbove7);
-                        startActivity(goToDopasujMenu);
-                    }
-                    finish();
+
+                } else if (gra.equals("cyfry2")) {
+
+                    Intent goToCountingLevel2;
+                    goToCountingLevel2 = new Intent(v.getContext(), CountingGameActivity.class);
+                    goToCountingLevel2.putExtra("gra", gra);
+                    goToCountingLevel2.putExtra("level", level);
+                    startActivity(goToCountingLevel2);
+
+                } else if (gra.equals("dopasuj")) {
+                    Intent goToDopasujMenu = new Intent(v.getContext(), ColorsLevelsManagerActivity.class);
+                    goToDopasujMenu.putExtra("wiek", ageAbove7);
+                    startActivity(goToDopasujMenu);
                 }
-            });
+                finish();
+            }
+        });
 
         No.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,6 +205,15 @@ public int score;
 
 
         });
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
 

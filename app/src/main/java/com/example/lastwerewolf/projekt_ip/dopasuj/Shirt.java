@@ -29,15 +29,15 @@ public class Shirt implements Item {
                 break;
             case GREEN:
                 this.draw = res.getDrawable(R.drawable.ic_t_shirt_lime_green_silhouette);
-                this.soundFileName = "koszulka_zielony.mp3";
+                this.soundFileName = "koszulka_zielono.mp3";
                 break;
             case YELLOW:
                 this.draw = res.getDrawable(R.drawable.ic_t_shirt_gold_silhouette);
-                this.soundFileName = "koszulka_żółty.mp3";
+                this.soundFileName = "koszulka_zolto.mp3";
                 break;
             case BLUE:
                 this.draw = res.getDrawable(R.drawable.ic_t_shirt_oblue_silhouette);
-                this.soundFileName = "koszulka_niebieski.mp3";
+                this.soundFileName = "koszulka_niebiesko.mp3";
                 break;
             case PINK:
                 this.draw = res.getDrawable(R.drawable.ic_t_shirt_pink_silhouette);
@@ -45,7 +45,7 @@ public class Shirt implements Item {
                 break;
             case ORANGE:
                 this.draw = res.getDrawable(R.drawable.ic_t_shirt_orange_silhouette);
-                this.soundFileName = "koszulka_pomańczowo.mp3";
+                this.soundFileName = "koszulka_pomanczowo.mp3";
                 break;
             case NONE:
                 this.draw = res.getDrawable(R.drawable.ic_t_shirt_lime_gray1_silhouette);

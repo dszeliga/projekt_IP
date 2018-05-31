@@ -40,6 +40,7 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
 
 //    private int allPoints;
     private int winCounter = 0;
+    private int points = 0;
 
     ImageView leftV[];
 
@@ -177,6 +178,27 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    public void playSound(int resid) {
+        try {
+            if (m.isPlaying()) {
+                m.stop();
+                m.release();
+            }
+            m = new MediaPlayer();
+
+            AssetFileDescriptor descriptor = getResources().openRawResourceFd(resid);
+            m.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
+            descriptor.close();
+
+            m.prepare();
+            m.setVolume(1f, 1f);
+            m.setLooping(false);
+            m.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void finishGame() {
         Toast.makeText(this, "Gratulacje!", Toast.LENGTH_SHORT).show();
         for(int i = 0; i < matching.length; i++) {
@@ -185,14 +207,14 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
 
 //        allPoints += SCORE_FOR_WIN;
 //        getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
-        playSound("bravo.mp3");
+        playSound(R.raw.bravo);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 winCounter++;
                 if (winCounter % SHOW_RESULT_AFTER == 0) {
                     Intent intent = new Intent(getApplicationContext(), GiffActivity.class);
-                    intent.putExtra("Odpowiedzi prawidłowe", winCounter * SCORE_FOR_WIN);//przekazanie informacji o ilości uzyskanych punktów
+                    intent.putExtra("Odpowiedzi prawidłowe", points); //winCounter * SCORE_FOR_WIN);//przekazanie informacji o ilości uzyskanych punktów
                     intent.putExtra("Gra", "dopasuj");
                     intent.putExtra("level", 3);
 
@@ -238,6 +260,12 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
         int mIndex = aIsLeft ? aIndex : vIndex;
         int mVal = aIsLeft ? vIndex : aIndex;
         matching[mIndex] = mVal;
+        boolean correctMatching = leftP.get(mIndex) == rightP.get(mVal);
+        if(correctMatching) {
+            points += 2;
+        } else {
+            points -= 1;
+        }
         for(int i = 0; i < matching.length; i++) {
             if(i != mIndex && matching[i] == mVal) {
                 matching[i] = -1;

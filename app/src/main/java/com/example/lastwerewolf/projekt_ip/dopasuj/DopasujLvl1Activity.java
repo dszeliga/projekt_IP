@@ -74,6 +74,27 @@ public class DopasujLvl1Activity extends AppCompatActivity {
         }
     }
 
+    public void playSound(int resid) {
+        try {
+            if (m.isPlaying()) {
+                m.stop();
+                m.release();
+            }
+            m = new MediaPlayer();
+
+            AssetFileDescriptor descriptor = getResources().openRawResourceFd(resid);
+            m.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
+            descriptor.close();
+
+            m.prepare();
+            m.setVolume(1f, 1f);
+            m.setLooping(false);
+            m.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,7 +199,7 @@ public class DopasujLvl1Activity extends AppCompatActivity {
             Log.i("Dopasuj:","It's  " + selectedColor.name() + "! Congratulate!");
             imv.setBackground(currentColorToGuessObject.getImage());
             point.setVisibility(View.VISIBLE);
-            playSound("bravo.mp3");
+            playSound(R.raw.bravo);
 //            allPoints += SCORE_FOR_WIN;
 //            getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
 
@@ -214,7 +235,7 @@ public class DopasujLvl1Activity extends AppCompatActivity {
             }, 4000);
         } else {
             Log.i("Dopasuj:"," " + selectedColor.name() + " is not right answer :(");
-            playSound("error.mp3");
+            playSound(R.raw.error);
         }
     }
 

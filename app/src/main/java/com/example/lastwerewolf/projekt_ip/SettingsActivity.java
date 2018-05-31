@@ -22,6 +22,7 @@ public class SettingsActivity extends AppCompatActivity {
     private boolean chooseAgeAbove7;
     private int allPoints;
     private TextView pointsTxt;
+    private boolean firstLvlUnlock, secondLvlUnlock, thirdLvlUnlock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class SettingsActivity extends AppCompatActivity {
         chooseAgeAbove7 = getIntent().getBooleanExtra("wiek", true);
         allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
 
-        pointsTxt.setText(""+allPoints);
+        pointsTxt.setText("" + allPoints);
 
         if (chooseAgeAbove7) {
             aboveSeven.setChecked(true);
@@ -78,7 +79,13 @@ public class SettingsActivity extends AppCompatActivity {
                         Toast.makeText(SettingsActivity.this, "Zresetowano", Toast.LENGTH_LONG).show();
                         allPoints = 0;
                         getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
-                        pointsTxt.setText(""+allPoints);
+                        pointsTxt.setText("" + allPoints);
+                        firstLvlUnlock = false;
+                        secondLvlUnlock = false;
+                        thirdLvlUnlock = false;
+                        getSharedPreferences("LVL1_PREFERENCE", MODE_PRIVATE).edit().putBoolean("lvl1", firstLvlUnlock).commit();
+                        getSharedPreferences("LVL2_PREFERENCE", MODE_PRIVATE).edit().putBoolean("lvl2", secondLvlUnlock).commit();
+                        getSharedPreferences("LVL3_PREFERENCE", MODE_PRIVATE).edit().putBoolean("lvl3", thirdLvlUnlock).commit();
                     }
                 });
                 exitMessage.setNegativeButton("Anuluj", new DialogInterface.OnClickListener() {
