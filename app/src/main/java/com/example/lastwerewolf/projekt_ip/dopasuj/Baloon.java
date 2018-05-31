@@ -33,7 +33,7 @@ public class Baloon implements Item {
                 break;
             case YELLOW:
                 this.draw = res.getDrawable(R.drawable.ic_baloon_yellow);
-                this.soundFileName = "balon_żółto.mp3";
+                this.soundFileName = "balon_zolto.mp3";
                 break;
             case BLUE:
                 this.draw = res.getDrawable(R.drawable.ic_baloon_blue);
@@ -41,11 +41,11 @@ public class Baloon implements Item {
                 break;
             case PINK:
                 this.draw = res.getDrawable(R.drawable.ic_baloon_pink);
-                this.soundFileName = "balon_różowo.mp3";
+                this.soundFileName = "balon_rozowo.mp3";
                 break;
             case ORANGE:
                 this.draw = res.getDrawable(R.drawable.ic_baloon_orange);
-                this.soundFileName = "balon_pomarańczowo.mp3";
+                this.soundFileName = "balon_pomaranczowo.mp3";
                 break;
             case NONE:
                 this.draw = res.getDrawable(R.drawable.ic_baloon_grey);

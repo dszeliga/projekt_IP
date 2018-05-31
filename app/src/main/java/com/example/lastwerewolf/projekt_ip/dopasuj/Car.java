@@ -33,7 +33,7 @@ public class Car implements Item {
                 break;
             case YELLOW:
                 this.draw = res.getDrawable(R.drawable.ic_sedan_car_model_yellow);
-                this.soundFileName = "samoch_żółto.mp3";
+                this.soundFileName = "samoch_zolto.mp3";
                 break;
             case BLUE:
                 this.draw = res.getDrawable(R.drawable.ic_sedan_car_model_blue);
@@ -41,7 +41,7 @@ public class Car implements Item {
                 break;
             case PINK:
                 this.draw = res.getDrawable(R.drawable.ic_sedan_car_model_pink);
-                this.soundFileName = "samoc_różowo.mp3";
+                this.soundFileName = "samoch_rozowo.mp3";
                 break;
             case ORANGE:
                 this.draw = res.getDrawable(R.drawable.ic_sedan_car_model_orange);
