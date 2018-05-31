@@ -8,10 +8,16 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class GiffActivity extends AppCompatActivity {
 
     private String game;
     private int level = 0;
+    private boolean countPoints = false;
+    private int nextLVL = 0;
     private int giff = 0;
     public int goodAnswers;
     public boolean ageAbove7;
@@ -19,6 +25,7 @@ public class GiffActivity extends AppCompatActivity {
     private TextView tv;
     private int allPoints;
     private boolean firstLvlUnlock, secondLvlUnlock, thirdLvlUnlock;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,21 +44,50 @@ public class GiffActivity extends AppCompatActivity {
         secondLvlUnlock = getSharedPreferences("LVL2_PREFERENCE", MODE_PRIVATE).getBoolean("lvl2", false);
         thirdLvlUnlock = getSharedPreferences("LVL3_PREFERENCE", MODE_PRIVATE).getBoolean("lvl3", false);
 
-        // %%%%%%%%%%%%%%%%%%%DO POPRAWY!!!!!!%%%%%%%%%%%%%%%%%%%%%
-        // +  nową grę
-        if ((secondLvlUnlock == false && allPoints + goodAnswers >= 10 && game.equals("memo")) ||
-        (thirdLvlUnlock == false && allPoints + goodAnswers >= 10 && game.equals("memo"))){
-            tv.setText("ODBLOKOWANO NOWY POZIOM");
+
+        List<Integer> lvls = Arrays.asList(0, 10, 40, 60, 70, 80, 100, 115, 130);
+        int currentLVL = lvls.size() - 1;
+        int nextLVL = lvls.size() - 1;
+        for (int i = 0; i < lvls.size(); i++) {
+            if(lvls.get(i) > allPoints) {
+                currentLVL = i - 1;
+                break;
+            }
+        }
+        for (int i = 0; i < lvls.size(); i++) {
+            if(lvls.get(i) > allPoints + goodAnswers) {
+                nextLVL = i - 1;
+                break;
+            }
         }
 
-        if (allPoints + goodAnswers > 80)
-            tv.setText("ODBLOKOWANO NOWĄ GRĘ");
-        //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        int countableLVL = 0;
+        if(game.equals("dopasuj")) {
+            countableLVL += 3;
+        } else if(game.equals("cyfry") || game.equals("cyfry2") || game.equals("cyfry3")) {
+            countableLVL += 6;
+        }
+        countableLVL += level - 1;
+
+        countPoints = countableLVL == currentLVL;
+
+        if(countPoints && currentLVL != nextLVL) {
+            this.nextLVL = nextLVL;
+            if((currentLVL + 1) % 3 == 0) {
+                if(currentLVL != lvls.size() - 1) {
+                    tv.setText("ODBLOKOWANO NOWĄ GRĘ");
+                } else {
+                    tv.setText("WYGRAŁEŚ!");
+                }
+
+            } else {
+                tv.setText("ODBLOKOWANO NOWY POZIOM");
+            }
+        }
 
         final Handler handler = new Handler();
-//USTAWEINIE KIEDY JEST ODBLOKOWANIE LEVELU
-        if ((secondLvlUnlock == false && game.equals("memo") && level == 1 && allPoints + goodAnswers >= 10) ||
-                (thirdLvlUnlock == false && game.equals("memo") && level == 2 && allPoints + goodAnswers >= 50)) {
+
+        if (countPoints && currentLVL != nextLVL) {
 
             handler.postDelayed(new Runnable() {
                 @Override
@@ -73,6 +109,8 @@ public class GiffActivity extends AppCompatActivity {
         intent.putExtra("Odpowiedzi prawidłowe", goodAnswers);//przekazanie informacji o ilości uzyskanych punktów
         intent.putExtra("Gra", game);//przekazanie informacji o grze
         intent.putExtra("level", level);//przekazanie informacji o levelu
+        intent.putExtra("countPoints", countPoints);
+        intent.putExtra("lvlUnlocked", nextLVL);
         startActivity(intent);
     }
 

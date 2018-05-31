@@ -21,6 +21,8 @@ public class ResultActivity extends AppCompatActivity {
     private int level;
     private boolean ageAbove7;
     private int allPoints;
+    private boolean countPoints;
+    private int lvlUnlocked;
     public int score;
     private TextView tv_result, tv2;
     private boolean secondLvlUnlock;
@@ -31,6 +33,8 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
 
         score = getIntent().getIntExtra("Odpowiedzi prawidłowe", 0);
+        countPoints = getIntent().getBooleanExtra("countPoints", false);
+        lvlUnlocked = getIntent().getIntExtra("lvlUnlocked", 0);
         secondLvlUnlock = getSharedPreferences("LVL2_PREFERENCE", MODE_PRIVATE).getBoolean("lvl2", false);
         tv_result = findViewById(R.id.tv_result);
         tv2 = findViewById(R.id.textView2);
@@ -56,9 +60,7 @@ public class ResultActivity extends AppCompatActivity {
         //W TYM IFIE NALEŻY DOPISAĆ WASZE WARUNKI, ŻE PO ODBLOKOWANIU KOLEJNEGO LEVELU
         // NIE DODAJĄ SIĘ PUNKTY Z POPRZEDNIEGO :D
         //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        if ((gra.equals("memo") && level == 1 && allPoints > 9) || (gra.equals("memo") && level == 2 && allPoints > 39)
-                || (gra.equals("memo") && level == 3 && allPoints > 59) || (gra.equals("cyfry") && allPoints > 105) ||
-                (gra.equals("cyfry2") && allPoints > 111)) {
+        if (countPoints == false) {
             allPoints += 0;
             tv_result.setText("");
             tv2.setVisibility(View.INVISIBLE);
