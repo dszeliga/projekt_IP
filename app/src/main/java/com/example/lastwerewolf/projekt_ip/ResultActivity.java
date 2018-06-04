@@ -24,7 +24,7 @@ public class ResultActivity extends AppCompatActivity {
     private boolean countPoints;
     private int lvlUnlocked;
     public int score;
-    private TextView tv_result, tv2;
+    private TextView tv_result, tv2, infoScore;
     private boolean secondLvlUnlock;
 
     @Override
@@ -37,6 +37,7 @@ public class ResultActivity extends AppCompatActivity {
         lvlUnlocked = getIntent().getIntExtra("lvlUnlocked", 0);
         secondLvlUnlock = getSharedPreferences("LVL2_PREFERENCE", MODE_PRIVATE).getBoolean("lvl2", false);
         tv_result = findViewById(R.id.tv_result);
+        infoScore = findViewById(R.id.infoScore2);
         tv2 = findViewById(R.id.textView2);
 
 
@@ -62,14 +63,15 @@ public class ResultActivity extends AppCompatActivity {
         //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         if (countPoints == false) {
             allPoints += 0;
-            tv_result.setText("");
+            tv_result.setText("GRATULACJE!");
             tv2.setVisibility(View.INVISIBLE);
+            infoScore.setVisibility(View.INVISIBLE);
         } else {
             allPoints += score;
             tv_result.setText("+" + score + " pkt.");
             tv2.setVisibility(View.VISIBLE);
-            if(allPoints>=10)
-            {
+            infoScore.setVisibility(View.VISIBLE);
+            if (allPoints >= 10) {
                 secondLvlUnlock = true;
                 getSharedPreferences("LVL2_PREFERENCE", MODE_PRIVATE).edit().putBoolean("lvl2", secondLvlUnlock).commit();
             }
