@@ -33,7 +33,7 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
 
         score = getIntent().getIntExtra("Odpowiedzi prawidłowe", 0);
-        countPoints = getIntent().getBooleanExtra("countPoints", false);
+        countPoints = getIntent().getBooleanExtra("countPoints", true);
         lvlUnlocked = getIntent().getIntExtra("lvlUnlocked", 0);
         secondLvlUnlock = getSharedPreferences("LVL2_PREFERENCE", MODE_PRIVATE).getBoolean("lvl2", false);
         tv_result = findViewById(R.id.tv_result);
