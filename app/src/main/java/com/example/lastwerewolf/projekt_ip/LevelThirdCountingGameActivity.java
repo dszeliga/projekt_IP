@@ -26,10 +26,13 @@ public class LevelThirdCountingGameActivity extends AppCompatActivity {
     boolean winner = false;
     int turn = 1;
     int wrong=0;
+    private boolean ageAbove7;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level_third_counting_game);
+        ageAbove7 = getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
 
         tv_question = (ImageView) findViewById(R.id.tv_question);
         b_true = (Button) findViewById(R.id.b_true);
@@ -89,11 +92,9 @@ if(checkQuestion1(currentQuestion)){
 
 
 }if (currentQuestion==5){
-                    if(score>=6){
+
                         getResults();
-                    }else{
-                        getResults1();
-                    }
+
                 }
             }
         });
@@ -120,11 +121,9 @@ if(checkQuestion1(currentQuestion)){
                     ring.start();
                 }
                 if (currentQuestion==5){
-                    if(score>=6){
+
                         getResults();
-                    }else{
-                        getResults1();
-                    }
+
                 }
             }
         });
@@ -145,19 +144,20 @@ if(checkQuestion1(currentQuestion)){
 
 
     public void getResults(){
-        Intent intent = new Intent(getApplicationContext(),GiffActivity.class);
-        intent.putExtra("Odpowiedzi prawidłowe",score);
-        intent.putExtra("Gra", "cyfry2");
-        intent.putExtra("Giff",0);
-        startActivity(intent);
-    }
+        if (score == 0) {
+            //przejście do ekranu wyniku
+            Intent intent = new Intent(getApplicationContext(), GiffActivityFailActivity.class);
+            intent.putExtra("Odpowiedzi prawidłowe", score);//przekazanie informacji o ilości uzyskanych punktów
+            intent.putExtra("Gra", "cyfry2");//przekazanie informacji o grze
+            intent.putExtra("wiek", ageAbove7); //przekazanie informacji o module wieku
+            startActivity(intent);
+        } else {
+            //przejście do ekranu wyniku
+            Intent intent = new Intent(getApplicationContext(), GiffActivity.class);
+            intent.putExtra("Odpowiedzi prawidłowe", score);//przekazanie informacji o ilości uzyskanych punktów
+            intent.putExtra("Gra", "cyfry2");//przekazanie informacji o grze
+            intent.putExtra("wiek", ageAbove7); //przekazanie informacji o module wieku
+            startActivity(intent);
 
-    public void getResults1() {
-        Intent intent = new Intent(getApplicationContext(), GiffActivityFailActivity.class );
-        intent.putExtra("Odpowiedzi prawidłowe", score);
-        intent.putExtra("Gra", "cyfry2");
-        intent.putExtra("Giff",0);
-
-        startActivity(intent);
     }
-}
+}}
