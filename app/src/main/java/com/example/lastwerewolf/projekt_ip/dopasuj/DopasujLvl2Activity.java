@@ -209,7 +209,7 @@ public class DopasujLvl2Activity extends AppCompatActivity {
         for (int i = 0; i < matching.length; i++) {
             matching[i] = -1;
         }
-        playSound("bravo.mp3");
+        playSound(R.raw.bravo);
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // JEŻELI MA 0p to idzie do GiffActivityFailActivity, w innym wypadku do ResultActivity
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -231,7 +231,7 @@ public class DopasujLvl2Activity extends AppCompatActivity {
 
     MediaPlayer m = new MediaPlayer();
 
-    public void playSound(String fileName) {
+    public void playSound(int resid) {
         try {
             if (m.isPlaying()) {
                 m.stop();
@@ -239,7 +239,7 @@ public class DopasujLvl2Activity extends AppCompatActivity {
             }
             m = new MediaPlayer();
 
-            AssetFileDescriptor descriptor = getAssets().openFd(fileName);
+            AssetFileDescriptor descriptor = getResources().openRawResourceFd(resid);
             m.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
             descriptor.close();
 
