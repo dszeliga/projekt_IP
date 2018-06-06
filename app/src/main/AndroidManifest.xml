@@ -29,7 +29,6 @@
         <activity android:name=".LevelFirstCountingGameActivity" />
         <activity android:name=".ResultActivity" />
         <activity android:name=".LevelSecondCountingGameActivity" />
-        <activity android:name=".LevelThirdCountingGameActivity" />
         <activity android:name=".Level3CountingActivity" />
         <activity
             android:name=".MemoGameActivity"

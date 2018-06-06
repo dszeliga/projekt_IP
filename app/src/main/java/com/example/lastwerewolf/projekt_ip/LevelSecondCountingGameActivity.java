@@ -1,187 +1,143 @@
 package com.example.lastwerewolf.projekt_ip;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.example.lastwerewolf.projekt_ip.Adapter.GridViewAnswerAdapter;
-import com.example.lastwerewolf.projekt_ip.Adapter.GridViewSuggestAdapter;
-import com.example.lastwerewolf.projekt_ip.Common.Common;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-
-import static com.example.lastwerewolf.projekt_ip.Common.Common.count;
-import static com.example.lastwerewolf.projekt_ip.Common.Common.user_submit_answer;
 
 public class LevelSecondCountingGameActivity extends AppCompatActivity {
-    public List<String> suggestSource = new ArrayList<>();
-    public GridViewAnswerAdapter answerAdapter;
-    public GridViewSuggestAdapter suggestAdapter;
-
-    public Button btnSubmit;
-
-    public GridView gridViewAnswer,gridViewSuggest;
-
-    public ImageView imgViewQuestion;
-
+    ImageView tv_question;
+    Button b_true, b_false;
+    Button btn_speaker2;
+    Database_two_level mQuestion1;
+    int questionsLength;
     int score = 0;
-int turn=0;
-    int[] image_list={
-            R.drawable.motyl,
-            R.drawable.ryba,
-            R.drawable.biedronka,
-            R.drawable.ciastko,
-            R.drawable.cukierek,
-            R.drawable.dom,
-            R.drawable.lizak,
-            R.drawable.lew,
-
-
-
-
-    };
-
-
-    public char[] answer;
-    String correct_answer;
+    ArrayList<Item> questionslist;
+    int currentQuestion = 0;
+    boolean winner = false;
+    int turn = 1;
+    int wrong = 0;
+    private boolean ageAbove7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_level_second_counting_game);
-
-        initView();
-
-    }
-
-    private void initView() {
-        gridViewAnswer = (GridView)findViewById(R.id.gridViewAnswer);
-        gridViewSuggest = (GridView)findViewById(R.id.gridViewSuggest);
-
-        imgViewQuestion = (ImageView)findViewById(R.id.imgLogo);
-
-        //dodaje setupliste
-        setupList();
-        if (turn < suggestSource.size()) {
-            turn++;
-
-
-        } else {
-            getResults();
-        }
-
-        btnSubmit = (Button)findViewById(R.id.btnSubmit);
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_level_third_counting_game);
+        ageAbove7 = getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
+        tv_question = (ImageView) findViewById(R.id.tv_question);
+        b_true = (Button) findViewById(R.id.b_true);
+        b_false = (Button) findViewById(R.id.b_false);
+        mQuestion1 = new Database_two_level();
+        questionsLength = mQuestion1.mQuestion1.length;
+        questionslist = new ArrayList<>();
+        btn_speaker2 = findViewById(R.id.btn_speaker2);
+        // przypisanie dźwięku przyciskowi
+        btn_speaker2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String result="";
-                for(int i=0;i< user_submit_answer.length;i++)
-                    result +=String.valueOf(user_submit_answer[i]);
-                if(result.equals(correct_answer))
-                {
-                   // Toast.makeText(getApplicationContext(),"Finish ! This is"+result,Toast.LENGTH_SHORT).show();
-                    score = score+1;
-                    //reset
-                    Common.count=1;
-                 //   Common.user_submit_answer = new char[correct_answer.length()];
+                MediaPlayer ring = MediaPlayer.create(LevelSecondCountingGameActivity.this, R.raw.soundlevel2);
+                ring.start();//właczenie dźwięku
+            }
+        });
+        //losowanie odpowiedzi i zdjęć, ustaiwnie poprawności
+        for (int i = 0; i < new Database_two_level().mAnswer1.length; i++) {
 
-                    //setAdapter
+            questionslist.add(new Item(new Database_two_level().mAnswer1[i], new Database_two_level().mQuestion1[i]));
+        }
+        Collections.shuffle(questionslist);
+        tv_question.setImageResource(questionslist.get(currentQuestion).getQuestions1());
+        setQuestion1(currentQuestion);
 
-                    GridViewAnswerAdapter answerAdapter = new GridViewAnswerAdapter(setupNullList(),getApplicationContext());
-                    gridViewAnswer.setAdapter(answerAdapter);
-                    answerAdapter.notifyDataSetChanged();
-
-                    GridViewSuggestAdapter suggestAdapter = new GridViewSuggestAdapter (suggestSource,getApplicationContext(),LevelSecondCountingGameActivity.this);
-                    gridViewSuggest.setAdapter(suggestAdapter);
-                    suggestAdapter.notifyDataSetChanged();
-
-                    setupList();
-                    if (6 == turn) {
-                        getResults();
+        // przypisanie komend do przycisku PRAWDA
+        b_true.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //wyświetlanie kolejnych pytań
+                if (checkQuestion1(currentQuestion)) {
+                    currentQuestion++;
+                    tv_question.setImageResource(questionslist.get(currentQuestion).getQuestions1());
+                    if (currentQuestion < questionsLength) {
+                        setQuestion1(currentQuestion);
+                        MediaPlayer ring = MediaPlayer.create(LevelSecondCountingGameActivity.this, R.raw.bravo);
+                        ring.start();//właczenie dźwięku
+                        score = score + 2; // dodawanie 2 punktów do poprawnej odpowiedzi
                     }
-                }else{
-                    score =+0;
-                    //reset
-                    Common.count=0;
-                  //  Common.user_submit_answer = new char[correct_answer.length()];
-
-                    //setAdapter
-
-
-
-                    setupList();
-                }if (6 ==score) {
+                } else {
+                    currentQuestion++;
+                    tv_question.setImageResource(questionslist.get(currentQuestion).getQuestions1());
+                    MediaPlayer ring = MediaPlayer.create(LevelSecondCountingGameActivity.this, R.raw.error);
+                    ring.start();//właczenie dźwięku
+                }
+                if (currentQuestion == 5) {
                     getResults();
+                }
+            }
+        });
+        //przypisanie komend do przycisku FAŁSZ
+        b_false.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ((!checkQuestion1(currentQuestion))) {
+                    currentQuestion++;
+                    tv_question.setImageResource(questionslist.get(currentQuestion).getQuestions1());
+                    if (currentQuestion < questionsLength) {
+                        setQuestion1(currentQuestion)
+                        ;
+                        MediaPlayer ring = MediaPlayer.create(LevelSecondCountingGameActivity.this, R.raw.bravo);
+                        ring.start();//właczenie dźwięku
+                        score = score + 2; // dodoanie 2 punktów do poprawnej odpowiedz
+                    }
+                } else {
+                    currentQuestion++;
+                    tv_question.setImageResource(questionslist.get(currentQuestion).getQuestions1());
+                    // winner=false;
+                    MediaPlayer ring = MediaPlayer.create(LevelSecondCountingGameActivity.this, R.raw.error);
+                    ring.start();//właczenie dźwięku
+                }
+                if (currentQuestion == 5) {
+
+                    getResults();
+
                 }
             }
         });
 
     }
 
-    private void setupList() {
-        Random random = new Random();
-        int imageSelected = image_list[random.nextInt(image_list.length)];
-        imgViewQuestion.setImageResource(imageSelected);
-        correct_answer = getResources().getResourceName(imageSelected);
-        correct_answer = correct_answer.substring(correct_answer.lastIndexOf("/")+1);
-
-        answer = correct_answer.toCharArray();
-
-        user_submit_answer= new char[answer.length];
-
-        suggestSource.clear();
-        for(char item:answer)
-        {
-            //dodaj logo nazwe list
-            suggestSource.add(String.valueOf(item));
-        }
-        //random character list
-        for(int i = answer.length;i<answer.length*2;i++)
-            suggestSource.add(Common.number_character[random.nextInt(Common.number_character.length)]);
-
-        //wybieranie random
-        Collections.shuffle(suggestSource);
-
-        //set for gridview
-
-        answerAdapter = new GridViewAnswerAdapter(setupNullList(),this);
-        suggestAdapter= new GridViewSuggestAdapter(suggestSource,this,this);
-
-        answerAdapter.notifyDataSetChanged();
-        suggestAdapter.notifyDataSetChanged();
-
-        gridViewSuggest.setAdapter(suggestAdapter);
-        gridViewAnswer.setAdapter(answerAdapter);
-
-
-
-
+    // wybranie pytania
+    private void setQuestion1(int number) {
+        tv_question.setImageResource(questionslist.get(number).getQuestions1());
 
     }
 
-    private char[] setupNullList() {
-        char result[] = new char[answer.length];
-        for(int i=0;i<answer.length;i++)
-            result[i]=' ';
-
-        return result;
+    //wyybranie odpowiedzi
+    private boolean checkQuestion1(int number) {
+        String answers1 = questionslist.get(number).getName();
+        return answers1.equals("true");
     }
+
     public void getResults() {
-        Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-        intent.putExtra("Odpowiedzi prawidłowe", score);
-        intent.putExtra("Gra", "litery");
-        startActivity(intent);
+        if (score == 0) {
+            //przejście do ekranu wyniku
+            Intent intent = new Intent(getApplicationContext(), GiffActivityFailActivity.class);
+            intent.putExtra("Odpowiedzi prawidłowe", score);//przekazanie informacji o ilości uzyskanych punktów
+            intent.putExtra("Gra", "cyfry2");//przekazanie informacji o grze
+            intent.putExtra("wiek", ageAbove7); //przekazanie informacji o module wieku
+            startActivity(intent);
+        } else {
+            //przejście do ekranu wyniku
+            Intent intent = new Intent(getApplicationContext(), GiffActivity.class);
+            intent.putExtra("Odpowiedzi prawidłowe", score);//przekazanie informacji o ilości uzyskanych punktów
+            intent.putExtra("Gra", "cyfry2");//przekazanie informacji o grze
+            intent.putExtra("wiek", ageAbove7); //przekazanie informacji o module wieku
+            startActivity(intent);
+
+        }
     }
 }

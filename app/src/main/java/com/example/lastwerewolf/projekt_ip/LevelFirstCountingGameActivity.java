@@ -31,20 +31,14 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
     Random r;
     int turn = 1;
     int score = 0;
-
-
     int indexImage = 0;
     private Typeface t;
     private int[] zbiory;
     private int[] answers = null;
     private int[] randomAnswers = null;
-
     private int[] imagesInPlaces = null;
     private int[] randomlyImages = null;
-    //private int[] randomlyPlaces = null;
     private Button[] allImageButtons = null;
-
-
     private ColorStateList textColorDefaultRb;
     private int questionCounter;
     private int questionCountTotal;
@@ -54,42 +48,40 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //pobranie informacji o wybranym module wieku i poziomie gry
+        ageAbove7 = getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
         setContentView(R.layout.activity_level_first_counting_game);
         iv_zbiory = (ImageView) findViewById(R.id.iv_zbiory);
-        ageAbove7=getIntent().getBooleanExtra("wiek", true);
+        ageAbove7 = getIntent().getBooleanExtra("wiek", true);
         r = new Random();
-
+        //pobranie zbioru obrazów z Database i przypisanie odpowiedzi do przycisków
         zbiory = new Database().zbiory;
         b_answer1 = (Button) findViewById(R.id.b_answer1);
         b_answer2 = (Button) findViewById(R.id.b_answer2);
         b_answer3 = (Button) findViewById(R.id.b_answer3);
         b_answer4 = (Button) findViewById(R.id.b_answer4);
 
+        //Deklaracja listy z odpowiedziami
         list = new ArrayList<>();
         textColorDefaultRb = b_answer1.getTextColors();
-
+        //ustawienie ścieżki dźwiekowej przy odpowiedziach
         allImageButtons = new Button[]{b_answer1, b_answer2, b_answer3, b_answer4};
-
-
         btn_speaker4 = findViewById(R.id.btn_speaker4);
-
         btn_speaker4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MediaPlayer ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.error);
-                ring.start();
+                ring.start();//właczenie dźwięku
             }
         });
-
-        //imagesInPlaces = new int[allImageButtons.length];
+        //losowanie obrazka i przyporządkowanie poprawnej odpowiedzi
         for (int i = 0; i < new Database().answers.length; i++) {
 
             list.add(new StateModel(new Database().answers[i], new Database().zbiory[i]));
         }
 
-
         Collections.shuffle(list);
-
+        //losowanie nowego pytania
         newQuestion(turn);
 
         b_answer1.setOnClickListener(new View.OnClickListener() {
@@ -99,17 +91,13 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
                 Toast toast;
                 TextView tv;
                 Typeface t;
-                if (b_answer1.getText().toString().equalsIgnoreCase(indexImage+"")) {
+                if (b_answer1.getText().toString().equalsIgnoreCase(indexImage + "")) {
                     bravoInformation();
                 } else {
                     mistakeInformation();
                 }
                 if (6 == turn) {
-                    if(score>=6){
-                        getResults();
-                    }else{
-                        getResults1();
-                    }
+                    getResults();
                 }
             }
         });
@@ -119,17 +107,14 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Toast toast;
-                if (b_answer2.getText().toString().equalsIgnoreCase(indexImage+ "")) {
+                if (b_answer2.getText().toString().equalsIgnoreCase(indexImage + "")) {
                     bravoInformation();
                 } else {
                     mistakeInformation();
                 }
                 if (6 == turn) {
-                    if(score>=6){
-                        getResults();
-                    }else{
-                        getResults1();
-                    }
+
+                    getResults();
                 }
             }
         });
@@ -145,11 +130,8 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
                     mistakeInformation();
                 }
                 if (6 == turn) {
-                    if(score>=6){
-                        getResults();
-                    }else{
-                        getResults1();
-                    }
+
+                    getResults();
                 }
             }
         });
@@ -158,97 +140,59 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast toast;
-                if (b_answer4.getText().toString().equalsIgnoreCase(indexImage+"")) {
+                if (b_answer4.getText().toString().equalsIgnoreCase(indexImage + "")) {
                     bravoInformation();
                 } else {
                     mistakeInformation();
                 }
                 if (6 == turn) {
-                    if(score>=6){
-                        getResults();
-                    }else{
-                        getResults1();
-                    }
+
+                    getResults();
                 }
             }
         });
 
     }
 
-    private void mistakeInformation(){
-        Toast toast;
-        toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.CENTER, 0, 0);
-
-        TextView tv = new TextView(LevelFirstCountingGameActivity.this);
-        tv.setBackgroundColor(Color.RED);
-        tv.setTextColor(Color.WHITE);
-        tv.setTextSize(36);
-
-        t = Typeface.create("serif", Typeface.BOLD);
-        tv.setTypeface(t);
-        tv.setPadding(40, 40, 40, 40);
-        tv.setText("Błąd!");
-        toast.setView(tv);
-        toast.show();
+    //wykonanie odpwoiedniej komendy zależnej od poprawności odpowiedzi
+    private void mistakeInformation() {
         MediaPlayer ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.error);
-        ring.start();
+        ring.start();//właczenie dźwięku
         ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.error);
-        ring.start();
-
+        ring.start();//właczenie dźwięku
+        //losowanie odpowiedzi z listy i przechodzenie do następnej
         if (turn < list.size()) {
             turn++;
             newQuestion(turn);
         } else {
-            if(score>=6){
-                getResults();
-            }else{
-                getResults1();
-            }
+            getResults();
         }
     }
 
-    private void bravoInformation(){
-        Toast toast;
+    //wykonanie odpwoiedniej komendy zależnej od poprawności odpowiedzi
+    private void bravoInformation() {
         score = score + 2;
-
-        toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.CENTER, 0, 0);
-
-        TextView tv = new TextView(LevelFirstCountingGameActivity.this);
-        tv.setBackgroundColor(Color.GREEN);
-        tv.setTextColor(Color.WHITE);
-        tv.setTextSize(36);
-
-        t = Typeface.create("serif", Typeface.BOLD);
-        tv.setTypeface(t);
-        tv.setPadding(40, 40, 40, 40);
-        tv.setText("Brawo!");
-        toast.setView(tv);
-        toast.show();
         MediaPlayer ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.bravo);
-        ring.start();
+        ring.start();//właczenie dźwięku
+        //losowanie odpowiedzi z listy i przechodzenie do następnej
         if (turn < list.size()) {
             turn++;
             newQuestion(turn);
         } else {
-            if(score>=6){
-                getResults();
-            }else{
-                getResults1();
-            }
+            getResults();
         }
 
     }
 
+    //losowanie nowej odpowiedzi losowo
     private void newQuestion(int number) {
 
         iv_zbiory.setImageResource(list.get(number - 1).getImage());
-
         answers = new int[new Database().zbiory.length];
         for (int i = 0; i < answers.length; i++) {
             answers[i] = i + 1;
         }
+        //losowanie róznych odwoedzi niepowtarzających się w przyciskach w czym jedna jest prawidłowa
         indexImage = rnd.nextInt(24) + 1;
         int randomImage = zbiory[indexImage - 1];
 
@@ -256,8 +200,7 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
         randomAnswers = new int[4];
 
         int a = rnd.nextInt(4);
-        if(indexImage > 16)
-        {
+        if (indexImage > 16) {
             indexImage = indexImage - 16;
         }
         randomAnswers[a] = indexImage;
@@ -267,12 +210,12 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
             if (randomAnswers[i] == 0) {
                 boolean isTheSameAnswer = false;
                 int answer = rnd.nextInt(24) + 1;
-               if(answer >= 16)
-                {
-                    if(answer == 16)
-                    {answer = 16;}
-                    else
-                    {answer = answer - 16;}
+                if (answer >= 16) {
+                    if (answer == 16) {
+                        answer = 16;
+                    } else {
+                        answer = answer - 16;
+                    }
                 }
 
                 for (int j = 0; j < randomAnswers.length; j++) {
@@ -286,37 +229,35 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
                 }
             }
         }
+        //ustawianie odpowiedzi do przycisków
         b_answer1.setText(randomAnswers[0] + "");
         b_answer2.setText(randomAnswers[1] + "");
         b_answer3.setText(randomAnswers[2] + "");
         b_answer4.setText(randomAnswers[3] + "");
 
+
+        //po pięciu odsłonach danego levelu przejscie do widoku z wynikiem
         if (6 == turn) {
-            if(score>=6){
-                getResults();
-            }else{
-                getResults1();
-
-            }
+            getResults();
         }
-
     }
 
     public void getResults() {
-        Intent intent = new Intent(getApplicationContext(), GiffActivity.class );
-        intent.putExtra("Odpowiedzi prawidłowe", score);//przekazanie informacji o ilości uzyskanych punktów
-        intent.putExtra("Gra", "cyfry");
-        intent.putExtra("Giff",0);
-
-        startActivity(intent);
+        //przejście do ekranu wyniku
+        if (score == 0) {
+            Intent intent = new Intent(getApplicationContext(), GiffActivityFailActivity.class);
+            intent.putExtra("Odpowiedzi prawidłowe", score);//przekazanie informacji o ilości uzyskanych punktów
+            intent.putExtra("Gra", "cyfry");//przekazanie informacji o grze
+            intent.putExtra("wiek", ageAbove7); //przekazanie informacji o module wieku
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(getApplicationContext(), GiffActivity.class);
+            intent.putExtra("Odpowiedzi prawidłowe", score);//przekazanie informacji o ilości uzyskanych punktów
+            intent.putExtra("Gra", "cyfry");//przekazanie informacji o grze
+            intent.putExtra("wiek", ageAbove7); //przekazanie informacji o module wieku
+            startActivity(intent);
+        }
     }
-    public void getResults1() {
-        Intent intent = new Intent(getApplicationContext(), GiffActivityFailActivity.class );
-        intent.putExtra("Odpowiedzi prawidłowe", score);
-        intent.putExtra("Gra", "cyfry");
-        intent.putExtra("Giff",0);
 
-        startActivity(intent);
-    }
 
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/b_game1"
 
-    tools:context=".LevelThirdCountingGameActivity">
+    tools:context=".LevelSecondCountingGameActivity">
 
     <Button
         android:id="@+id/btn_speaker2"

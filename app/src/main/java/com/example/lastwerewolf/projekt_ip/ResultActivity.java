@@ -11,8 +11,6 @@ import android.widget.TextView;
 import com.example.lastwerewolf.projekt_ip.dopasuj.DopasujLvl1Activity;
 import com.example.lastwerewolf.projekt_ip.dopasuj.DopasujLvl3Activity;
 
-import java.util.logging.Level;
-
 public class ResultActivity extends AppCompatActivity {
     public Button Yes, No;
     public ImageButton Replay;
@@ -24,21 +22,20 @@ public class ResultActivity extends AppCompatActivity {
     private boolean countPoints;
     private int lvlUnlocked;
     public int score;
-    private TextView tv_result, tv2;
+    private TextView tv_result, tv2, infoScore;
     private boolean secondLvlUnlock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-
         score = getIntent().getIntExtra("Odpowiedzi prawidłowe", 0);
-        countPoints = getIntent().getBooleanExtra("countPoints", false);
+        countPoints = getIntent().getBooleanExtra("countPoints", true);
         lvlUnlocked = getIntent().getIntExtra("lvlUnlocked", 0);
         secondLvlUnlock = getSharedPreferences("LVL2_PREFERENCE", MODE_PRIVATE).getBoolean("lvl2", false);
         tv_result = findViewById(R.id.tv_result);
+        infoScore = findViewById(R.id.infoScore2);
         tv2 = findViewById(R.id.textView2);
-
 
         Yes = findViewById(R.id.tak);
         No = findViewById(R.id.nie);
@@ -62,14 +59,15 @@ public class ResultActivity extends AppCompatActivity {
         //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         if (countPoints == false) {
             allPoints += 0;
-            tv_result.setText("");
+            tv_result.setText("GRATULACJE!");
             tv2.setVisibility(View.INVISIBLE);
+            infoScore.setVisibility(View.INVISIBLE);
         } else {
             allPoints += score;
             tv_result.setText("+" + score + " pkt.");
             tv2.setVisibility(View.VISIBLE);
-            if(allPoints>=10)
-            {
+            infoScore.setVisibility(View.VISIBLE);
+            if (allPoints >= 10) {
                 secondLvlUnlock = true;
                 getSharedPreferences("LVL2_PREFERENCE", MODE_PRIVATE).edit().putBoolean("lvl2", secondLvlUnlock).commit();
             }
@@ -175,7 +173,7 @@ public class ResultActivity extends AppCompatActivity {
                     if (b != null)
                         value = b.getInt("level");
 
-                    Intent goToCountingLevel2 = new Intent(v.getContext(), LevelThirdCountingGameActivity.class);
+                    Intent goToCountingLevel2 = new Intent(v.getContext(), LevelSecondCountingGameActivity.class);
                     Bundle b1 = new Bundle();
                     b1.putInt("key", value); //Your id
                     goToCountingLevel2.putExtras(b1);
