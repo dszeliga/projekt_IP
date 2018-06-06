@@ -19,9 +19,11 @@ import android.widget.Toast;
 import com.example.lastwerewolf.projekt_ip.ColoursGameActivity;
 import com.example.lastwerewolf.projekt_ip.CountingGameActivity;
 import com.example.lastwerewolf.projekt_ip.GiffActivity;
+import com.example.lastwerewolf.projekt_ip.GiffActivityFailActivity;
 import com.example.lastwerewolf.projekt_ip.MemoGameActivity;
 import com.example.lastwerewolf.projekt_ip.MenuActivity;
 import com.example.lastwerewolf.projekt_ip.R;
+import com.example.lastwerewolf.projekt_ip.ResultActivity;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -36,6 +38,7 @@ public class MatchingPuzzlesGameActivity extends AppCompatActivity {
     ImageView emptyV[];
     ImageView filledV[];
     int correct = 0;
+    int points = 0;
 
     int matching[] = {-1, -1, -1};
 
@@ -45,8 +48,8 @@ public class MatchingPuzzlesGameActivity extends AppCompatActivity {
     List<ShapeType> emptyP;
 
     private final int SCORE_FOR_WIN = 1;
-    private final int SHOW_RESULT_AFTER = 16;
-    private int winCounter = 4;
+    private final int SHOW_RESULT_AFTER = 4;
+    private int winCounter = 0;
     final Handler handler = new Handler();
 
     @Override
@@ -109,18 +112,6 @@ public class MatchingPuzzlesGameActivity extends AppCompatActivity {
         return result;
     }
 
-    private List<ShapeType> selectFourRandomShapes(List<ShapeType> _ptl) {
-        List<ShapeType> ptl = new LinkedList<>(_ptl);
-        List<ShapeType> result = new LinkedList<>();
-        Random rand = new Random();
-        while (ptl.size() > 0) {
-            int index = Math.abs(rand.nextInt()) % ptl.size();
-            result.add(ptl.get(index));
-            ptl.remove(index);
-        }
-        return result;
-    }
-
     private class choiceTouchListner implements View.OnTouchListener {
 
 
@@ -171,13 +162,15 @@ public class MatchingPuzzlesGameActivity extends AppCompatActivity {
                         ((ImageView) view1).setImageDrawable(null);
                         Toast.makeText(MatchingPuzzlesGameActivity.this, "Dobrze", Toast.LENGTH_SHORT).show();
                         correct++;
-                        winCounter++;
-                        if (correct == 4) {
+                        points++;
+                        if(correct == 4) {
+                            correct = 0;
                             finishGame();
                         }
                         break;
 
                     } else {
+                        points--;
                         Toast.makeText(MatchingPuzzlesGameActivity.this, "Spróbuj jeszcze raz", Toast.LENGTH_SHORT).show();
 
                     }
@@ -192,9 +185,14 @@ public class MatchingPuzzlesGameActivity extends AppCompatActivity {
         AlertDialog.Builder exitMessage = new AlertDialog.Builder(this);
         exitMessage.setMessage("Czy jesteś pewien, że chcesz opuścić grę?")
                 .setTitle("WYJŚCIE");
+
         exitMessage.setPositiveButton("Zakończ grę", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                startActivity(new Intent(MatchingPuzzlesGameActivity.this, MenuActivity.class));
+                setResult(RESULT_OK);
+                Intent goToMenu = new Intent(getApplicationContext(), MenuActivity.class);
+                goToMenu.putExtra("wiek", getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true));
+                startActivity(goToMenu);
+                finish();
             }
         });
         exitMessage.setNegativeButton("Pozostań w grze", new DialogInterface.OnClickListener() {
@@ -202,28 +200,10 @@ public class MatchingPuzzlesGameActivity extends AppCompatActivity {
                 dialog.cancel();
             }
         });
+
         AlertDialog dialog = exitMessage.create();
         dialog.show();
-    }
-
-    boolean isLeft(View v) {
-        for (int i = 0; i < emptyV.length; i++) {
-            if (emptyV[i].getId() == v.getId()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    int getPoz(View v) {
-        boolean isLeft = isLeft(v);
-        ImageView iva[] = isLeft ? emptyV : filledV;
-        for (int i = 0; i < emptyV.length; i++) {
-            if (iva[i].getId() == v.getId()) {
-                return i;
-            }
-        }
-        return -1;
+        dialog.show();
     }
 
 
@@ -232,32 +212,24 @@ public class MatchingPuzzlesGameActivity extends AppCompatActivity {
         for (int i = 0; i < matching.length; i++) {
             matching[i] = -1;
         }
-
-//        allPoints += SCORE_FOR_WIN;
-//        getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
         playSound("bravo.mp3");
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // JEŻELI MA 0p to idzie do GiffActivityFailActivity, w innym wypadku do ResultActivity
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
+                                @Override
+                                public void run() {
+            winCounter++;
                 if (winCounter % SHOW_RESULT_AFTER == 0) {
-                    Intent intent = new Intent(getApplicationContext(), GiffActivity.class);
-                    intent.putExtra("Odpowiedzi prawidłowe", winCounter * SCORE_FOR_WIN);//przekazanie informacji o ilości uzyskanych punktów
-                    intent.putExtra("Gra", "Dopasuj");
-                    intent.putExtra("level", 2);
 
-                    winCounter = 0;
+                winCounter = 0;
 
-                    startActivity(intent);
+                    getResults();
                     finish();
-                } else {
-                    // Recreate activity, aby rozpocząć grę od nowa.
-                    recreate();
-                }
+            } else {
+                setView();
             }
-        }, 4000);
+        }}, 4000);
     }
 
     MediaPlayer m = new MediaPlayer();
@@ -280,6 +252,35 @@ public class MatchingPuzzlesGameActivity extends AppCompatActivity {
             m.start();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void getResults() {
+        if(points==0)
+        {
+            //przejście do ekranu wyniku
+
+            Intent intent = new Intent(getApplicationContext(), GiffActivityFailActivity.class);
+            intent.putExtra("Odpowiedzi prawidłowe", winCounter);//przekazanie informacji o ilości uzyskanych punktów
+            intent.putExtra("Gra", "dopasuj");//przekazanie informacji o grze
+            intent.putExtra("level", 2);//przekazanie informacji o levelu
+            startActivity(intent);
+        }
+        else if(points==16){
+            //przejście do ekranu wyniku
+            Intent intent = new Intent(getApplicationContext(), GiffActivity.class);
+            intent.putExtra("Odpowiedzi prawidłowe", winCounter);//przekazanie informacji o ilości uzyskanych punktów
+            intent.putExtra("Gra", "dopasuj");//przekazanie informacji o grze
+            intent.putExtra("level", 2);//przekazanie informacji o levelu
+            startActivity(intent);
+        }
+        else
+        {
+            Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+            intent.putExtra("Odpowiedzi prawidłowe", winCounter);//przekazanie informacji o ilości uzyskanych punktów
+            intent.putExtra("Gra", "dopasuj");//przekazanie informacji o grze
+            intent.putExtra("level", 2);//przekazanie informacji o levelu
+            startActivity(intent);
         }
     }
 }
