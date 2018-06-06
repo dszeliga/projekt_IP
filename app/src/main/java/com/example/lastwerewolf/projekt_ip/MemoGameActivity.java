@@ -319,7 +319,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
 
     public void SetSettingsOnEndOfLevel() {
         MediaPlayer ring = MediaPlayer.create(MemoGameActivity.this, R.raw.bravo);
-        ring.start(); //właczenie dźwięki
+        ring.start(); //właczenie dźwięku
         gameTime.cancel();//wyłaczenie timera gry
         gameTime = null; //ustawienie wartości timera na null
         isRunning = false; //ustalenie flagi dot. działania timera na false

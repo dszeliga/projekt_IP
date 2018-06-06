@@ -39,7 +39,6 @@ public class GiffActivity extends AppCompatActivity {
         goodAnswers = getIntent().getIntExtra("Odpowiedzi prawidłowe", 0);
         ageAbove7 = getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
         allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
-
         firstLvlUnlock = getSharedPreferences("LVL1_PREFERENCE", MODE_PRIVATE).getBoolean("lvl1", false);
         secondLvlUnlock = getSharedPreferences("LVL2_PREFERENCE", MODE_PRIVATE).getBoolean("lvl2", false);
         thirdLvlUnlock = getSharedPreferences("LVL3_PREFERENCE", MODE_PRIVATE).getBoolean("lvl3", false);
