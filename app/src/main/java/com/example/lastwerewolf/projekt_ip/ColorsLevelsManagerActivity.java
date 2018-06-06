@@ -2,14 +2,13 @@ package com.example.lastwerewolf.projekt_ip;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.lastwerewolf.projekt_ip.dopasuj.DopasujLvl1Activity;
-import com.example.lastwerewolf.projekt_ip.dopasuj.MatchingPuzzlesGameActivity;
+import com.example.lastwerewolf.projekt_ip.dopasuj.DopasujLvl2Activity;
 import com.example.lastwerewolf.projekt_ip.dopasuj.DopasujLvl3Activity;
 
 public class ColorsLevelsManagerActivity extends AppCompatActivity {
@@ -56,7 +55,7 @@ public class ColorsLevelsManagerActivity extends AppCompatActivity {
         secondLevel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goToPuzzlesGame = new Intent(v.getContext(), MatchingPuzzlesGameActivity.class);
+                Intent goToPuzzlesGame = new Intent(v.getContext(), DopasujLvl2Activity.class);
                 Bundle b = new Bundle();
                 b.putInt("key", 2); //Your id
                 goToPuzzlesGame.putExtras(b);

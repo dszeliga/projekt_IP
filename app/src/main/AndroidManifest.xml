@@ -22,7 +22,7 @@
         <activity android:name=".ColoursGameActivity" />
         <activity android:name=".dopasuj.DopasujLvl1Activity" />
         <activity
-            android:name=".dopasuj.MatchingPuzzlesGameActivity"
+            android:name=".dopasuj.DopasujLvl2Activity"
             android:screenOrientation="portrait" />
         <activity android:name=".GameActivity" />
         <activity android:name=".CountingGameActivity" />

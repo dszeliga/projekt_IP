@@ -16,11 +16,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.lastwerewolf.projekt_ip.ColoursGameActivity;
-import com.example.lastwerewolf.projekt_ip.CountingGameActivity;
 import com.example.lastwerewolf.projekt_ip.GiffActivity;
 import com.example.lastwerewolf.projekt_ip.GiffActivityFailActivity;
-import com.example.lastwerewolf.projekt_ip.MemoGameActivity;
 import com.example.lastwerewolf.projekt_ip.MenuActivity;
 import com.example.lastwerewolf.projekt_ip.R;
 import com.example.lastwerewolf.projekt_ip.ResultActivity;
@@ -32,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class MatchingPuzzlesGameActivity extends AppCompatActivity {
+public class DopasujLvl2Activity extends AppCompatActivity {
 
     ImageView iv1, iv2, iv3, iv4, iv5, iv6, iv7, iv8;
     ImageView emptyV[];
@@ -160,7 +157,7 @@ public class MatchingPuzzlesGameActivity extends AppCompatActivity {
                     if (view1.getTag().toString().equals(s2)) {
                         ((ImageView) v).setImageDrawable(view1.getDrawable());
                         ((ImageView) view1).setImageDrawable(null);
-                        Toast.makeText(MatchingPuzzlesGameActivity.this, "Dobrze", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DopasujLvl2Activity.this, "Dobrze", Toast.LENGTH_SHORT).show();
                         correct++;
                         points++;
                         if(correct == 4) {
@@ -171,7 +168,7 @@ public class MatchingPuzzlesGameActivity extends AppCompatActivity {
 
                     } else {
                         points--;
-                        Toast.makeText(MatchingPuzzlesGameActivity.this, "Spróbuj jeszcze raz", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DopasujLvl2Activity.this, "Spróbuj jeszcze raz", Toast.LENGTH_SHORT).show();
 
                     }
                     break;
@@ -261,7 +258,7 @@ public class MatchingPuzzlesGameActivity extends AppCompatActivity {
             //przejście do ekranu wyniku
 
             Intent intent = new Intent(getApplicationContext(), GiffActivityFailActivity.class);
-            intent.putExtra("Odpowiedzi prawidłowe", winCounter);//przekazanie informacji o ilości uzyskanych punktów
+            intent.putExtra("Odpowiedzi prawidłowe", points);//przekazanie informacji o ilości uzyskanych punktów
             intent.putExtra("Gra", "dopasuj");//przekazanie informacji o grze
             intent.putExtra("level", 2);//przekazanie informacji o levelu
             startActivity(intent);
@@ -269,7 +266,7 @@ public class MatchingPuzzlesGameActivity extends AppCompatActivity {
         else if(points==16){
             //przejście do ekranu wyniku
             Intent intent = new Intent(getApplicationContext(), GiffActivity.class);
-            intent.putExtra("Odpowiedzi prawidłowe", winCounter);//przekazanie informacji o ilości uzyskanych punktów
+            intent.putExtra("Odpowiedzi prawidłowe", points);//przekazanie informacji o ilości uzyskanych punktów
             intent.putExtra("Gra", "dopasuj");//przekazanie informacji o grze
             intent.putExtra("level", 2);//przekazanie informacji o levelu
             startActivity(intent);
@@ -277,7 +274,7 @@ public class MatchingPuzzlesGameActivity extends AppCompatActivity {
         else
         {
             Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-            intent.putExtra("Odpowiedzi prawidłowe", winCounter);//przekazanie informacji o ilości uzyskanych punktów
+            intent.putExtra("Odpowiedzi prawidłowe", points);//przekazanie informacji o ilości uzyskanych punktów
             intent.putExtra("Gra", "dopasuj");//przekazanie informacji o grze
             intent.putExtra("level", 2);//przekazanie informacji o levelu
             startActivity(intent);
