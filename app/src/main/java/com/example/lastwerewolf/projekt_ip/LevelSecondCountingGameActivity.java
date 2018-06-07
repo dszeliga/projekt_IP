@@ -1,7 +1,9 @@
 package com.example.lastwerewolf.projekt_ip;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -147,5 +149,23 @@ public class LevelSecondCountingGameActivity extends AppCompatActivity {
             startActivity(intent);
 
         }
+    }
+    public void onBackPressed() {
+
+        AlertDialog.Builder exitMessage = new AlertDialog.Builder(this);
+        exitMessage.setMessage("Czy jesteś pewien, że chcesz opuścić grę?")
+                .setTitle("WYJŚCIE");
+        exitMessage.setPositiveButton("Zakończ grę", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                startActivity(new Intent(LevelSecondCountingGameActivity.this, MenuActivity.class));
+            }
+        });
+        exitMessage.setNegativeButton("Pozostań w grze", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog dialog = exitMessage.create();
+        dialog.show();
     }
 }
