@@ -1,10 +1,12 @@
 package com.example.lastwerewolf.projekt_ip;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -44,7 +46,8 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
     private int questionCountTotal;
     private StateModel currentQuestion;
     private boolean ageAbove7;
-
+    private int value = -1;
+    private int allPoints;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +56,8 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_level_first_counting_game);
         iv_zbiory = (ImageView) findViewById(R.id.iv_zbiory);
         ageAbove7 = getIntent().getBooleanExtra("wiek", true);
+        allPoints=getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
+
         r = new Random();
         //pobranie zbioru obrazów z Database i przypisanie odpowiedzi do przycisków
         zbiory = new Database().zbiory;
@@ -70,7 +75,7 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
         btn_speaker4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MediaPlayer ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.error);
+                MediaPlayer ring = MediaPlayer.create(LevelFirstCountingGameActivity.this, R.raw.soundlevel1);
                 ring.start();//właczenie dźwięku
             }
         });
@@ -247,17 +252,36 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
         if (score == 0) {
             Intent intent = new Intent(getApplicationContext(), GiffActivityFailActivity.class);
             intent.putExtra("Odpowiedzi prawidłowe", score);//przekazanie informacji o ilości uzyskanych punktów
+            intent.putExtra("level",  0 );//przekazanie informacji o levelu
             intent.putExtra("Gra", "cyfry");//przekazanie informacji o grze
             intent.putExtra("wiek", ageAbove7); //przekazanie informacji o module wieku
             startActivity(intent);
         } else {
             Intent intent = new Intent(getApplicationContext(), GiffActivity.class);
             intent.putExtra("Odpowiedzi prawidłowe", score);//przekazanie informacji o ilości uzyskanych punktów
+            intent.putExtra("level",  1);//przekazanie informacji o levelu
             intent.putExtra("Gra", "cyfry");//przekazanie informacji o grze
             intent.putExtra("wiek", ageAbove7); //przekazanie informacji o module wieku
             startActivity(intent);
         }
     }
+    public void onBackPressed() {
 
+        AlertDialog.Builder exitMessage = new AlertDialog.Builder(this);
+        exitMessage.setMessage("Czy jesteś pewien, że chcesz opuścić grę?")
+                .setTitle("WYJŚCIE");
+        exitMessage.setPositiveButton("Zakończ grę", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                startActivity(new Intent(LevelFirstCountingGameActivity.this, MenuActivity.class));
+            }
+        });
+        exitMessage.setNegativeButton("Pozostań w grze", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog dialog = exitMessage.create();
+        dialog.show();
+    }
 
 }

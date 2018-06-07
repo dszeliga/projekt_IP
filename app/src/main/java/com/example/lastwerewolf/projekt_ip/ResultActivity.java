@@ -53,10 +53,6 @@ public class ResultActivity extends AppCompatActivity {
             tv_result.setText("+" + score + " pkt.");
         }
 
-        //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        //W TYM IFIE NALEŻY DOPISAĆ WASZE WARUNKI, ŻE PO ODBLOKOWANIU KOLEJNEGO LEVELU
-        // NIE DODAJĄ SIĘ PUNKTY Z POPRZEDNIEGO :D
-        //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         if (countPoints == false) {
             allPoints += 0;
             tv_result.setText("GRATULACJE!");

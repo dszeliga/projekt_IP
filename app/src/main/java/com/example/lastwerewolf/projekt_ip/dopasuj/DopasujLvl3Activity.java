@@ -35,7 +35,7 @@ import java.util.Random;
 public class DopasujLvl3Activity extends AppCompatActivity implements View.OnClickListener {
 
     private final int SCORE_FOR_WIN = 1;
-    private final int SHOW_RESULT_AFTER = 5;
+    private final int SHOW_RESULT_AFTER = 3;
     final Handler handler = new Handler();
 
 //    private int allPoints;
@@ -119,6 +119,10 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
         for(ProfessionType pt : ProfessionType.values()) {
             profMap.put(pt, new Proffesion(pt, res));
         }
+
+        Intent in = getIntent();
+        winCounter = in.getIntExtra("dl3w", 0);
+        points = in.getIntExtra("dl3p", 0);
 
         setViews();
     }
@@ -223,8 +227,13 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
                     startActivity(intent);
                     finish();
                 } else {
+                    Intent in = getIntent();
+                    in.putExtra("dl3w", winCounter);
+                    in.putExtra("dl3p", points);
+                    startActivity(in);
+                    finish();
                     // Recreate activity, aby rozpocząć grę od nowa.
-                    recreate();
+                    // recreate();
                 }
             }
         }, 4000);

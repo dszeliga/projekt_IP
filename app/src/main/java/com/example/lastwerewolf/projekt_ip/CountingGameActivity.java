@@ -3,6 +3,7 @@ package com.example.lastwerewolf.projekt_ip;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.Image;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -46,6 +47,10 @@ private int allPoints;
                 startActivity(goToCountingLevel1);//przejscie do ekranu levelu 1 nauki cyfr
                 goToCountingLevel1.putExtra("gra", gra);//przekazanie informacji o grze
                 goToCountingLevel1.putExtra("level", level);//przekazanie informacji o levelu
+                MediaPlayer ring = MediaPlayer.create(CountingGameActivity.this, R.raw.soundlevel1);
+                ring.start();//właczenie dźwięku
+                startActivity(goToCountingLevel1);//przejscie do ekranu levelu 2 nauki cyfr
+
             }
         });
 
@@ -58,6 +63,8 @@ private int allPoints;
                     goToCountingLevel2 = new Intent(v.getContext(), LevelSecondCountingGameActivity.class);
                     goToCountingLevel2.putExtra("gra", gra);//przekazanie informacji o grze
                     goToCountingLevel2.putExtra("level", level);//przekazanie informacji o levelu
+                MediaPlayer ring = MediaPlayer.create(CountingGameActivity.this, R.raw.soundlevel2);
+                ring.start();//właczenie dźwięku
                     startActivity(goToCountingLevel2);//przejscie do ekranu levelu 2 nauki cyfr
             }
         });
@@ -74,11 +81,14 @@ private int allPoints;
             public void onClick(View v) {
                 Intent goToCountingLevel3;
                 goToCountingLevel3 = new Intent(v.getContext(), Level3CountingActivity.class);
+                MediaPlayer ring = MediaPlayer.create(CountingGameActivity.this, R.raw.soundlevel3);
+                ring.start();//właczenie dźwięku
                 startActivity(goToCountingLevel3);//przejscie do ekranu levelu 3 nauki cyfr
+
             }
         });
 
-        if(allPoints<106) {
+        if(allPoints<130) {
             Level2.setEnabled(false);
         }
         else
@@ -86,7 +96,7 @@ private int allPoints;
             Level2.setEnabled(true);//właczenie możliwości ponownego kliknięcia
             Level2.setBackgroundColor(Color.TRANSPARENT);
         }
-        if(allPoints<112) {
+        if(allPoints<145) {
             Level3.setEnabled(false);
         }
         else

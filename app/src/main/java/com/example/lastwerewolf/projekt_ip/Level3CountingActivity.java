@@ -1,7 +1,9 @@
 package com.example.lastwerewolf.projekt_ip;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -31,6 +33,8 @@ public class Level3CountingActivity extends AppCompatActivity {
     int curQuestion3 = 0;
     int wrong = 0;
     int turn = 0;
+    private int value = -1;
+    private int allPoints;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +46,15 @@ public class Level3CountingActivity extends AppCompatActivity {
         et_answer = (EditText) findViewById(R.id.et_answer);
         b_countinue.setVisibility(View.VISIBLE);
         questions3list = new ArrayList<>();
+        allPoints=getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
         btn_speaker3 = findViewById(R.id.btn_speaker3);
         btn_speaker3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 MediaPlayer ring = MediaPlayer.create(Level3CountingActivity.this, R.raw.soundlevel3);
                 ring.start();//właczenie dźwięku
+
+
             }
         });
         // przypisanie odpowiedzi do pytania
@@ -104,15 +110,37 @@ public class Level3CountingActivity extends AppCompatActivity {
         if (score == 0) {
             Intent intent = new Intent(getApplicationContext(), GiffActivityFailActivity.class);
             intent.putExtra("Odpowiedzi prawidłowe", score);//przekazanie informacji o ilości uzyskanych punktów
+          intent.putExtra("level", value);//przekazanie informacji o levelu
+
             intent.putExtra("Gra", "cyfry3");//przekazanie informacji o grze
             intent.putExtra("wiek", ageAbove7); //przekazanie informacji o module wieku
             startActivity(intent);
         } else {
             Intent intent = new Intent(getApplicationContext(), GiffActivity.class);
             intent.putExtra("Odpowiedzi prawidłowe", score);//przekazanie informacji o ilości uzyskanych punktów
+           intent.putExtra("level", value);//przekazanie informacji o levelu
+
             intent.putExtra("Gra", "cyfry3");//przekazanie informacji o grze
             intent.putExtra("wiek", ageAbove7); //przekazanie informacji o module wieku
             startActivity(intent);
         }
+    }
+    public void onBackPressed() {
+
+        AlertDialog.Builder exitMessage = new AlertDialog.Builder(this);
+        exitMessage.setMessage("Czy jesteś pewien, że chcesz opuścić grę?")
+                .setTitle("WYJŚCIE");
+        exitMessage.setPositiveButton("Zakończ grę", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                startActivity(new Intent(Level3CountingActivity.this, MenuActivity.class));
+            }
+        });
+        exitMessage.setNegativeButton("Pozostań w grze", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog dialog = exitMessage.create();
+        dialog.show();
     }
 }
