@@ -88,7 +88,7 @@ private int allPoints;
             }
         });
 
-        if(allPoints<96) {
+        if(allPoints<130) {
             Level2.setEnabled(false);
         }
         else
@@ -96,7 +96,7 @@ private int allPoints;
             Level2.setEnabled(true);//właczenie możliwości ponownego kliknięcia
             Level2.setBackgroundColor(Color.TRANSPARENT);
         }
-        if(allPoints<104) {
+        if(allPoints<145) {
             Level3.setEnabled(false);
         }
         else

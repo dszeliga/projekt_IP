@@ -35,7 +35,7 @@ import java.util.Random;
 public class DopasujLvl3Activity extends AppCompatActivity implements View.OnClickListener {
 
     private final int SCORE_FOR_WIN = 1;
-    private final int SHOW_RESULT_AFTER = 5;
+    private final int SHOW_RESULT_AFTER = 3;
     final Handler handler = new Handler();
 
 //    private int allPoints;

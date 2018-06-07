@@ -28,12 +28,13 @@ public class LevelSecondCountingGameActivity extends AppCompatActivity {
     private boolean ageAbove7;
     private int value = -1;
     private int allPoints;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level_third_counting_game);
         ageAbove7 = getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
-        allPoints=getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
+        allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
 
         tv_question = (ImageView) findViewById(R.id.tv_question);
         b_true = (Button) findViewById(R.id.b_true);
@@ -150,6 +151,7 @@ public class LevelSecondCountingGameActivity extends AppCompatActivity {
 
         }
     }
+
     public void onBackPressed() {
 
         AlertDialog.Builder exitMessage = new AlertDialog.Builder(this);

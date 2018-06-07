@@ -136,7 +136,7 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(goToCountingGame);//przejscie do ekranu leveli nauki cyfr
             }
         });
-        if(allPoints<88) {
+        if(allPoints<110) {
             countingGameBtn.setEnabled(false);
         }
         else

@@ -15,7 +15,7 @@ public class ColorsLevelsManagerActivity extends AppCompatActivity {
 
     public final int pointsToUnlockFirstLevel = 60;
     public final int pointsToUnlockSecondLevel = 70;
-    public final int pointsToUnlockThirdLevel = 80;
+    public final int pointsToUnlockThirdLevel = 90;
 
     private int allPoints;
 

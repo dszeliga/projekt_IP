@@ -44,36 +44,43 @@ public class GiffActivity extends AppCompatActivity {
         thirdLvlUnlock = getSharedPreferences("LVL3_PREFERENCE", MODE_PRIVATE).getBoolean("lvl3", false);
 
 
-        List<Integer> lvls = Arrays.asList(0, 10, 40, 60, 70, 80, 100, 108, 116);
+        List<Integer> lvls = Arrays.asList(0, 10, 40, 60, 70, 90, 110, 130, 145);
         int currentLVL = lvls.size();
         int nextLVL = lvls.size() + 1;
         for (int i = 0; i < lvls.size(); i++) {
-            if(lvls.get(i) > allPoints) {
+            if (lvls.get(i) > allPoints) {
                 currentLVL = i;
                 break;
             }
         }
         for (int i = 0; i < lvls.size(); i++) {
-            if(lvls.get(i) > allPoints + goodAnswers) {
+            if (lvls.get(i) > allPoints + goodAnswers) {
                 nextLVL = i;
                 break;
             }
         }
 
+        if (game.equals("cyfry"))
+            level = 1;
+        else if (game.equals("cyfry2"))
+            level = 2;
+        else if (game.equals("cyfry3"))
+            level = 3;
+
         int countableLVL = 0;
-        if(game.equals("dopasuj")) {
+        if (game.equals("dopasuj")) {
             countableLVL += 3;
-        } else if(game.equals("cyfry") || game.equals("cyfry2") || game.equals("cyfry3")) {
+        } else if (game.equals("cyfry") || game.equals("cyfry2") || game.equals("cyfry3")) {
             countableLVL += 6;
         }
         countableLVL += level;
 
         countPoints = countableLVL == currentLVL;
 
-        if(countPoints && currentLVL != nextLVL) {
+        if (countPoints && currentLVL != nextLVL) {
             this.nextLVL = nextLVL;
-            if(currentLVL % 3 == 0) {
-                if(currentLVL != lvls.size()) {
+            if (currentLVL % 3 == 0) {
+                if (currentLVL != lvls.size()) {
                     tv.setText("ODBLOKOWANO NOWĄ GRĘ");
                 } else {
                     tv.setText("WYGRAŁEŚ!");
