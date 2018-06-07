@@ -44,7 +44,8 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
     private int questionCountTotal;
     private StateModel currentQuestion;
     private boolean ageAbove7;
-
+    private int value = -1;
+    private int allPoints;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +54,8 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_level_first_counting_game);
         iv_zbiory = (ImageView) findViewById(R.id.iv_zbiory);
         ageAbove7 = getIntent().getBooleanExtra("wiek", true);
+        allPoints=getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
+
         r = new Random();
         //pobranie zbioru obrazów z Database i przypisanie odpowiedzi do przycisków
         zbiory = new Database().zbiory;
@@ -247,12 +250,14 @@ public class LevelFirstCountingGameActivity extends AppCompatActivity {
         if (score == 0) {
             Intent intent = new Intent(getApplicationContext(), GiffActivityFailActivity.class);
             intent.putExtra("Odpowiedzi prawidłowe", score);//przekazanie informacji o ilości uzyskanych punktów
+            intent.putExtra("level",  value );//przekazanie informacji o levelu
             intent.putExtra("Gra", "cyfry");//przekazanie informacji o grze
             intent.putExtra("wiek", ageAbove7); //przekazanie informacji o module wieku
             startActivity(intent);
         } else {
             Intent intent = new Intent(getApplicationContext(), GiffActivity.class);
             intent.putExtra("Odpowiedzi prawidłowe", score);//przekazanie informacji o ilości uzyskanych punktów
+            intent.putExtra("level",  value);//przekazanie informacji o levelu
             intent.putExtra("Gra", "cyfry");//przekazanie informacji o grze
             intent.putExtra("wiek", ageAbove7); //przekazanie informacji o module wieku
             startActivity(intent);

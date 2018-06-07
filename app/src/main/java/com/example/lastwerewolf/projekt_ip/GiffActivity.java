@@ -44,7 +44,7 @@ public class GiffActivity extends AppCompatActivity {
         thirdLvlUnlock = getSharedPreferences("LVL3_PREFERENCE", MODE_PRIVATE).getBoolean("lvl3", false);
 
 
-        List<Integer> lvls = Arrays.asList(0, 10, 40, 60, 70, 80, 100, 115, 130);
+        List<Integer> lvls = Arrays.asList(0, 10, 40, 60, 70, 80, 100, 108, 116);
         int currentLVL = lvls.size();
         int nextLVL = lvls.size() + 1;
         for (int i = 0; i < lvls.size(); i++) {

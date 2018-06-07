@@ -31,6 +31,8 @@ public class Level3CountingActivity extends AppCompatActivity {
     int curQuestion3 = 0;
     int wrong = 0;
     int turn = 0;
+    private int value = -1;
+    private int allPoints;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class Level3CountingActivity extends AppCompatActivity {
         btn_speaker3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                allPoints=getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
 
                 MediaPlayer ring = MediaPlayer.create(Level3CountingActivity.this, R.raw.soundlevel3);
                 ring.start();//właczenie dźwięku
@@ -104,12 +107,16 @@ public class Level3CountingActivity extends AppCompatActivity {
         if (score == 0) {
             Intent intent = new Intent(getApplicationContext(), GiffActivityFailActivity.class);
             intent.putExtra("Odpowiedzi prawidłowe", score);//przekazanie informacji o ilości uzyskanych punktów
+          intent.putExtra("level", value);//przekazanie informacji o levelu
+
             intent.putExtra("Gra", "cyfry3");//przekazanie informacji o grze
             intent.putExtra("wiek", ageAbove7); //przekazanie informacji o module wieku
             startActivity(intent);
         } else {
             Intent intent = new Intent(getApplicationContext(), GiffActivity.class);
             intent.putExtra("Odpowiedzi prawidłowe", score);//przekazanie informacji o ilości uzyskanych punktów
+           intent.putExtra("level", value);//przekazanie informacji o levelu
+
             intent.putExtra("Gra", "cyfry3");//przekazanie informacji o grze
             intent.putExtra("wiek", ageAbove7); //przekazanie informacji o module wieku
             startActivity(intent);
