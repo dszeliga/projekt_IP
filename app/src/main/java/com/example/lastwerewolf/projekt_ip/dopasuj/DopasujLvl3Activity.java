@@ -120,6 +120,10 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
             profMap.put(pt, new Proffesion(pt, res));
         }
 
+        Intent in = getIntent();
+        winCounter = in.getIntExtra("dl3w", 0);
+        points = in.getIntExtra("dl3p", 0);
+
         setViews();
     }
 
@@ -223,8 +227,13 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
                     startActivity(intent);
                     finish();
                 } else {
+                    Intent in = getIntent();
+                    in.putExtra("dl3w", winCounter);
+                    in.putExtra("dl3p", points);
+                    startActivity(in);
+                    finish();
                     // Recreate activity, aby rozpocząć grę od nowa.
-                    recreate();
+                    // recreate();
                 }
             }
         }, 4000);
