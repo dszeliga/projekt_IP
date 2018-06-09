@@ -29,17 +29,21 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        //odwołanie do kontrolek w widoku
         resetButton = findViewById(R.id.resetPointsBtn);
         aboveSeven = findViewById(R.id.aboveFive);
         underSeven = findViewById(R.id.underFive);
         radioGroup = findViewById(R.id.radioGroup);
         pointsTxt = findViewById(R.id.txtPoints);
 
+        //pobranie informacji nt. modułu wieku i ogólnej liczby punktów
         chooseAgeAbove7 = getIntent().getBooleanExtra("wiek", true);
         allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
 
+        //wyświetlenie wartości punktów
         pointsTxt.setText("" + allPoints);
 
+        //wybor modułu wieku
         if (chooseAgeAbove7) {
             aboveSeven.setChecked(true);
             underSeven.setChecked(false);
@@ -47,7 +51,6 @@ public class SettingsActivity extends AppCompatActivity {
             underSeven.setChecked(true);
             aboveSeven.setChecked(false);
         }
-
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -66,40 +69,44 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        //obsługa przycisku dot. resetu punktów
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder exitMessage = new AlertDialog.Builder(SettingsActivity.this);
-                exitMessage.setMessage("Czy jesteś pewien, że chcesz zresetować ilość punktów? Spowoduje to utratę obecnego postępu w grze oraz dostępność wyższych leveli.")
+                //wyświetlenie okna dialogowego
+                AlertDialog.Builder resetMessage = new AlertDialog.Builder(SettingsActivity.this);
+                resetMessage.setMessage("Czy jesteś pewien, że chcesz zresetować ilość punktów? Spowoduje to utratę obecnego postępu w grze oraz dostępność wyższych leveli.")
                         .setTitle("UWAGA!");
-
-                exitMessage.setPositiveButton("Resetuj", new DialogInterface.OnClickListener() {
+                //instrukcja dot. potwierdzenia resetu
+                resetMessage.setPositiveButton("Resetuj", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Toast.makeText(SettingsActivity.this, "Zresetowano", Toast.LENGTH_LONG).show();
-                        allPoints = 0;
+                        allPoints = 0; //wyserowanie punktów
                         getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
-                        pointsTxt.setText("" + allPoints);
-                        firstLvlUnlock = false;
-                        secondLvlUnlock = false;
-                        thirdLvlUnlock = false;
+                        pointsTxt.setText("" + allPoints); //wyświetlenie punktów
+                        firstLvlUnlock = false; //zablokowanie lvl1
+                        secondLvlUnlock = false;//zablokowanie lvl2
+                        thirdLvlUnlock = false;//zablokowanie lvl3
                         getSharedPreferences("LVL1_PREFERENCE", MODE_PRIVATE).edit().putBoolean("lvl1", firstLvlUnlock).commit();
                         getSharedPreferences("LVL2_PREFERENCE", MODE_PRIVATE).edit().putBoolean("lvl2", secondLvlUnlock).commit();
                         getSharedPreferences("LVL3_PREFERENCE", MODE_PRIVATE).edit().putBoolean("lvl3", thirdLvlUnlock).commit();
                     }
                 });
-                exitMessage.setNegativeButton("Anuluj", new DialogInterface.OnClickListener() {
+                //zamknięcie okna przy zmianie decyzji o resecie punktów
+                resetMessage.setNegativeButton("Anuluj", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
                     }
                 });
 
-                AlertDialog dialog = exitMessage.create();
-                dialog.show();
+                AlertDialog dialog = resetMessage.create();//stworzenie okna
+                dialog.show();//wyswietlenie okna
             }
         });
     }
 
+    //ustawienie wyboru modułu wieku i przejście do menu
     public void putChoosenAge(boolean chooseAgeAbove7) {
         getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).edit().putBoolean("wiek", chooseAgeAbove7).commit();
         boolean age = getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
@@ -110,6 +117,7 @@ public class SettingsActivity extends AppCompatActivity {
         finish();
     }
 
+    //metoda obsługująca przycisk powrotu
     @Override
     public void onBackPressed() {
         super.onBackPressed();

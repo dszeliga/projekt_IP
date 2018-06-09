@@ -33,15 +33,15 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        //odwołanie do kontrolek w widoku
         memoGameBtn = findViewById(R.id.MemoGameBtn);
         coloursGameBtn = findViewById(R.id.ColoursGameBtn);
         settingsBtn = findViewById(R.id.settingsBtn);
         points = findViewById(R.id.txtPoints);
 
+        //pobranie liczby ogólnych punktów
         allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
-
-
-        points = findViewById(R.id.txtPoints);
+        //wyświetlenie liczby punktów
         points.setText(allPoints + "");
         //pobranie informacji czy aplikacja jest uruchomiona po raz pierwszy
         isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isfirstrun", true);
@@ -62,6 +62,7 @@ public class MenuActivity extends AppCompatActivity {
                     ageAbove7 = true;
                     getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).edit().putBoolean("wiek", ageAbove7).commit();
 
+                    //ustawienie dostępności gry w zależnosci od wieku
                     if (ageAbove7) {
                         countingGameBtn.setVisibility(View.INVISIBLE);
                     } else {
@@ -99,11 +100,10 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        if(allPoints<60) {
+        // warunek odblokowania drugiej gry
+        if (allPoints < 60) {
             coloursGameBtn.setEnabled(false);
-        }
-        else
-        {
+        } else {
             coloursGameBtn.setEnabled(true);
             coloursGameBtn.setBackgroundColor(Color.TRANSPARENT);
         }
@@ -127,6 +127,14 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+        //warunek odblokowania 3 gry
+        if (allPoints < 110) {
+            countingGameBtn.setEnabled(false);
+        } else {
+            countingGameBtn.setEnabled(true);
+            countingGameBtn.setBackgroundColor(Color.TRANSPARENT);
+        }
+
         countingGameBtn = findViewById(R.id.CountingGameBtn);
         countingGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,14 +144,6 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(goToCountingGame);//przejscie do ekranu leveli nauki cyfr
             }
         });
-        if(allPoints<110) {
-            countingGameBtn.setEnabled(false);
-        }
-        else
-        {
-            countingGameBtn.setEnabled(true);
-            countingGameBtn.setBackgroundColor(Color.TRANSPARENT);
-        }
     }
 
     //ustawienia okna wyjścia z aplikacji

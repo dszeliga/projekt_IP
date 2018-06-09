@@ -22,13 +22,14 @@ public class LevelsManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_levels_manager);
 
-
+        //odwołanie do kontrolek w widoku
         firstLevel = findViewById(R.id.firstLevel);
         secondLevel = findViewById(R.id.secondLevel);
         thirdLevel = findViewById(R.id.thirdLevel);
         ageAbove7 = getIntent().getBooleanExtra("wiek", true);//pobranie informacji o module wieku
         allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
 
+        //pobranie informacji o odblokowanych levelach
         firstLvlUnlock = getSharedPreferences("LVL1_PREFERENCE", MODE_PRIVATE).getBoolean("lvl1", false);
         secondLvlUnlock = getSharedPreferences("LVL2_PREFERENCE", MODE_PRIVATE).getBoolean("lvl2", false);
         thirdLvlUnlock = getSharedPreferences("LVL3_PREFERENCE", MODE_PRIVATE).getBoolean("lvl3", false);
@@ -45,13 +46,14 @@ public class LevelsManagerActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        //odblokowanie drugiego levelu
         if (allPoints < 10) {
             secondLevel.setEnabled(false);
         } else {
             secondLevel.setEnabled(true);
             secondLevel.setBackgroundColor(Color.TRANSPARENT);
         }
+
         secondLevel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +67,7 @@ public class LevelsManagerActivity extends AppCompatActivity {
             }
         });
 
-
+        //odblokowanie trzeciego levelu
         if (allPoints < 40) {
             thirdLevel.setEnabled(false);
         } else {

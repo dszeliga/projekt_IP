@@ -58,7 +58,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
             value = b.getInt("key");
             ageAbove7 = b.getBoolean("wiek");
         }
-        allPoints=getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
+        allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
         //ustawienie czasu gry i widoku na podstawie wybranego modułu wieku
         if (value == 1) {
             setContentView(R.layout.activity_memo_game);
@@ -211,6 +211,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
                     timeToEnd = round(millisUntilFinished / 1000);
                 txt.setText("" + timeToEnd);
             }
+
             //ustawienie wyświetlenia napisu i przycisku ponownego losowania oraz włączenia dźwięku po zakończeniu gry
             @Override
             public void onFinish() {
@@ -244,6 +245,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
                     allImageButtons[i].setEnabled(false);
                 }
             }
+
             public void onFinish() {
                 //ustawienie obrazków pytajników i właczenie możliwości klikania na przyciski
                 for (int i = 0; i < allImageButtons.length; i++) {
@@ -327,12 +329,11 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
         resetButton.setVisibility(View.VISIBLE); // Pojawia się klawisz "Reset"
         choosenSecondImage = 0; //wyzerowanie wartosci wybranego obrazka 1
         choosenFirstImage = 0; //wyzerowanie wartosci wybranego obrazka 2
-        if (timeToEnd > (timeOnLevel/2000) ){
+        if (timeToEnd > (timeOnLevel / 2000)) {
             score += 5; //zakończenie gry przed upływem połowy czasu skutkuje przyznaniem 5 pkt.
-        } else if(timeToEnd>0){
+        } else if (timeToEnd > 0) {
             score += 3; //zakończenie gry po upływie połowy czasu skutkuje przyznaniem 3 pkt.
-        }
-        else {
+        } else {
             score += 0; //niezakończenie gry w wyznaczonym czasie skutkuje przyznaniem 0 pkt.
         }
         //pobranie wyniku, jeśli gracz przeszedł odpowiednią ilość gier

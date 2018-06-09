@@ -29,22 +29,26 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+
+        //pobranie wartości
         score = getIntent().getIntExtra("Odpowiedzi prawidłowe", 0);
         countPoints = getIntent().getBooleanExtra("countPoints", true);
         lvlUnlocked = getIntent().getIntExtra("lvlUnlocked", 0);
-        secondLvlUnlock = getSharedPreferences("LVL2_PREFERENCE", MODE_PRIVATE).getBoolean("lvl2", false);
-        tv_result = findViewById(R.id.tv_result);
-        infoScore = findViewById(R.id.infoScore2);
-        tv2 = findViewById(R.id.textView2);
-
-        Yes = findViewById(R.id.tak);
-        No = findViewById(R.id.nie);
-        Replay = findViewById(R.id.refrash);
         gra = getIntent().getStringExtra("Gra");
         level = getIntent().getIntExtra("level", 0);
         ageAbove7 = getSharedPreferences("AGE_PREFERENCE", MODE_PRIVATE).getBoolean("wiek", true);
         allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
+        secondLvlUnlock = getSharedPreferences("LVL2_PREFERENCE", MODE_PRIVATE).getBoolean("lvl2", false);
 
+        //odwołanie do kontrolek w widoku
+        Yes = findViewById(R.id.tak);
+        No = findViewById(R.id.nie);
+        Replay = findViewById(R.id.refrash);
+        tv_result = findViewById(R.id.tv_result);
+        infoScore = findViewById(R.id.infoScore2);
+        tv2 = findViewById(R.id.textView2);
+
+        //wyswietlenie wyniku w zależnosci od gry
         if (gra.equals("memo")) {
             tv_result.setText("+" + score + " pkt.");
         } else if (gra.equals("cyfry") || gra.equals("cyfry2") || gra.equals("cyfry3")) {
@@ -53,6 +57,7 @@ public class ResultActivity extends AppCompatActivity {
             tv_result.setText("+" + score + " pkt.");
         }
 
+        //blokowanie dodawania punktów po odblokowaniu kolejnego levelu
         if (countPoints == false) {
             allPoints += 0;
             tv_result.setText("GRATULACJE!");
@@ -71,13 +76,13 @@ public class ResultActivity extends AppCompatActivity {
 
         getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
 
-
+        //obsługa przycisku ,,TAK"
         Yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (gra.equals("memo")) {
-                    Intent goToLevels = new Intent(v.getContext(), LevelsManagerActivity.class);
+                    Intent goToLevels = new Intent(v.getContext(), LevelsManagerActivity.class);//przejscie do ekranu leveli memory
                     goToLevels.putExtra("gra", gra);
                     goToLevels.putExtra("level", level);
                     goToLevels.putExtra("wiek", ageAbove7);
@@ -85,7 +90,7 @@ public class ResultActivity extends AppCompatActivity {
                 } else if (gra.equals("cyfry")) {
 
                     Intent goToCountingLevel1;
-                    goToCountingLevel1 = new Intent(v.getContext(), CountingGameActivity.class);
+                    goToCountingLevel1 = new Intent(v.getContext(), CountingGameActivity.class);//przejscie do ekranu leveli cyfry
                     goToCountingLevel1.putExtra("gra", gra);
                     goToCountingLevel1.putExtra("level", level);
                     startActivity(goToCountingLevel1);
@@ -94,7 +99,7 @@ public class ResultActivity extends AppCompatActivity {
                 } else if (gra.equals("cyfry3")) {
 
                     Intent goToCountingLevel3;
-                    goToCountingLevel3 = new Intent(v.getContext(), CountingGameActivity.class);
+                    goToCountingLevel3 = new Intent(v.getContext(), CountingGameActivity.class);//przejscie do ekranu leveli cyfry
                     goToCountingLevel3.putExtra("gra", gra);
                     goToCountingLevel3.putExtra("level", level);
                     startActivity(goToCountingLevel3);
@@ -109,7 +114,7 @@ public class ResultActivity extends AppCompatActivity {
                     startActivity(goToCountingLevel2);
 
                 } else if (gra.equals("dopasuj")) {
-                    Intent goToDopasujMenu = new Intent(v.getContext(), ColorsLevelsManagerActivity.class);
+                    Intent goToDopasujMenu = new Intent(v.getContext(), ColorsLevelsManagerActivity.class); //przejscie do ekranu leveli memory
                     goToDopasujMenu.putExtra("wiek", ageAbove7);
                     startActivity(goToDopasujMenu);
                 }
@@ -117,24 +122,27 @@ public class ResultActivity extends AppCompatActivity {
             }
         });
 
+        //obsługa przycisku ,,NIE"
         No.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goToMenu = new Intent(v.getContext(), MenuActivity.class);
+                Intent goToMenu = new Intent(v.getContext(), MenuActivity.class);//powrót do menu
                 goToMenu.putExtra("wiek", ageAbove7);
                 startActivity(goToMenu);
                 finish();
             }
         });
 
+        //obsługa przycisku replay
         Replay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (gra.equals("memo")) {
                     Bundle b = getIntent().getExtras();
                     if (b != null)
-                        value = b.getInt("level");
+                        value = b.getInt("level"); // pobranie levelu
 
+                    //ponowne uruchomienie gry
                     Intent goToMemoGame = new Intent(v.getContext(), MemoGameActivity.class);
                     Bundle b1 = new Bundle();
                     b1.putInt("key", value); //Your id
@@ -146,7 +154,7 @@ public class ResultActivity extends AppCompatActivity {
                     Bundle b = getIntent().getExtras();
                     if (b != null)
                         value = b.getInt("level");
-
+                    //ponowne uruchomienie gry
                     Intent goToMemoGame = new Intent(v.getContext(), LevelFirstCountingGameActivity.class);
                     Bundle b1 = new Bundle();
                     b1.putInt("key", value); //Your id
@@ -158,6 +166,7 @@ public class ResultActivity extends AppCompatActivity {
                     if (b != null)
                         value = b.getInt("level");
 
+                    //ponowne uruchomienie gry
                     Intent goToCountingLevel3 = new Intent(v.getContext(), Level3CountingActivity.class);
                     Bundle b1 = new Bundle();
                     b1.putInt("key", value); //Your id
@@ -169,6 +178,7 @@ public class ResultActivity extends AppCompatActivity {
                     if (b != null)
                         value = b.getInt("level");
 
+                    //ponowne uruchomienie gry
                     Intent goToCountingLevel2 = new Intent(v.getContext(), LevelSecondCountingGameActivity.class);
                     Bundle b1 = new Bundle();
                     b1.putInt("key", value); //Your id
@@ -202,6 +212,7 @@ public class ResultActivity extends AppCompatActivity {
 
     }
 
+    //obsługa przycisku powrotu
     @Override
     public void onBackPressed() {
         super.onBackPressed();
