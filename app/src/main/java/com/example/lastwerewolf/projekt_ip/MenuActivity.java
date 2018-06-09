@@ -36,6 +36,7 @@ public class MenuActivity extends AppCompatActivity {
         //odwołanie do kontrolek w widoku
         memoGameBtn = findViewById(R.id.MemoGameBtn);
         coloursGameBtn = findViewById(R.id.ColoursGameBtn);
+        countingGameBtn = findViewById(R.id.CountingGameBtn);
         settingsBtn = findViewById(R.id.settingsBtn);
         points = findViewById(R.id.txtPoints);
 
@@ -126,6 +127,17 @@ public class MenuActivity extends AppCompatActivity {
                 finish();
             }
         });
+        
+        if(allPoints<110) {
+            countingGameBtn.setEnabled(false);
+        }
+        else
+        {
+            countingGameBtn.setEnabled(true);
+            countingGameBtn.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+
 
         //warunek odblokowania 3 gry
         if (allPoints < 110) {
@@ -135,7 +147,6 @@ public class MenuActivity extends AppCompatActivity {
             countingGameBtn.setBackgroundColor(Color.TRANSPARENT);
         }
 
-        countingGameBtn = findViewById(R.id.CountingGameBtn);
         countingGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,6 +155,7 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(goToCountingGame);//przejscie do ekranu leveli nauki cyfr
             }
         });
+
     }
 
     //ustawienia okna wyjścia z aplikacji
