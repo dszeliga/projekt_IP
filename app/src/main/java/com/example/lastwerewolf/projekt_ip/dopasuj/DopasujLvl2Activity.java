@@ -61,6 +61,7 @@ public class DopasujLvl2Activity extends AppCompatActivity {
         }
 
         setView();
+        playSound(R.raw.dopasujlvl2);
     }
 
     private void setView() {
