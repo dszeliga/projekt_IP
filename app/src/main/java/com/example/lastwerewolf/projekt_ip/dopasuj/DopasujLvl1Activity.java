@@ -34,7 +34,6 @@ public class DopasujLvl1Activity extends AppCompatActivity {
     private ImageView imv;
     private ImageView point;
     private Button speaker;
-//    private int allPoints;
     private int winCounter = 0;
 
     private void setColorButtonsAndTShirt() {
@@ -53,18 +52,22 @@ public class DopasujLvl1Activity extends AppCompatActivity {
 
     MediaPlayer m = new MediaPlayer();
 
+    // Odtwarzanie dźwięków
     public void playSound(String fileName) {
         try {
+            // Stwórz nową instancję odtwarzacza dźwięków, zatrzymując starą
             if (m.isPlaying()) {
                 m.stop();
                 m.release();
             }
             m = new MediaPlayer();
 
+            // Odczytaj plik z pamięci na podstawie nazwy pliku
             AssetFileDescriptor descriptor = getAssets().openFd(fileName);
             m.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
             descriptor.close();
 
+            // Odtwórz dźwięk
             m.prepare();
             m.setVolume(1f, 1f);
             m.setLooping(false);
@@ -74,18 +77,22 @@ public class DopasujLvl1Activity extends AppCompatActivity {
         }
     }
 
+    // Odtwarzanie dźwięków
     public void playSound(int resid) {
         try {
+            // Stwórz nową instancję odtwarzacza dźwięków, zatrzymując starą
             if (m.isPlaying()) {
                 m.stop();
                 m.release();
             }
             m = new MediaPlayer();
 
+            // Odczytaj plik z pamięci na podstawie id
             AssetFileDescriptor descriptor = getResources().openRawResourceFd(resid);
             m.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
             descriptor.close();
 
+            // Odtwórz dźwięk
             m.prepare();
             m.setVolume(1f, 1f);
             m.setLooping(false);
@@ -100,20 +107,20 @@ public class DopasujLvl1Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dopasuj_lvl1_activity);
         setColorButtonsAndTShirt();
-//        allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
         this.onSpeakerClick(imv);
     }
 
     public void onSpeakerClick(View view) {
         if(currentColorToGuess == Colors.NONE) {
-            // New game
+            // Ustaw losowe kolory dla nowej gry
             setRandomColors();
         }
+        // Odtwórz dźwięk obiektu, który należy rozpoznać
         playSound(currentColorToGuessObject.getSoundFileName());
-        Log.i("Dopasuj:","onSpeakerClick " + currentColorToGuessObject.getColor().name());
         point.setVisibility(View.INVISIBLE);
     }
 
+    // Przemieszaj tablicy kolorów
     public void shuffleColorArray(Colors d[]) {
         Random r = new Random();
         for(int i = 0; i<d.length; i++) {
@@ -124,6 +131,7 @@ public class DopasujLvl1Activity extends AppCompatActivity {
         }
     }
 
+    // Wylosuj kolory oraz wybierz kolor do rozpoznania
     public void setRandomColors() {
         Resources res = getResources();
 
@@ -146,6 +154,7 @@ public class DopasujLvl1Activity extends AppCompatActivity {
         int nextColor = r.nextInt(buttons.length);
         currentColorToGuess = currentButtons[nextColor];
 
+        // Wylosuj rodzaj obiektu
         int nextObj = r.nextInt(3);
         switch (nextObj) {
             case 0:
@@ -162,6 +171,7 @@ public class DopasujLvl1Activity extends AppCompatActivity {
         imv.setBackground(currentColorToGuessObject.getToGuessImage());
     }
 
+    // Reset gry
     private  void resetGame() {
         Resources res = getResources();
         currentColorToGuess = Colors.NONE;
@@ -171,9 +181,9 @@ public class DopasujLvl1Activity extends AppCompatActivity {
         }
     }
 
+    // Obsługa kliknięcia przedmiotu
     public void onColorClick(View view) {
         if(currentColorToGuess == Colors.NONE) {
-            Log.i("Dopasuj:","Game not started.");
             return;
         }
 
@@ -195,13 +205,11 @@ public class DopasujLvl1Activity extends AppCompatActivity {
             }
         }
 
+        // Obsługa poprawnego odgadnięcia koloru
         if(selectedColor == currentColorToGuess) {
-            Log.i("Dopasuj:","It's  " + selectedColor.name() + "! Congratulate!");
             imv.setBackground(currentColorToGuessObject.getImage());
             point.setVisibility(View.VISIBLE);
             playSound(R.raw.bravo);
-//            allPoints += SCORE_FOR_WIN;
-//            getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
 
             resetGame();
 
@@ -210,6 +218,7 @@ public class DopasujLvl1Activity extends AppCompatActivity {
                 btn.setEnabled(false);
             }
 
+            // Wykonaj z opóźnieniem włączenie nowej gry lub wyświetlenia ekranu z wynikiem
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -234,11 +243,12 @@ public class DopasujLvl1Activity extends AppCompatActivity {
                 }
             }, 4000);
         } else {
-            Log.i("Dopasuj:"," " + selectedColor.name() + " is not right answer :(");
+            // W przypadku błędnej odpowiedzi odwtórz dźwięk błędu
             playSound(R.raw.error);
         }
     }
 
+    // Obsługa wciśnięcia klawisza wstecz
     public void onBackPressed() {
         AlertDialog.Builder exitMessage = new AlertDialog.Builder(this);
         exitMessage.setMessage("Czy jesteś pewien, że chcesz opuścić grę?")

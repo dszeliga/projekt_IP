@@ -161,18 +161,22 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
 
     MediaPlayer m = new MediaPlayer();
 
+    // Odtwarzanie dźwięków
     public void playSound(String fileName) {
         try {
+            // Stwórz nową instancję odtwarzacza dźwięków, zatrzymując starą
             if (m.isPlaying()) {
                 m.stop();
                 m.release();
             }
             m = new MediaPlayer();
 
+            // Odczytaj plik z pamięci na podstawie nazwy pliku
             AssetFileDescriptor descriptor = getAssets().openFd(fileName);
             m.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
             descriptor.close();
 
+            // Odtwórz dźwięk
             m.prepare();
             m.setVolume(1f, 1f);
             m.setLooping(false);
@@ -182,18 +186,22 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    // Odtwarzanie dźwięków
     public void playSound(int resid) {
         try {
+            // Stwórz nową instancję odtwarzacza dźwięków, zatrzymując starą
             if (m.isPlaying()) {
                 m.stop();
                 m.release();
             }
             m = new MediaPlayer();
 
+            // Odczytaj plik z pamięci na podstawie id
             AssetFileDescriptor descriptor = getResources().openRawResourceFd(resid);
             m.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
             descriptor.close();
 
+            // Odtwórz dźwięk
             m.prepare();
             m.setVolume(1f, 1f);
             m.setLooping(false);
@@ -203,14 +211,14 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    // Obsłuż poprawne dopasowanie kompletu
     private void finishGame() {
         Toast.makeText(this, "Gratulacje!", Toast.LENGTH_SHORT).show();
         for(int i = 0; i < matching.length; i++) {
             matching[i] = -1;
         }
 
-//        allPoints += SCORE_FOR_WIN;
-//        getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).edit().putInt("points", allPoints).commit();
+        // Odtwórz dźwięk brawo oraz wyświetl ekran wyniku/uruchom nową grę z opóźnieniem
         playSound(R.raw.bravo);
         handler.postDelayed(new Runnable() {
             @Override
@@ -218,7 +226,8 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
                 winCounter++;
                 if (winCounter % SHOW_RESULT_AFTER == 0) {
                     Intent intent = new Intent(getApplicationContext(), GiffActivity.class);
-                    intent.putExtra("Odpowiedzi prawidłowe", points); //winCounter * SCORE_FOR_WIN);//przekazanie informacji o ilości uzyskanych punktów
+                    // Ochrona przed uzyskaniem ujemnej liczby punktów
+                    intent.putExtra("Odpowiedzi prawidłowe", Math.max(points, 0));
                     intent.putExtra("Gra", "dopasuj");
                     intent.putExtra("level", 3);
 
@@ -232,24 +241,26 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
                     in.putExtra("dl3p", points);
                     startActivity(in);
                     finish();
-                    // Recreate activity, aby rozpocząć grę od nowa.
-                    // recreate();
                 }
             }
         }, 4000);
     }
 
+    // Obsługa dopasowania
     @Override
     public void onClick(View v) {
+        // Czy kliknięty obiekt jest po lewej stronie
         boolean vIsLeft = isLeft(v);
         int vIndex = getPoz(v);
 
+        // Brak aktywnego obiektu. Ustaw kliknięty obiekt jako aktywny.
         if(activeView == null) {
             activeView = (ImageView) v;
             activeView.setBackground(getDrawable(R.drawable.ic_green_circle));
             return;
         }
 
+        // Kliknięcie na już aktywny obiekt
         if(activeView.getId() == v.getId()) {
             return;
         }
@@ -258,6 +269,7 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
         int aIndex = getPoz(activeView);
 
         activeView.setBackground(null);
+        // Jeśli aktywny i kliknięty obiekt są po tej samej stronie to zmień aktywny obiekt.
         if(vIsLeft == aIsLeft) {
             activeView = (ImageView) v;
             activeView.setBackground(getDrawable(R.drawable.ic_green_circle));
@@ -265,10 +277,11 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
         }
         activeView = null;
 
-        // Make connections
+        // Obiekty są po różnych stronach, więc stwórz dopasowanie
         int mIndex = aIsLeft ? aIndex : vIndex;
         int mVal = aIsLeft ? vIndex : aIndex;
         matching[mIndex] = mVal;
+        // Sprawdź czy dopasowanie jest poprawne i przydziel adekwatną liczbę punktów
         boolean correctMatching = leftP.get(mIndex) == rightP.get(mVal);
         if(correctMatching) {
             points += 2;
@@ -281,7 +294,7 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
             }
         }
 
-        // Print connections
+        // Narysuj wszystkie połączenia
         Rect mrect = new Rect();
         mainView.getLocalVisibleRect(mrect);
         Bitmap bmp = Bitmap.createBitmap(mrect.width(), mrect.height(), Bitmap.Config.ARGB_8888);
@@ -322,11 +335,13 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
         mainView.setImageBitmap(bmp);
         mainView.invalidate();
 
+        // Jeśli wszystkie dopasowania są poprawne obsłuż wygranie gry
         if(correct == matching.length) {
             finishGame();
         }
     }
 
+    // Obsługa kliknięcia klawisza wstecz
     public void onBackPressed() {
         AlertDialog.Builder exitMessage = new AlertDialog.Builder(this);
         exitMessage.setMessage("Czy jesteś pewien, że chcesz opuścić grę?")

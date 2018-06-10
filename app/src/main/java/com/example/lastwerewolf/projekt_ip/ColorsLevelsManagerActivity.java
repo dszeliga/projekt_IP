@@ -13,12 +13,15 @@ import com.example.lastwerewolf.projekt_ip.dopasuj.DopasujLvl3Activity;
 
 public class ColorsLevelsManagerActivity extends AppCompatActivity {
 
+    // Progi punktowe
     public final int pointsToUnlockFirstLevel = 60;
     public final int pointsToUnlockSecondLevel = 70;
     public final int pointsToUnlockThirdLevel = 90;
 
+    // Liczba punktów zebranych w aplikacji
     private int allPoints;
 
+    // Przyciski uruchamiające wybrany poziom gry Dopasuj
     public Button firstLevel;
     public Button secondLevel;
     public Button thirdLevel;
@@ -34,6 +37,7 @@ public class ColorsLevelsManagerActivity extends AppCompatActivity {
         secondLevel = findViewById(R.id.secondLevel);
         thirdLevel = findViewById(R.id.thirdLevel);
 
+        // Uruchomienie gry dla poziomu 1
         firstLevel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,6 +49,8 @@ public class ColorsLevelsManagerActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        // Odblokuj poziom 1, jeśli liczba punktów jest wystarczająca
         if(allPoints >= pointsToUnlockFirstLevel) {
             firstLevel.setBackground(new ColorDrawable(0x00000000));
             firstLevel.setEnabled(true);
@@ -52,6 +58,7 @@ public class ColorsLevelsManagerActivity extends AppCompatActivity {
             firstLevel.setEnabled(false);
         }
 
+        // Uruchomienie gry dla poziomu 2
         secondLevel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +70,8 @@ public class ColorsLevelsManagerActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        // Odblokuj poziom 2, jeśli liczba punktów jest wystarczająca
         if(allPoints >= pointsToUnlockSecondLevel) {
             secondLevel.setBackground(new ColorDrawable(0x00000000));
             secondLevel.setEnabled(true);
@@ -70,6 +79,7 @@ public class ColorsLevelsManagerActivity extends AppCompatActivity {
             secondLevel.setEnabled(false);
         }
 
+        // Uruchomienie gry dla poziomu 3
         thirdLevel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +91,8 @@ public class ColorsLevelsManagerActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        // Odblokuj poziom 3, jeśli liczba punktów jest wystarczająca
         if(allPoints >= pointsToUnlockThirdLevel) {
             thirdLevel.setBackground(new ColorDrawable(0x00000000));
             thirdLevel.setEnabled(true);
@@ -89,6 +101,7 @@ public class ColorsLevelsManagerActivity extends AppCompatActivity {
         }
     }
 
+    // Wróc do menu po wcisnięciu klawisza wstecz
     @Override
     public void onBackPressed() {
         super.onBackPressed();

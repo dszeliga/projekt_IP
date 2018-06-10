@@ -43,16 +43,18 @@ public class GiffActivity extends AppCompatActivity {
         secondLvlUnlock = getSharedPreferences("LVL2_PREFERENCE", MODE_PRIVATE).getBoolean("lvl2", false);
         thirdLvlUnlock = getSharedPreferences("LVL3_PREFERENCE", MODE_PRIVATE).getBoolean("lvl3", false);
 
-
+        // Progi punktowe
         List<Integer> lvls = Arrays.asList(0, 10, 40, 60, 70, 90, 110, 130, 145);
         int currentLVL = lvls.size();
         int nextLVL = lvls.size() + 1;
+        // Znajdź aktualny poziom
         for (int i = 0; i < lvls.size(); i++) {
             if (lvls.get(i) > allPoints) {
                 currentLVL = i;
                 break;
             }
         }
+        // Znajdź poziom, który zostanie odblokowany po dodaniu punktów
         for (int i = 0; i < lvls.size(); i++) {
             if (lvls.get(i) > allPoints + goodAnswers) {
                 nextLVL = i;
