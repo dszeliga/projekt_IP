@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.lastwerewolf.projekt_ip.dopasuj.DopasujLvl1Activity;
+import com.example.lastwerewolf.projekt_ip.dopasuj.DopasujLvl2Activity;
 import com.example.lastwerewolf.projekt_ip.dopasuj.DopasujLvl3Activity;
 
 public class ResultActivity extends AppCompatActivity {
@@ -190,6 +191,9 @@ public class ResultActivity extends AppCompatActivity {
                     switch (level) {
                         case 1:
                             goToDopasuj = new Intent(v.getContext(), DopasujLvl1Activity.class);
+                            break;
+                        case 2:
+                            goToDopasuj = new Intent(v.getContext(), DopasujLvl2Activity.class);
                             break;
                         case 3:
                             goToDopasuj = new Intent(v.getContext(), DopasujLvl3Activity.class);
