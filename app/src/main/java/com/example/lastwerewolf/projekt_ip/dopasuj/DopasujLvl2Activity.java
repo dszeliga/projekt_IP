@@ -61,9 +61,9 @@ public class DopasujLvl2Activity extends AppCompatActivity {
         }
 
         setView();
-        playSound(R.raw.dopasujlvl2);
     }
 
+    // metoda służąca do ustawiania obrazków i odtwarzania polecenia
     private void setView() {
         filledV = new ImageView[]{
                 iv1 = (ImageView) findViewById(R.id.imageView1),
@@ -93,8 +93,11 @@ public class DopasujLvl2Activity extends AppCompatActivity {
             filledV[i].setOnTouchListener(new choiceTouchListner());
             filledV[i].setOnDragListener(new choiceDraglistner());
         }
+
+        playSound(R.raw.dopasujlvl2);
     }
 
+    // metoda służąca do losowania obrazków z bazy
     private List<ShapeType> selectFourRandomShapes() {
         List<ShapeType> ptl = new LinkedList<>(Arrays.asList(ShapeType.values()));
         List<ShapeType> result = new LinkedList<>();
@@ -110,9 +113,8 @@ public class DopasujLvl2Activity extends AppCompatActivity {
         return result;
     }
 
+    // metoda nasłuchująca wybranie obrazka
     private class choiceTouchListner implements View.OnTouchListener {
-
-
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             if ((event.getAction() == MotionEvent.ACTION_DOWN) && ((ImageView) v).getDrawable() != null) {
@@ -126,6 +128,7 @@ public class DopasujLvl2Activity extends AppCompatActivity {
         }
     }
 
+    // metoda nasłuchująca "podniesienie" obrazka
     private class choiceDraglistner implements View.OnDragListener {
 
 
@@ -148,6 +151,7 @@ public class DopasujLvl2Activity extends AppCompatActivity {
 
                     ImageView view1 = (ImageView) event.getLocalState();
 
+                    // poniżej sprawdzane jest czy tag obrazka zaciągniętego na kształt jest o 4 większy od taga kształtu
                     String s = ((ImageView) v).getTag().toString();
 
                     int x = Integer.parseInt(s);
@@ -211,9 +215,13 @@ public class DopasujLvl2Activity extends AppCompatActivity {
             matching[i] = -1;
         }
         playSound(R.raw.bravo);
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-// JEŻELI MA 0p to idzie do GiffActivityFailActivity, w innym wypadku do ResultActivity
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+        // ustawianie całkowitych punktów na 0, by nie odejmować od głównego wyniku
+        if (points < 0) {
+            points = 0;
+        }
+
+        // handler do sprawdzania czy winCounter pokrywa się z wynikiem, który trzeba mieć, by skończyć grę
         handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -232,6 +240,7 @@ public class DopasujLvl2Activity extends AppCompatActivity {
 
     MediaPlayer m = new MediaPlayer();
 
+    // metoda służąca do odtwarzania dźwięku
     public void playSound(int resid) {
         try {
             if (m.isPlaying()) {
@@ -253,6 +262,7 @@ public class DopasujLvl2Activity extends AppCompatActivity {
         }
     }
 
+    // metoda służąca do pokazywania ekranu wyniku
     public void getResults() {
         if(points==0)
         {
