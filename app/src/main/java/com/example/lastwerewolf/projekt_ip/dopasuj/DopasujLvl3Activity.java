@@ -115,6 +115,7 @@ public class DopasujLvl3Activity extends AppCompatActivity implements View.OnCli
 //        allPoints = getSharedPreferences("POINTS_PREFERENCE", MODE_PRIVATE).getInt("points", 0);
 
         Resources res = getResources();
+        playSound(R.raw.dopasujlvl3);
 
         for(ProfessionType pt : ProfessionType.values()) {
             profMap.put(pt, new Proffesion(pt, res));

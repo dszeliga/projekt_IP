@@ -216,7 +216,7 @@ public class MemoGameActivity extends GameActivity implements View.OnClickListen
             @Override
             public void onFinish() {
                 if (!txt.equals("BRAWO!!!")) {
-                    txt.setText("Czas minal!");
+                    txt.setText("Czas minął!");
                     //wyłączenie możliwości klikania w przyciski
                     for (int i = 0; i < allImageButtons.length; i++) {
                         allImageButtons[i].setEnabled(false);
