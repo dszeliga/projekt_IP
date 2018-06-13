@@ -35,6 +35,7 @@ public class Level3CountingActivity extends AppCompatActivity {
     int turn = 0;
     private int value = -1;
     private int allPoints;
+    private boolean isGoodAnswer = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +73,7 @@ public class Level3CountingActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (et_answer.getText().toString().equalsIgnoreCase(questions3list.get(curQuestion3).getAnswer3())) {
                     b_countinue.setVisibility(View.VISIBLE);
+                    isGoodAnswer = true;
                     score = score + 2; //dodawanie 2 punktów dla poprawnej odpowiedzi
                 }
             }
@@ -92,6 +94,18 @@ public class Level3CountingActivity extends AppCompatActivity {
                     b_countinue.setVisibility(View.VISIBLE);
                     et_answer.setText("");
                 }
+
+                //odtworzenie odpowiedniego dźwięku w przypadku udzielenia prawidłowej i złej odpowiedzi
+                if(isGoodAnswer) {
+                    MediaPlayer ring = MediaPlayer.create(Level3CountingActivity.this, R.raw.bravo);
+                    ring.start();//właczenie dźwięku
+                }
+                else {
+                    MediaPlayer ring = MediaPlayer.create(Level3CountingActivity.this, R.raw.error);
+                    ring.start();//właczenie dźwięku
+                }
+                isGoodAnswer = false;
+
                 //losowanie odpowiedzi z listy i przechodzenie do następnej
                 if (turn < questions3list.size()) {
                     turn++;
