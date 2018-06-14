@@ -1,5 +1,6 @@
 package com.example.lastwerewolf.projekt_ip;
 
+import android.app.Application;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -162,19 +163,19 @@ public class MenuActivity extends AppCompatActivity {
     public void onBackPressed() {
 
 
-        AlertDialog.Builder exitMessage = new AlertDialog.Builder(this);
+        final AlertDialog.Builder exitMessage = new AlertDialog.Builder(this);
         exitMessage.setMessage("Czy jesteś pewien, że chcesz opuścić grę?")
                 .setTitle("WYJŚCIE");
 
         exitMessage.setPositiveButton("Zakończ grę", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                finish();
+                finishAffinity();
+                System.exit(0);
             }
         });
         exitMessage.setNegativeButton("Pozostań w grze", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                startActivity(new Intent(MenuActivity.this, MenuActivity.class));
-
+                dialog.dismiss();
             }
         });
 
